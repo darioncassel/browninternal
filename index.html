@@ -1,0 +1,57 @@
+
+  <head>
+    <meta charset="utf-8">
+    <title>Brown Internal Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <template name="ApplicationLayout">
+
+    <div class="menu">
+      <div class="container clearfix">
+          <center><div id="nav" style="display:inline-block; width:auto;">
+            <a href="/"><p3>Brown College at Monroe Hill  &nbsp; &nbsp; &nbsp;
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              &nbsp;</p3></a>
+            <ul class="navigation" style="display:inline-block;">
+              <li><a href="/roster">ROSTER</a></li>
+              <li><a href="/polls">POLLS</a></li>
+              <li><a href="/about">ABOUT</a></li>
+            </ul>
+          </div>
+        </center>
+      </div>
+    </div>
+
+    <article>
+      <div class="narrow">
+        {{> yield}}
+      </div>
+    </article>
+
+    <footer class="footer">
+      <p style="text-align:center;"> &copy; 2014 Techmasters@Brown </p>
+    </footer>
+
+  </template>
+
+  <template name="Login">
+    <div id="login">
+      <h3>Welcome to the Brown Internal Website!</h3>
+      <br>
+      <button id="btnLogin" class="btn btn-warning">Login</button>
+      {{> loginButtons}}
+      <br><br>
+      <p6>Please login to continue, or visit the <a href="http://browncollege.virginia.edu">external website</a>.</p6>
+    </div>
+  </template>
+
+  <template name="Roster">
+  </template>
+
+  <template name="Polls">
+  </template>
+
+  <template name="About">
+  </template>
