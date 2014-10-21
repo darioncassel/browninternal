@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
-  <template name="ApplicationLayout">
+  <body>
+  </body>
 
+  <template name="ApplicationLayout">
     <div class="menu">
       <div class="container clearfix">
           <center><div id="nav" style="display:inline-block; width:auto;">
@@ -23,17 +25,17 @@
         </center>
       </div>
     </div>
-
     <article>
       <div class="narrow">
         {{> yield}}
       </div>
     </article>
-
     <footer class="footer">
       <p style="text-align:center;"> &copy; 2014 Techmasters@Brown </p>
     </footer>
+  </template>
 
+  <template name="Home">
   </template>
 
   <template name="Login">
@@ -48,6 +50,10 @@
   </template>
 
   <template name="Roster">
+    <div id="roster">
+      <h4> Resident Roster </h4>
+      <table id="resDataTable" class="table table-hover"></table>
+    </div>
   </template>
 
   <template name="Polls">
