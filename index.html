@@ -12,10 +12,10 @@
     <div class="menu">
       <div class="container clearfix">
           <center><div id="nav" style="display:inline-block; width:auto;">
-            <a href="/"><p3>Brown College at Monroe Hill  &nbsp; &nbsp; &nbsp;
+            <a href="/"><p3>Brown College at Monroe Hill</p3></a><p3>  &nbsp; &nbsp; &nbsp;
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp;</p3></a>
+              &nbsp;</p3>
             <ul class="navigation" style="display:inline-block;">
               <li><a href="/roster">ROSTER</a></li>
               <li><a href="/polls">POLLS</a></li>
@@ -31,11 +31,15 @@
       </div>
     </article>
     <footer class="footer">
-      <p style="text-align:center;"> &copy; 2014 Techmasters@Brown </p>
+      <p style="text-align:center;color:#fff"> &copy; 2014 Techmasters@Brown </p>
     </footer>
   </template>
 
   <template name="Home">
+    <div id="dashboard">
+      <p5> Dashboard </p5>
+      <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FBrownCollegeUVA&amp;width=900&amp;height=500&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:900px; height:500px;" allowTransparency="true"></iframe>
+    </div>
   </template>
 
   <template name="Login">
@@ -52,12 +56,82 @@
   <template name="Roster">
     <div id="roster">
       <h4> Resident Roster </h4>
-      <table id="resDataTable" class="table table-hover"></table>
+      <table id="resDataTable" class="table table-hover table-striped"></table>
     </div>
   </template>
 
   <template name="Polls">
+    <div id="polls-main">
+      <br><br>
+      <hr>
+      <p5>Active Polls</p5>
+      <hr>
+      <div class="panel-group" id="active">
+        {{#each activePolls}}
+          {{> NewPoll}}
+        {{/each}}
+      </div>
+      <hr>
+      <p5>Completed Polls</p5>
+      <hr>
+      <div class="panel-group" id="completed">
+        {{#each completedPolls}}
+          {{> CompletedPoll}}
+        {{/each}}
+      </div>
+    </div>
   </template>
+
+  <template name="NewPoll">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#active" href="{{generateID}}">
+            {{title}}
+          </a>
+        </h4>
+      </div>
+      <div id="{{_id}}" class="panel-collapse collapse">
+        <div class="panel-body">
+          {{> Template.dynamic template=this.type}}
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template name="MultipleChoice">
+    <form>
+      {{#each choices}}
+        <input type="radio" name="poll1" value="{{this}}"> {{this}}<br>
+      {{/each}}
+    </form>
+  </template>
+
+  <template name="Ranked">
+    <ul id="sortable">
+      {{#each choices}}
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{this}}</li>
+      {{/each}}
+    </ul>
+  </template>
+
+  <template name="CompletedPoll">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#completed" href="{{generateID}}">
+            {{title}}
+          </a>
+        </h4>
+      </div>
+      <div id="{{_id}}" class="panel-collapse collapse">
+        <div class="panel-body">
+          {{> highchartsHelper chartId=_id width="100%" height="100%" chartObject=resultsChart}}
+        </div>
+      </div>
+    </div>
+  </template>
+
 
   <template name="About">
   </template>
