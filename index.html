@@ -100,11 +100,14 @@
   </template>
 
   <template name="MultipleChoice">
-    <form>
-      {{#each choices}}
-        <input type="radio" name="poll1" value="{{this}}"> {{this}}<br>
-      {{/each}}
-    </form>
+    <div class="col-lg-12" style="text-align:center;">
+      <div class="col-lg-4" style="text-align:left">
+        {{#each choices}}
+          <p><input type="radio" name="poll1" value="{{this}}">&nbsp;{{this}}</p>
+        {{/each}}
+      </div>
+    </div>
+    <input type="submit" class="btn btn-default">
   </template>
 
   <template name="Ranked">
@@ -113,6 +116,8 @@
         <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{this}}</li>
       {{/each}}
     </ul>
+    <br>
+    <input type="submit" class="btn btn-default">
   </template>
 
   <template name="CompletedPoll">
@@ -124,7 +129,7 @@
           </a>
         </h4>
       </div>
-      <div id="{{_id}}" class="panel-collapse collapse">
+      <div id="{{_id}}" class="panel-collapse collapse" style="width:850px;">
         <div class="panel-body">
           {{> highchartsHelper chartId=_id width="100%" height="100%" chartObject=resultsChart}}
         </div>
@@ -132,6 +137,9 @@
     </div>
   </template>
 
-
   <template name="About">
+    <div id="about">
+      <h4>Welcome to Brown</h4>
+      <p>Brown College is a residential community of undergraduate students and faculty at the University of Virginia in Charlottesville. Brown's approximately 300 residents enjoy a friendly, intellectually stimulating, and socially accepting academic community that is closely tied to UVa faculty by Brown's Faculty Fellows and is self-governed by Brown's Student Governance, which makes decisions, organizes events, and disburses funds to enrich life in Brown. Membership in Brown is by application and determined by groups of current Brown residents who read and rank applications submitted by prospective residents. If you are interested in living in Brown as a first year undergraduate student, an upperclass student, or as a transfer student, we encourage you to visit Brown's membership page. For membership related inquries, please email bcmembership@virginia.edu.</p>
+    </div>
   </template>
