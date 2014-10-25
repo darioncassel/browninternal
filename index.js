@@ -5,23 +5,23 @@ PollsData = new Mongo.Collection("PollsData");
 
 var mcpoll = {
   type: "MultipleChoice",
-  title: "Test Poll",
-  choices: ['one','two','three'],
-  results: [10, 20, 10],
+  title: "How Much Wood Could a Woodchuck Chuck?",
+  choices: ['Zero','11','42', 'As much as it wants.'],
+  results: [10, 20, 10, 30],
   completed: false
 }
 var rankedpoll = {
   type: "Ranked",
-  title: "Test Poll",
-  choices: ['one','two','three'],
-  results: [10, 20, 10],
+  title: "How is Schrodinger's Cat Doing?",
+  choices: ['Dead','Alive'],
+  results: [50,50],
   completed: true
 }
 var rankedpoll2 = {
   type: "Ranked",
-  title: "Test Poll",
-  choices: ['one','two','three'],
-  results: [10, 20, 10],
+  title: "What's the Best Number?",
+  choices: ['one','two','three', 'seven'],
+  results: [24, 31, 55, 72],
   completed: false
 }
 //PollsData.insert(mcpoll);
@@ -94,7 +94,7 @@ if(Meteor.isClient) {
   UI.registerHelper('generateID', function() {
     return "#" + this._id;
   });
-  Template.Polls.rendered = function() {
+  Template.Ranked.rendered = function() {
     $( "#sortable" ).sortable();
   }
   Template.Polls.helpers({
@@ -105,6 +105,12 @@ if(Meteor.isClient) {
       return PollsData.find({completed: true}).fetch();
     }
   });
+  Template.Polls.events = {
+    'click input[type=submit]': function(e) {
+      e.preventDefault();
+      swal("Thank You!", "Your vote was recorded", "success");
+    }
+  }
   Template.CompletedPoll.helpers({
     resultsChart: function() {
       var resultsArr = [];
@@ -118,7 +124,7 @@ if(Meteor.isClient) {
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
-            plotShadow: false
+            plotShadow: false,
         },
         title: {
             text: 'Results'

@@ -24,6 +24,7 @@ jquery
 j4507:datatables-bootstrap-3
 mizzao:jquery-ui
 maazalik:highcharts
+kevohagan:sweetalert
 
 
 
