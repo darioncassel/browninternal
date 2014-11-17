@@ -2,12 +2,14 @@
 
 Residents = new Mongo.Collection("Residents");
 PollsData = new Mongo.Collection("PollsData");
+CalendarEvents = new Mongo.Collection("CalendarEvents");
 
 var mcpoll = {
   type: "MultipleChoice",
   title: "How Much Wood Could a Woodchuck Chuck?",
   choices: ['Zero','11','42', 'As much as it wants.'],
-  results: [10, 20, 10, 30],
+  results: [1, 2, 1, 3],
+  voteReq: 10,
   completed: false
 }
 var rankedpoll = {
@@ -15,6 +17,8 @@ var rankedpoll = {
   title: "How is Schrodinger's Cat Doing?",
   choices: ['Dead','Alive'],
   results: [50,50],
+  voteCount: 0,
+  voteReq: 100,
   completed: true
 }
 var rankedpoll2 = {
@@ -22,11 +26,15 @@ var rankedpoll2 = {
   title: "What's the Best Number?",
   choices: ['one','two','three', 'seven'],
   results: [24, 31, 55, 72],
+  voteCount: 0,
+  voteReq: 10,
   completed: false
 }
-//PollsData.insert(mcpoll);
-//PollsData.insert(rankedpoll);
-//PollsData.insert(rankedpoll2);
+/*
+PollsData.insert(mcpoll);
+PollsData.insert(rankedpoll);
+PollsData.insert(rankedpoll2);
+*/
 
 Router.configure({
   layoutTemplate: 'ApplicationLayout'
@@ -55,6 +63,15 @@ Router.route('/polls', function () {
     this.render('Polls');
   }
 });
+
+Router.route('/calendar', function () {
+  if (!Meteor.user()) {
+    this.render('Login');
+  } else {
+    this.render('Calendar');
+  }
+});
+
 
 Router.route('/about', function () {
   if (!Meteor.user()) {
@@ -95,7 +112,7 @@ if(Meteor.isClient) {
     return "#" + this._id;
   });
   Template.Ranked.rendered = function() {
-    $( "#sortable" ).sortable();
+    $("#sortable").sortable();
   }
   Template.Polls.helpers({
     activePolls: function() {
@@ -105,9 +122,50 @@ if(Meteor.isClient) {
       return PollsData.find({completed: true}).fetch();
     }
   });
-  Template.Polls.events = {
+  Template.MultipleChoice.events = {
     'click input[type=submit]': function(e) {
       e.preventDefault();
+      var val = $("input[name='poll1']:checked").val();
+      var pollid = $('.panel-collapse.collapse.in').attr('id');
+      var pol = PollsData.find({_id: pollid}).fetch()[0];
+      var num; var sum = 0;
+      for(i=0;i<pol.choices.length;i++){
+        if(pol.choices[i]===val){num = i;}
+      }
+      pol.results[num] = pol.results[num] + 1;
+      for(i in pol.results) {sum+=pol.results[i]}
+      if(sum>pol.voteReq){
+        PollsData.update({_id: pollid}, {$set: {completed: true}});
+      }else if(sum==pol.voteReq){
+        PollsData.update({_id: pollid}, {$set: {completed: true}});
+        PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+      }else {
+        PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+      }
+      swal("Thank You!", "Your vote was recorded", "success");
+    }
+  }
+  Template.Ranked.events = {
+    'click input[type=submit]': function(e) {
+      e.preventDefault();
+      var pollid = $('.panel-collapse.collapse.in').attr('id');
+      var pol = PollsData.find({_id: pollid}).fetch()[0];
+      var res = $("#sortable").sortable('toArray');
+      for(i=0;i<res.length;i++){
+        for(j=0;j<pol.choices.length;j++){
+          if(res[i]==pol.choices[j]){pol.results[j] = res.length - i;}
+        }
+      }
+      var sum = pol.voteCount + 1;
+      if(sum>pol.voteReq){
+        PollsData.update({_id: pollid}, {$set: {completed: true}});
+      }else if(sum==pol.voteReq){
+        PollsData.update({_id: pollid}, {$set: {completed: true}});
+        PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+      }else {
+        PollsData.update({_id: pollid}, {$set: {voteCount: sum}});
+        PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+      }
       swal("Thank You!", "Your vote was recorded", "success");
     }
   }
