@@ -12,19 +12,20 @@ To use these files:
 
 Packages:
 
-meteor-platform
-autopublish
-insecure
-iron:router@1.0.0-pre4
-accounts-ui
-accounts-github
-accounts-base
-mizzao:bootstrap-3
-jquery
-j4507:datatables-bootstrap-3
-mizzao:jquery-ui
-maazalik:highcharts
-kevohagan:sweetalert
+- meteor-platform
+- autopublish
+- insecure
+- iron:router@1.0.0-pre4
+- accounts-ui
+- accounts-github
+- accounts-base
+- accounts-password
+- mizzao:bootstrap-3
+- jquery
+- j4507:datatables-bootstrap-3
+- mizzao:jquery-ui
+- maazalik:highcharts
+- kevohagan:sweetalert
 
 
 

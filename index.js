@@ -4,6 +4,7 @@ Residents = new Mongo.Collection("Residents");
 PollsData = new Mongo.Collection("PollsData");
 CalendarEvents = new Mongo.Collection("CalendarEvents");
 
+Accounts.createUser({email: "te5t@virginia.edu", password: "pass"});
 var mcpoll = {
   type: "MultipleChoice",
   title: "How Much Wood Could a Woodchuck Chuck?",
@@ -31,57 +32,48 @@ var rankedpoll2 = {
   completed: false
 }
 /*
-PollsData.insert(mcpoll);
-PollsData.insert(rankedpoll);
-PollsData.insert(rankedpoll2);
-*/
+ PollsData.insert(mcpoll);
+ PollsData.insert(rankedpoll);
+ PollsData.insert(rankedpoll2);
+ */
 
 Router.configure({
   layoutTemplate: 'ApplicationLayout'
 });
 
-Router.route('/', function () {
+// Renders something or Login if the user is not logged in
+function render(route, place) {
   if (!Meteor.user()) {
-    this.render('Login');
+    route.render('Login');
   } else {
-    this.render('Home');
+    route.render(place);
   }
-});
+}
 
-Router.route('/roster', function () {
-  if (!Meteor.user()) {
-    this.render('Login');
-  } else {
-    this.render('Roster');
-  }
-});
+Router.route('/', function () { render(this, 'Home'); });
+Router.route('/roster', function () { render(this, 'Roster'); });
+Router.route('/polls', function () { render(this, 'Polls'); });
+Router.route('/calendar', function () { render(this, 'Calender'); });
+Router.route('/about', function () { render(this, 'About'); });
+Router.route('/login', function () { render(this, 'Login'); });
 
-Router.route('/polls', function () {
-  if (!Meteor.user()) {
-    this.render('Login');
-  } else {
-    this.render('Polls');
-  }
-});
-
-Router.route('/calendar', function () {
-  if (!Meteor.user()) {
-    this.render('Login');
-  } else {
-    this.render('Calendar');
-  }
-});
-
-
-Router.route('/about', function () {
-  if (!Meteor.user()) {
-    this.render('Login');
-  } else {
-    this.render('About');
-  }
-});
 
 if(Meteor.isClient) {
+  Template.Login.events({
+    'submit #login-form' : function(e, t) {
+      e.preventDefault();
+      var email = t.find('#login-email').value
+          , password = t.find('#login-password').value;
+      Meteor.loginWithPassword(email, password, function(err) {
+        if (err) {
+          $('#login-message').text("Incorrect email or password.");
+        }
+        else;
+      });
+      return false; 
+    }
+  });
+
   Template.Roster.rendered = function() {
     var residents = [];
     var resData = Residents.find().fetch();
@@ -100,12 +92,12 @@ if(Meteor.isClient) {
       "lengthMenu": [25],
       "data": residents,
       "columns": [
-          { "title": "Portal" },
-          { "title": "Room" },
-          { "title": "First Name" },
-          { "title": "Last Name" },
-          { "title": "E-mail" }
-      ]
+    { "title": "Portal" },
+      { "title": "Room" },
+      { "title": "First Name" },
+      { "title": "Last Name" },
+      { "title": "E-mail" }
+    ]
     });
   }
   UI.registerHelper('generateID', function() {
@@ -180,35 +172,35 @@ if(Meteor.isClient) {
       }
       return {
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
+          plotBackgroundColor: null,
+  plotBorderWidth: null,
+  plotShadow: false,
         },
-        title: {
-            text: 'Results'
+  title: {
+    text: 'Results'
+  },
+  tooltip: {
+    pointFormat: '<b>{point.percentage:.1f}%</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+        style: {
+          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
         },
-        tooltip: {
-            pointFormat: '<b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    },
-                    connectorColor: 'silver'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Results',
-            data: resultsArr
-        }]
+        connectorColor: 'silver'
+      }
+    }
+  },
+  series: [{
+    type: 'pie',
+    name: 'Results',
+    data: resultsArr
+  }]
       };
     }
   });
