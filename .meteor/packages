@@ -1,0 +1,19 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+meteor-platform
+autopublish
+insecure
+iron:router@1.0.0-pre4
+accounts-ui
+accounts-github
+accounts-base
+mizzao:bootstrap-3
+jquery
+j4507:datatables-bootstrap-3
+mizzao:jquery-ui
+maazalik:highcharts
+kevohagan:sweetalert
+accounts-password
+
