@@ -54,7 +54,7 @@ function render(route, place) {
 Router.route('/', function () { render(this, 'Home'); });
 Router.route('/roster', function () { render(this, 'Roster'); });
 Router.route('/polls', function () { render(this, 'Polls'); });
-Router.route('/calendar', function () { render(this, 'Calender'); });
+Router.route('/calendar', function () { render(this, 'Calendar'); });
 Router.route('/about', function () { render(this, 'About'); });
 Router.route('/login', function () { render(this, 'Login'); });
 
