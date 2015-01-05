@@ -5,6 +5,7 @@ PollsData = new Mongo.Collection("PollsData");
 CalendarEvents = new Mongo.Collection("CalendarEvents");
 
 Accounts.createUser({email: "te5t@virginia.edu", password: "pass"});
+
 var mcpoll = {
   type: "MultipleChoice",
   title: "How Much Wood Could a Woodchuck Chuck?",
@@ -32,10 +33,10 @@ var rankedpoll2 = {
   completed: false
 }
 /*
- PollsData.insert(mcpoll);
- PollsData.insert(rankedpoll);
- PollsData.insert(rankedpoll2);
- */
+PollsData.insert(mcpoll);
+PollsData.insert(rankedpoll);
+PollsData.insert(rankedpoll2);
+*/
 
 Router.configure({
   layoutTemplate: 'ApplicationLayout'
@@ -63,17 +64,16 @@ if(Meteor.isClient) {
     'submit #login-form' : function(e, t) {
       e.preventDefault();
       var email = t.find('#login-email').value
-          , password = t.find('#login-password').value;
+      , password = t.find('#login-password').value;
       Meteor.loginWithPassword(email, password, function(err) {
         if (err) {
           $('#login-message').text("Incorrect email or password.");
         }
         else;
       });
-      return false; 
+      return false;
     }
   });
-
   Template.Roster.rendered = function() {
     var residents = [];
     var resData = Residents.find().fetch();
@@ -92,12 +92,12 @@ if(Meteor.isClient) {
       "lengthMenu": [25],
       "data": residents,
       "columns": [
-    { "title": "Portal" },
-      { "title": "Room" },
-      { "title": "First Name" },
-      { "title": "Last Name" },
-      { "title": "E-mail" }
-    ]
+          { "title": "Portal" },
+          { "title": "Room" },
+          { "title": "First Name" },
+          { "title": "Last Name" },
+          { "title": "E-mail" }
+      ]
     });
   }
   UI.registerHelper('generateID', function() {
@@ -172,35 +172,35 @@ if(Meteor.isClient) {
       }
       return {
         chart: {
-          plotBackgroundColor: null,
-  plotBorderWidth: null,
-  plotShadow: false,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
         },
-  title: {
-    text: 'Results'
-  },
-  tooltip: {
-    pointFormat: '<b>{point.percentage:.1f}%</b>'
-  },
-  plotOptions: {
-    pie: {
-      allowPointSelect: true,
-      cursor: 'pointer',
-      dataLabels: {
-        enabled: true,
-        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-        style: {
-          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+        title: {
+            text: 'Results'
         },
-        connectorColor: 'silver'
-      }
-    }
-  },
-  series: [{
-    type: 'pie',
-    name: 'Results',
-    data: resultsArr
-  }]
+        tooltip: {
+            pointFormat: '<b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    },
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Results',
+            data: resultsArr
+        }]
       };
     }
   });
