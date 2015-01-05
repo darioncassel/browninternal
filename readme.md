@@ -12,21 +12,24 @@ To use these files:
 
 Packages:
 
-- meteor-platform
-- autopublish
-- insecure
-- iron:router@1.0.0-pre4
-- accounts-ui
-- accounts-github
-- accounts-base
-- accounts-password
-- mizzao:bootstrap-3
-- jquery
-- j4507:datatables-bootstrap-3
-- mizzao:jquery-ui
-- maazalik:highcharts
-- kevohagan:sweetalert
-
+-accounts-base                 1.1.3  
+-accounts-github               1.0.3  
+-accounts-password             1.0.5  
+-accounts-ui                   1.1.4  
+-autopublish                   1.0.2  
+-insecure                      1.0.2  
+-iron:router                   1.0.6  
+-j4507:datatables-bootstrap-3  0.2.3
+-jquery                        1.0.2  
+-kevohagan:sweetalert          0.3.2  
+-maazalik:highcharts           0.2.3  
+-meteor-platform               1.2.1  
+-mizzao:bootboxjs              4.3.0  
+-mizzao:bootstrap-3            3.3.1_1  
+-mizzao:jquery-ui              1.11.2  
+-mrt:bootstrap-3-timepicker    0.2.5  
+-mrt:moment                    2.8.1  
+-scmart:fullcalendar-2         2.0.2  
 
 
 To add CSV data to the database:
