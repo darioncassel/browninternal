@@ -1,5 +1,6 @@
 Residents = new Mongo.Collection("residents");
 PollsData = new Mongo.Collection("pollsData");
+CalendarEvents = new Mongo.Collection("calendarEvents");
 
 Meteor.startup(function () {
   Meteor.methods({
@@ -8,6 +9,9 @@ Meteor.startup(function () {
     },
     'removeAllPolls' : function() {
       PollsData.remove({});
+    },
+    'removeAllEvents' : function(){
+      CalendarEvents.remove({});
     }
   });
 });
