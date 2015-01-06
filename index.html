@@ -2,7 +2,6 @@
   <head>
     <meta charset="utf-8">
     <title>Brown Internal Website</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
   <body>
@@ -48,10 +47,11 @@
         <div class="input-group">
           <input type="email" class="form-control" id="login-email" placeholder="Email" />
           <input type="password" class="form-control" id="login-password" placeholder="Password" />
-          <input type="submit" id="login-button" class="form-control btn" value="Sign in" />
+          <input type="submit" id="login-button" class="btn btn-warning" value="Sign in" />
         </div>
         <p6 id="login-message"></p6>
       </form>
+      <br><br>
       <p6>Please login to continue, or visit the <a href="http://browncollege.virginia.edu">external website</a>.</p6>
     </div>
   </template>
@@ -65,7 +65,10 @@
 
   <template name="Polls">
     <div id="polls-main">
-      <br><br>
+      <br>
+      <div style="text-align:right;padding-right:2%;">
+        <button class="btn btn-warning" name="addPoll">Add Poll</button>
+      </div>
       <hr>
       <p5>Active Polls</p5>
       <hr>

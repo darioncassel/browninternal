@@ -4,7 +4,7 @@ Residents = new Mongo.Collection("Residents");
 PollsData = new Mongo.Collection("PollsData");
 CalendarEvents = new Mongo.Collection("CalendarEvents");
 
-Accounts.createUser({email: "te5t@virginia.edu", password: "pass"});
+//Accounts.createUser({email: "te5t@virginia.edu", password: "pass"});
 
 var mcpoll = {
   type: "MultipleChoice",
@@ -67,7 +67,7 @@ if(Meteor.isClient) {
       , password = t.find('#login-password').value;
       Meteor.loginWithPassword(email, password, function(err) {
         if (err) {
-          $('#login-message').text("Incorrect email or password.");
+          swal("Incorrect email or password", "", "error");
         }
         else;
       });
@@ -114,6 +114,94 @@ if(Meteor.isClient) {
       return PollsData.find({completed: true}).fetch();
     }
   });
+  Template.Polls.events = {
+    'click button[name=addPoll]': function(e) {
+      function bootboxContent() {
+        var str ="<div>\
+          <p>Type:\
+            <input type='radio' value='mcPoll' name='poll1'> Multiple Choice</input>\
+            <input type='radio' value='ranked' name='poll1'> Ranked</input></p>\
+          <p>Title:<input type='text' name='title'></input></p>\
+          <p>Choices:</p>\
+            <p><input type='text' name='choices[]'></input></p>\
+            <button class='btn btn-warning' id='addField'>+</button>\
+          <p>Required Votes:\
+            <input style='text-align:center;width:30px;' type='text' name='voteReq' placeholder='0'></input>\
+          </p>\
+        </div>"
+        var object = $('<div/>').html(str).contents();
+        object.find('#addField').click(function() {
+          $('#addField').before("<p><input type='text' name='choices[]'></input></p>");
+        });
+        return object;
+      }
+      bootbox.dialog({
+        backdrop: false,
+        message: bootboxContent,
+        title: 'New Poll',
+        buttons: {
+          main: {
+            label: 'Add',
+            className: 'btn btn-primary',
+            callback: function() {
+              var pollData={}; var add = true;
+              var type = $('input[name=poll1]:checked').val();
+              var title = $('input[name=title]').val();
+              var choices = $("input[name='choices\\[\\]']").map(function(){return $(this).val();}).get();
+              var voteReq = $('input[name=voteReq]').val();
+              if(type=='mcPoll'){
+                pollData.type = "MultipleChoice";
+              }else if(type=='ranked'){
+                pollData.type = "Ranked";
+              }else {
+                add = false;
+                swal('Error','Please select a type.','error');
+              }
+              if(title){
+                pollData.title = title.toLowerCase().replace(/([^a-z])([a-z])(?=[a-z]{2})|^([a-z])/g, function(_, g1, g2, g3){return (typeof g1 === 'undefined') ? g3.toUpperCase() : g1 + g2.toUpperCase(); } );
+              }else {
+                add = false;
+                swal('Error','Please add a title.','error');
+              }
+              if(choices){
+                pollData.choices = choices;
+                pollData.results = [];
+                for(i=0;i<choices.length;i++){
+                  pollData.results.push(0);
+                }
+              }else {
+                add = false;
+                swal('Error','Please add choices.','error');
+              }
+              if(voteReq){
+                var isNum = /^\+?[1-9]\d*$/.test(voteReq);
+                if(isNum){
+                  pollData.voteReq = parseInt(voteReq);
+                }else {
+                  add = false;
+                  swal('Error','The vote requirement must be a positive, non-zero number.','error');
+                }
+              }else {
+                add = false;
+                swal('Error','Please set a vote requirement.','error');
+              }
+              pollData.completed = false;
+              console.log(pollData);
+              if(add){
+                PollsData.insert(pollData);
+                swal('Added!','','success');
+              }
+            }
+          },
+          secondary: {
+            label: 'Cancel',
+            className: 'btn btn-secondary',
+            callback: function() {}
+          }
+        }
+      });
+    }
+  }
   Template.MultipleChoice.events = {
     'click input[type=submit]': function(e) {
       e.preventDefault();
@@ -249,14 +337,14 @@ if(Meteor.isClient) {
       eventMouseover: function(calEvent, jsEvent) {
         if(calEvent.allDay!=undefined && calEvent.allDay==true){
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            All day in '+calEvent.location+'.</div>';
+            All day at '+calEvent.location+'.</div>';
         }else if(moment(calEvent.start).isSame(moment(calEvent.end), 'day')) {
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            In '+calEvent.location+' from '+moment(calEvent.start).format('h:mm a')+'\
+            At '+calEvent.location+' from '+moment(calEvent.start).format('h:mm a')+'\
             to '+moment(calEvent.end).format('h:mm a')+'.</div>';
         }else {
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            In '+calEvent.location+' from '+moment(calEvent.start).format('ddd')+ ' at ' + moment(calEvent.start).format('h:mm a')+'\
+            At '+calEvent.location+' from '+moment(calEvent.start).format('ddd')+ ' at ' + moment(calEvent.start).format('h:mm a')+'\
             to '+moment(calEvent.end).format('ddd') + ' at ' +  moment(calEvent.end).format('h:mm a')+'.</div>';
         }
         $("body").append(tooltip);
