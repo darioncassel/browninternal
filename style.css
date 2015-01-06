@@ -93,41 +93,48 @@ body {
 	margin: 0 auto;
 	position: relative;
   background-image: url('/images/brown_image.jpg');
-  background-size: 100%;
+  background-size: cover;
   background-repeat: no-repeat;
 	background-attachment: fixed;
 }
 
 .narrow {
   text-align:center;
-  padding-top: 140px;
+  padding-top: 20vh;
   height: 870px;
 }
 
 #login {
   position: fixed;
   left: 50%;
-  margin-left: -250px;
-  width: 500px;
-  height: 310px;
+  margin-left: -22.5vw;
+  width: 45vw;
+  height: 400px;
   padding: 20px;
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0px 0px 4px 2px rgba(0,0,0,.2);
 }
 
-#btnLogin {
-  font-size:32px;
+#login .input-group .form-control {
+	margin-left: 10%;
+	margin-bottom: 3%;
+}
+
+#login-button {
+	margin-top: 3%;
+	margin-left: 20%;
+  font-size:1.3em;
 }
 
 #roster {
 	position: relative;
 	left: 50%;
-	margin-left: -450px;
-	width: 900px;
+	margin-left: -37.5vw;
+	width: 75vw;
 	min-height: 500px;
-	padding: 10px;
-	padding-bottom: 50px;
+	padding: 1%;
+	padding-bottom: 3%;
 	border-radius: 5px;
 	background-color: #fff;
 	box-shadow: 0px 0px 4px 2px rgba(0,0,0,.2);
@@ -136,10 +143,10 @@ body {
 #dashboard {
 	position: relative;
 	left: 50%;
-	margin-left: -450px;
-	width: 900px;
+	margin-left: -460px;
+	width: 920px;
 	height: 560px;
-	padding: 5px;
+	padding: 1%;
 	border-radius: 5px;
 	background-color: #fff;
 	box-shadow: 0px 0px 4px 2px rgba(0,0,0,.2);
@@ -148,11 +155,11 @@ body {
 #polls-main {
 	position: relative;
 	left: 50%;
-	margin-left: -450px;
-	width: 900px;
+	margin-left: -37.5vw;
+	width: 75vw;
 	min-height: 340px;
-	padding: 10px;
-	padding-bottom: 50px;
+	padding: 1%;
+	padding-bottom: 4%;
 	border-radius: 5px;
 	background-color: #fff;
 	box-shadow: 0px 0px 4px 2px rgba(0,0,0,.2);
@@ -169,11 +176,11 @@ body {
 #calendar {
 	position: relative;
 	left: 50%;
-	margin-left: -450px;
-	width: 900px;
+	margin-left: -37.5vw;
+	width: 75vw;
 	min-height: 500px;
-	padding: 10px;
-	padding-bottom: 50px;
+	padding: 1%;
+	padding-bottom: 3%;
 	border-radius: 5px;
 	background-color: #fff;
 	box-shadow: 0px 0px 4px 2px rgba(0,0,0,.2);
@@ -201,11 +208,11 @@ body {
 #about {
 	position: relative;
 	left: 50%;
-	margin-left: -450px;
-	width: 900px;
+	margin-left: -37.5vw;
+	width: 75vw;
 	min-height: 500px;
-	padding: 10px;
-	padding-bottom: 50px;
+	padding: 1%;
+	padding-bottom: 3%;
 	border-radius: 5px;
 	background-color: #fff;
 	box-shadow: 0px 0px 4px 2px rgba(0,0,0,.2);
