@@ -16,6 +16,10 @@ table.dataTable tr.odd td.sorting_1 {
 	background-color: #f9f9f9;
 }
 
+.highcharts-container {
+	padding-left: 5%;
+}
+
 * {
 	margin: 0;
 	padding: 0;
