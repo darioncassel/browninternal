@@ -29,7 +29,7 @@
       </div>
     </article>
     <footer class="footer">
-      <p style="text-align:center;color:#fff"> &copy; 2014 Techmasters@Brown </p>
+      <p style="text-align:center;color:#fff"> &copy; 2015 Techmasters@Brown </p>
     </footer>
   </template>
 
@@ -100,6 +100,10 @@
       <div id="{{_id}}" class="panel-collapse collapse">
         <div class="panel-body">
           {{> Template.dynamic template=this.type}}
+        </div>
+        <div class="showIfCreator">
+          <button class="btn btn-warning" name="closePoll">Close Poll</button>
+          <br><br>
         </div>
       </div>
     </div>
