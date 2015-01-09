@@ -186,7 +186,8 @@ if(Meteor.isClient) {
                 swal('Error','Please set a vote requirement.','error');
               }
               pollData.completed = false;
-              console.log(pollData);
+              pollData.creator = Meteor.userId();
+              pollData.voters = [];
               if(add){
                 PollsData.insert(pollData);
                 swal('Added!','','success');
@@ -202,27 +203,62 @@ if(Meteor.isClient) {
       });
     }
   }
+  Template.NewPoll.rendered = function(){
+    $('.showIfCreator').hide();
+    var pollArr = PollsData.find({completed: false}).fetch();
+    for(i=0;i<pollArr.length;i++){
+      if(pollArr[i].creator==Meteor.userId()){
+        $('#'+pollArr[i]._id+' .showIfCreator').show();
+      }
+    }
+  }
+  Template.NewPoll.events = {
+    'click button[name=closePoll]': function(e) {
+      var pollid = $('.panel-collapse.collapse.in').attr('id');
+      bootbox.confirm("Are you sure?", function(result){
+        if(result){
+          PollsData.update({_id: pollid}, {$set: {completed: true}});
+        }
+      });
+    }
+  }
   Template.MultipleChoice.events = {
     'click input[type=submit]': function(e) {
       e.preventDefault();
       var val = $("input[name='poll1']:checked").val();
       var pollid = $('.panel-collapse.collapse.in').attr('id');
       var pol = PollsData.find({_id: pollid}).fetch()[0];
-      var num; var sum = 0;
-      for(i=0;i<pol.choices.length;i++){
-        if(pol.choices[i]===val){num = i;}
+      var voted = false;
+      for(i=0;i<pol.voters.length;i++){
+        if(pol.voters[i] == Meteor.userId()){
+          voted = true;
+        }
       }
-      pol.results[num] = pol.results[num] + 1;
-      for(i in pol.results) {sum+=pol.results[i]}
-      if(sum>pol.voteReq){
-        PollsData.update({_id: pollid}, {$set: {completed: true}});
-      }else if(sum==pol.voteReq){
-        PollsData.update({_id: pollid}, {$set: {completed: true}});
-        PollsData.update({_id: pollid}, {$set: {results: pol.results}});
-      }else {
-        PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+      if(!voted){
+        var voteArr = [];
+        for(i=0;i<pol.voters.length;i++){
+          voteArr.push(pol.voters[i]);
+        }
+        voteArr.push(Meteor.userId());
+        PollsData.update({_id: pollid}, {$set: {voters: voteArr}});
+        var num; var sum = 0;
+        for(i=0;i<pol.choices.length;i++){
+          if(pol.choices[i]===val){num = i;}
+        }
+        pol.results[num] = pol.results[num] + 1;
+        for(i in pol.results) {sum+=pol.results[i]}
+        if(sum>pol.voteReq){
+          PollsData.update({_id: pollid}, {$set: {completed: true}});
+        }else if(sum==pol.voteReq){
+          PollsData.update({_id: pollid}, {$set: {completed: true}});
+          PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+        }else {
+          PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+        }
+        swal("Thank You!", "Your vote was recorded", "success");
+      }else{
+        swal("You've already voted!","","error");
       }
-      swal("Thank You!", "Your vote was recorded", "success");
     }
   }
   Template.Ranked.events = {
@@ -294,24 +330,45 @@ if(Meteor.isClient) {
   });
   Template.Calendar.rendered = function() {
     function bootboxContent1() {
-      var str= "<div id='newEvent'><p>Title: <input type='text' id='this_title'></input>\
-      <div class='input-append bootstrap-timepicker'></p>\
-        <p>Start: <input id='timepicker1' type='text' class='input-small'>\
-        <span class='add-on'></i></span><br></p>\
-      </div>\
-      <div class='input-append bootstrap-timepicker'>\
-        <p>End: <input id='timepicker2' type='text' class='input-small'>\
-        <span class='add-on'></i></span></p>\
-      </div>\
-      <p>All Day <input type='checkbox' id='isAllDay'></input></p>\
-      <p><input type='radio' value='Tucker' name='poll1'> Tucker  </input>\
-      <input type='radio' value='Smith' name='poll1'> Smith  </input>\
-      <input type='radio' value='Other' name='poll1'> <input type='text' style='width:100px' value='Other' id='isOther'></input></input></p></div>";
+      var str= "<div id='newEvent'>\
+        <p>Title: <input type='text' id='this_title'></input>\
+        Description: <textarea class='form-control' id='this_des'></textarea>\
+        <div id='timeSelect'>\
+          <div class='input-append bootstrap-timepicker'></p>\
+            <p>Start: <input id='timepicker1' type='text' class='input-small'>\
+            <span class='add-on'></i></span><br></p>\
+          </div>\
+          <div class='input-append bootstrap-timepicker'>\
+            <p>End: <input id='timepicker2' type='text' class='input-small'>\
+            <span class='add-on'></i></span></p>\
+          </div>\
+        </div>\
+        <p>All Day <input type='checkbox' id='isAllDay'></input></p>\
+        <select id='locSelect' class='form-control'>\
+          <option>Tucker</option>\
+          <option>Tucker Projector</option>\
+          <option>Tucker Kitchen</option>\
+          <option>Smith</option>\
+          <option>The Hill</option>\
+          <option>Other</option>\
+        </select>\
+        <div id='typeOther'>\
+          <p><input type='text' style='width:100px' value='Other' id='isOther'></input></p>\
+        </div>\
+      </div>";
       var object = $('<div/>').html(str).contents();
+      object.find('#typeOther').hide();
       object.find('#timepicker1').timepicker();
       object.find('#timepicker2').timepicker();
       object.find('#isAllDay').click(function(){
-        //perhaps grey out the timepicker fields
+        $('#timeSelect').toggle();
+      });
+      object.find('#locSelect').change(function(){
+        if($("#locSelect option:selected").text()=='Other'){
+          $('#typeOther').show();
+        }else {
+          $('#typeOther').hide();
+        }
       });
       return object;
     }
@@ -337,17 +394,24 @@ if(Meteor.isClient) {
       eventMouseover: function(calEvent, jsEvent) {
         if(calEvent.allDay!=undefined && calEvent.allDay==true){
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            All day at '+calEvent.location+'.</div>';
+            '+calEvent.description+'\
+            '+calEvent.location+'. All day.<br><br></div>';
         }else if(moment(calEvent.start).isSame(moment(calEvent.end), 'day')) {
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            At '+calEvent.location+' from '+moment(calEvent.start).format('h:mm a')+'\
-            to '+moment(calEvent.end).format('h:mm a')+'.</div>';
+            '+calEvent.description+'\
+            '+calEvent.location+'. From '+moment(calEvent.start).format('h:mm a')+'\
+            to '+moment(calEvent.end).format('h:mm a')+'.<br><br></div>';
         }else {
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            At '+calEvent.location+' from '+moment(calEvent.start).format('ddd')+ ' at ' + moment(calEvent.start).format('h:mm a')+'\
-            to '+moment(calEvent.end).format('ddd') + ' at ' +  moment(calEvent.end).format('h:mm a')+'.</div>';
+            '+calEvent.description+'\
+            '+calEvent.location+'. From '+moment(calEvent.start).format('ddd')+ ' at ' + moment(calEvent.start).format('h:mm a')+'\
+            to '+moment(calEvent.end).format('ddd') + ' at ' +  moment(calEvent.end).format('h:mm a')+'.<br><br></div>';
         }
-        $("body").append(tooltip);
+        var object = $('<div/>').html(tooltip).contents();
+        if(calEvent.description!=''){
+          object.find('p').append('<br><br>');
+        }
+        $("body").append(object);
         $(this).mouseover(function(e) {
           $(this).css('z-index', 10000);
           $('.tooltipevent').fadeIn('500');
@@ -376,48 +440,60 @@ if(Meteor.isClient) {
                   var startTime = $("#timepicker1").val().split('');
                   var endTime = $("#timepicker2").val().split('');
                   var title = $('#this_title').val().toLowerCase().replace(/([^a-z])([a-z])(?=[a-z]{2})|^([a-z])/g, function(_, g1, g2, g3){return (typeof g1 === 'undefined') ? g3.toUpperCase() : g1 + g2.toUpperCase(); } );
+                  var description = $('#this_des').val();
+                  var colorArr = ['#3498db','#2980b9','#16a085','#27ae60','#9b59b6']
                   var location; var color;
-                  if($("input[name='poll1']:checked").val()=='Other'){
-                    location = $('#isOther').val();
+                  if($("#locSelect option:selected").text()=='Other'){
+                    location = $('#isOther').val().toLowerCase().replace(/([^a-z])([a-z])(?=[a-z]{2})|^([a-z])/g, function(_, g1, g2, g3){return (typeof g1 === 'undefined') ? g3.toUpperCase() : g1 + g2.toUpperCase(); } );;
+                    color='#7f8c8d';
                   }else{
-                    location = $("input[name='poll1']:checked").val();
-                  }
-                  if(location=="Tucker"){
-                    color='#3498db';
-                  }else if(location=="Smith") {
-                    color='#27ae60';
-                  }else {
-                    color='#9b59b6';
+                    location = $("#locSelect option:selected").text();
+                    for(i=0;i<$('#locSelect option').size()-1;i++){
+                      if(location==$($('#locSelect option')[i]).val()){
+                        color = colorArr[i];
+                      }
+                    }
                   }
                   if($("input[id='isAllDay']").is(":checked")){
                     eventData={
                       id: $('#this_title').val()+start+end,
                       title: title,
+                      description: description,
                       allDay: true,
                       start: moment(start._d).add(1, 'days').format('YYYY MM DD'),
                       end: moment(end._d).format('YYYY MM DD'),
                       color: color,
                       location: location,
-                      type: 'created'
+                      type: 'created',
+                      creator: Meteor.userId()
                     };
                   }else {
+                    var s = moment(start._d).add(1, 'days').hours(parseTime(startTime).hours()).minutes(parseTime(startTime).minutes()).format();
+                    var e = moment(end._d).hours(parseTime(endTime).hours()).minutes(parseTime(endTime).minutes()).format();
+                    if(moment(e).isBefore(moment(s), 'hour')){
+                      e = moment(e).add(1, 'days');
+                    }
                     eventData={
                       id: $('#this_title').val()+start+end,
                       title: title,
-                      start: moment(start._d).add(1, 'days').hours(parseTime(startTime).hours()).minutes(parseTime(startTime).minutes()).format(),
-                      end: moment(end._d).hours(parseTime(endTime).hours()).minutes(parseTime(endTime).minutes()).format(),
+                      description: description,
+                      start: s,
+                      end: e,
                       color: color,
                       location: location,
-                      type: 'created'
+                      type: 'created',
+                      creator: Meteor.userId()
                     };
                   }
-                  if(!$("input[name='poll1']").is(":checked")){
+                  if(location==null){
                     add=false;
                     swal("Error", "Please select a location!", "error");
                   }
-                  if(eventData.allDay==undefined && !moment(eventData.start).isBefore(moment(eventData.end))){
-                    add=false;
-                    swal("Error", "The end time must be after the start time!", "error");
+                  var locEvents = CalendarEvents.find({location: location}).fetch();
+                  for(i=0;i<locEvents.length;i++){
+                    if(intersects(eventData, locEvents[i])){
+                      add = false;
+                    }
                   }
                   if(add){
                     CalendarEvents.insert(eventData);
@@ -431,7 +507,7 @@ if(Meteor.isClient) {
         $('#calendar').fullCalendar('unselect');
       },
       eventClick: function(event){
-        if(event.type=='created' || event.type=='google'){
+        if(event.creator==Meteor.userId() && event.type=='created' || event.type=='google'){
         bootbox.dialog({
           backdrop: false,
           message: "<p>Modify Event</p>",
@@ -466,7 +542,7 @@ if(Meteor.isClient) {
         }
       },
       eventDrop: function(event){
-        if(event.type=='created'){
+        if(event.creator==Meteor.userId() && event.type=='created'){
           if(event.end!=null){
             CalendarEvents.update({_id: event._id}, {$set: {allDay: event.allDay, start: moment(event.start).format(), end: moment(event.end).format()}});
           }else {
@@ -477,7 +553,7 @@ if(Meteor.isClient) {
         }
       },
       eventResize: function(event){
-        if(event.type=='created'){
+        if(event.creator==Meteor.userId() && event.type=='created'){
           CalendarEvents.update({_id: event._id}, {$set: {end: moment(event.end).format()}});
         }else if(event.type=='google'){
           google_resizeTime(event);
@@ -494,5 +570,19 @@ if(Meteor.isClient) {
       weekends: true,
       editable: true
     });
+  }
+}
+
+function intersects(m1, m2){
+  if(moment(m1.start).isBefore(moment(m2.start))&&moment(m1.end).isAfter(moment(m2.end))){
+    return true;
+  }else if(moment(m1.start).isBefore(moment(m2.start))&&moment(m1.end).isAfter(moment(m2.start))&&moment(m1.end).isBefore(moment(m2.end))){
+    return true;
+  }else if(moment(m1.start).isAfter(moment(m2.start))&&moment(m1.start).isBefore(moment(m2.end))&&moment(m1.end).isAfter(moment(m2.end))){
+    return true;
+  }else if(moment(m1.start).isAfter(moment(m2.start))&&moment(m1.start).isBefore(moment(m2.end))&&moment(m1.end).isBefore(moment(m2.end))&&moment(m1.end).isAfter(moment(m2.start))){
+    return true;
+  }else {
+    return false;
   }
 }
