@@ -490,10 +490,15 @@ if(Meteor.isClient) {
                     swal("Error", "Please select a location!", "error");
                   }
                   var locEvents = CalendarEvents.find({location: location}).fetch();
+                  var intersect = false;
                   for(i=0;i<locEvents.length;i++){
                     if(intersects(eventData, locEvents[i])){
-                      add = false;
+                      intersect = true;
                     }
+                  }
+                  if(intersect){
+                    add = false;
+                    swal("There is already an event at this time and location.", "","error");
                   }
                   if(add){
                     CalendarEvents.insert(eventData);
@@ -574,14 +579,19 @@ if(Meteor.isClient) {
 }
 
 function intersects(m1, m2){
-  if(moment(m1.start).isBefore(moment(m2.start))&&moment(m1.end).isAfter(moment(m2.end))){
+  //[ ( ) ]
+  if(moment(m1.start)<=moment(m2.start)&&moment(m1.end)>=moment(m2.end)){
     return true;
-  }else if(moment(m1.start).isBefore(moment(m2.start))&&moment(m1.end).isAfter(moment(m2.start))&&moment(m1.end).isBefore(moment(m2.end))){
+  //[ ( ] )
+  }else if(moment(m1.start)<=moment(m2.start)&&moment(m1.end)>=moment(m2.start)&&moment(m1.end)<=moment(m2.end)){
     return true;
-  }else if(moment(m1.start).isAfter(moment(m2.start))&&moment(m1.start).isBefore(moment(m2.end))&&moment(m1.end).isAfter(moment(m2.end))){
+  //( [ ) ]
+  }else if(moment(m1.start)>=moment(m2.start)&&moment(m1.start)<=moment(m2.end)&&moment(m1.end)>=moment(m2.end)){
     return true;
-  }else if(moment(m1.start).isAfter(moment(m2.start))&&moment(m1.start).isBefore(moment(m2.end))&&moment(m1.end).isBefore(moment(m2.end))&&moment(m1.end).isAfter(moment(m2.start))){
+  //( [ ] )
+  }else if(moment(m1.start)>=moment(m2.start)&&moment(m1.start)<=moment(m2.end)&&moment(m1.end)<=moment(m2.end)&&moment(m1.end)>=moment(m2.start)){
     return true;
+  //( ) [ ]
   }else {
     return false;
   }
