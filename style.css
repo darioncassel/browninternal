@@ -195,7 +195,18 @@ body {
 }
 
 .modal-dialog {
-	width: 400px;
+	width: auto;
+	margin: 0 auto;
+}
+
+.gform-width {
+	width: 780px !important;
+	margin: 0 auto;
+}
+
+.form-width {
+	width: 400px !important;
+	margin: 0 auto;
 }
 
 .tooltipevent{
