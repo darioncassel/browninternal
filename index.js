@@ -6,38 +6,6 @@ CalendarEvents = new Mongo.Collection("CalendarEvents");
 
 //Accounts.createUser({email: "te5t@virginia.edu", password: "pass"});
 
-var mcpoll = {
-  type: "MultipleChoice",
-  title: "How Much Wood Could a Woodchuck Chuck?",
-  choices: ['Zero','11','42', 'As much as it wants.'],
-  results: [1, 2, 1, 3],
-  voteReq: 10,
-  completed: false
-}
-var rankedpoll = {
-  type: "Ranked",
-  title: "How is Schrodinger's Cat Doing?",
-  choices: ['Dead','Alive'],
-  results: [50,50],
-  voteCount: 0,
-  voteReq: 100,
-  completed: true
-}
-var rankedpoll2 = {
-  type: "Ranked",
-  title: "What's the Best Number?",
-  choices: ['one','two','three', 'seven'],
-  results: [24, 31, 55, 72],
-  voteCount: 0,
-  voteReq: 10,
-  completed: false
-}
-/*
-PollsData.insert(mcpoll);
-PollsData.insert(rankedpoll);
-PollsData.insert(rankedpoll2);
-*/
-
 Router.configure({
   layoutTemplate: 'ApplicationLayout'
 });
@@ -74,6 +42,28 @@ if(Meteor.isClient) {
       return false;
     }
   });
+  Template.ApplicationLayout.events = {
+    'click button[name=bugs]': function() {
+      function bootBoxContent0() {
+        var gform = "<div style='width:780;'><iframe src='https://docs.google.com/forms/d/1-iuNWSQuf6qs7irUrGyHo_8OFFu1Jjdr4-ITae44ahI/viewform?embedded=true'\
+        width='760' height='500' frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe></div>";
+        var object = $('<div/>').html(gform).contents();
+        return object;
+      }
+      bootbox.dialog({
+        backdrop:false,
+        message: bootBoxContent0,
+        className: 'gform-width',
+        buttons: {
+          main: {
+            label: 'Cancel',
+            className: 'btn btn-secondary',
+            callback: function() {}
+          }
+        }
+      })
+    }
+  }
   Template.Roster.rendered = function() {
     var residents = [];
     var resData = Residents.find().fetch();
@@ -138,6 +128,7 @@ if(Meteor.isClient) {
       bootbox.dialog({
         backdrop: false,
         message: bootboxContent,
+        className: 'form-width',
         title: 'New Poll',
         buttons: {
           main: {
@@ -429,6 +420,7 @@ if(Meteor.isClient) {
         bootbox.dialog({
           backdrop: false,
           message: bootboxContent1,
+          className: 'form-width',
           title: 'New Event',
           buttons: {
             main: {
