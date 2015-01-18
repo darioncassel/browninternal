@@ -2,6 +2,10 @@ Residents = new Mongo.Collection("residents");
 PollsData = new Mongo.Collection("pollsData");
 CalendarEvents = new Mongo.Collection("calendarEvents");
 
+process.env.MAIL_URL="smtp://browncollegeuva%40gmail.com:*******@smtp.gmail.com:587/"; 
+Accounts.emailTemplates.from = "Brownn College Website <no-reply@virginia.edu>"
+Accounts.emailTemplates.siteName = "Brown Internal Website"
+
 Meteor.startup(function () {
   Meteor.methods({
     'removeAllResidents' : function() {
@@ -33,7 +37,6 @@ Meteor.startup(function () {
         }
     }
   });
-  process.env.MAIL_URL="smtp://browncollegeuva%40gmail.com:*******@smtp.gmail.com:587/"; 
 });
 
 randompass = function(num)
