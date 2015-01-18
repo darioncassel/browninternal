@@ -25,11 +25,12 @@ Packages:
 -maazalik:highcharts           0.2.3  
 -meteor-platform               1.2.1  
 -mizzao:bootboxjs              4.3.0  
--mizzao:bootstrap-3            3.3.1_1  
 -mizzao:jquery-ui              1.11.2  
+-twbs:bootstrap                3.3.1_2
 -mrt:bootstrap-3-timepicker    0.2.5  
 -mrt:moment                    2.8.1  
 -scmart:fullcalendar-2         2.0.2  
+-email                         
 
 
 To add CSV data to the database:

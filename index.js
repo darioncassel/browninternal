@@ -5,6 +5,7 @@ PollsData = new Mongo.Collection("PollsData");
 CalendarEvents = new Mongo.Collection("CalendarEvents");
 
 //Accounts.createUser({email: "te5t@virginia.edu", password: "pass"});
+//Accounts.createUser({email: "zl4ry@virginia.edu", password: "pass"});
 
 Router.configure({
   layoutTemplate: 'ApplicationLayout'
@@ -19,15 +20,21 @@ function render(route, place) {
   }
 }
 
+// Routes
 Router.route('/', function () { render(this, 'Home'); });
 Router.route('/roster', function () { render(this, 'Roster'); });
 Router.route('/polls', function () { render(this, 'Polls'); });
 Router.route('/calendar', function () { render(this, 'Calendar'); });
 Router.route('/about', function () { render(this, 'About'); });
 Router.route('/login', function () { render(this, 'Login'); });
+Router.route('/logout', function () { Meteor.logout(); Router.go('/'); });
+Router.route('/password_reset', function () { this.render('PasswordReset'); });
 
 
 if(Meteor.isClient) {
+
+
+  // Login and password reset events
   Template.Login.events({
     'submit #login-form' : function(e, t) {
       e.preventDefault();
@@ -39,9 +46,28 @@ if(Meteor.isClient) {
         }
         else;
       });
+
       return false;
     }
-  });
+  })
+  Template.PasswordReset.events({
+    'submit #reset-form' : function(e, t) {
+      e.preventDefault();
+      var email = trimInput(t.find('#reset-email').value.toLowerCase());
+      Accounts.forgotPassword({email: email}, function(err) {
+        if (err) {
+          if (err.message === 'User not found [403]') {
+            swal("Oops", "This email doesn't exist. If it should you should contact a techmaster");
+          } else {
+            swal("Oops", "Something went wrong! D=");
+          }
+        } else {
+          swal('Password Changed', 'Email Sent. Please check your mailbox to reset your password.');
+        }
+      });
+      return false;
+    }
+  })
   Template.ApplicationLayout.events = {
     'click button[name=bugs]': function() {
       function bootBoxContent0() {
@@ -64,6 +90,10 @@ if(Meteor.isClient) {
       })
     }
   }
+
+
+
+  // Roster page
   Template.Roster.rendered = function() {
     var residents = [];
     var resData = Residents.find().fetch();
@@ -90,6 +120,11 @@ if(Meteor.isClient) {
       ]
     });
   }
+
+
+
+  // Polls
+
   UI.registerHelper('generateID', function() {
     return "#" + this._id;
   });
@@ -319,6 +354,10 @@ if(Meteor.isClient) {
       };
     }
   });
+
+
+
+  // Calendar Code
   Template.Calendar.rendered = function() {
     function bootboxContent1() {
       var str= "<div id='newEvent'>\
@@ -568,6 +607,11 @@ if(Meteor.isClient) {
       editable: true
     });
   }
+}
+
+// Helper functions
+trimInput = function(value) {
+    return value.replace(/^\s*|\s*$/g, '');
 }
 
 function intersects(m1, m2){

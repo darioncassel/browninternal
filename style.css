@@ -113,7 +113,6 @@ body {
   left: 50%;
   margin-left: -22.5vw;
   width: 45vw;
-  height: 400px;
   padding: 20px;
   border-radius: 10px;
   background-color: #fff;
@@ -121,13 +120,10 @@ body {
 }
 
 #login .input-group .form-control {
-	margin-left: 10%;
 	margin-bottom: 3%;
 }
 
 #login-button {
-	margin-top: 3%;
-	margin-left: 20%;
   font-size:1.3em;
 }
 
@@ -381,7 +377,7 @@ b, strong {
 
 .menu {
 	width:100%;
-	height: 90px;
+	height: 105px;
 	z-index:999;
 	text-align: center;
 	position: fixed;
