@@ -11,13 +11,13 @@
     <div class="menu">
       <div class="container clearfix">
           <center><div id="nav" style="display:inline-block; width:auto;">
-            <a href="/"><p3>Brown College at Monroe Hill</p3></a><p3>  &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp; &nbsp;</p3>
+            <a href="/"><p3 style="line-height:35px">Brown College at Monroe Hill</p3></a><br />
             <ul class="navigation" style="display:inline-block;">
               <li><a href="/roster">ROSTER</a></li>
               <li><a href="/polls">POLLS</a></li>
               <li><a href="/calendar">Calendar</a></li>
               <li><a href="/about">ABOUT</a></li>
+              <li><a href="/logout">LOGOUT</a></li>
               <li><button name='bugs' value='bugs'>BUGS</button></li>
             </ul>
           </div>
@@ -42,9 +42,9 @@
   </template>
 
   <template name="Login">
-    <div id="login">
+    <div id="login" class="container">
       <h3>Welcome to the Brown Internal Website!</h3><br>
-      <form id="login-form" action="login" role="form">
+      <form id="login-form" class="col-md-12" action="login" role="form">
         <div class="input-group">
           <input type="email" class="form-control" id="login-email" placeholder="Email" />
           <input type="password" class="form-control" id="login-password" placeholder="Password" />
@@ -52,8 +52,23 @@
         </div>
         <p6 id="login-message"></p6>
       </form>
-      <br><br>
-      <p6>Please login to continue, or visit the <a href="http://browncollege.virginia.edu">external website</a>.</p6>
+      <div class="col-md-12">
+        <p6>Please login to continue, or visit the <a href="http://browncollege.virginia.edu">external website</a>.</p6> <br />
+        <p6>First time logging in or forgot password? Click <a href="/password_reset">here</a></p6>
+      </div>
+    </div>
+  </template>
+
+  <template name="PasswordReset">
+    <div id="login">
+      <h2>Password Reset</h2>
+      <form id="reset-form" action="reset" role="form">
+        <div class="input-group col-md-12">
+          <input type="email" class="form-control" id="reset-email" placeholder="Email" />
+          <input type="submit" id="login-button" class="btn btn-warning" value="Reset Password" />
+        </div>
+        <p6 id="reset-message"></p6>
+      </form>
     </div>
   </template>
 
