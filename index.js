@@ -424,23 +424,25 @@ if(Meteor.isClient) {
       eventMouseover: function(calEvent, jsEvent) {
         if(calEvent.allDay!=undefined && calEvent.allDay==true){
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            '+calEvent.description+'\
+            '+calEvent.description+'<br>\
             '+calEvent.location+'. All day.<br><br></div>';
         }else if(moment(calEvent.start).isSame(moment(calEvent.end), 'day')) {
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            '+calEvent.description+'\
+            '+calEvent.description+'<br>\
             '+calEvent.location+'. From '+moment(calEvent.start).format('h:mm a')+'\
             to '+moment(calEvent.end).format('h:mm a')+'.<br><br></div>';
         }else {
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
-            '+calEvent.description+'\
+            '+calEvent.description+'<br>\
             '+calEvent.location+'. From '+moment(calEvent.start).format('ddd')+ ' at ' + moment(calEvent.start).format('h:mm a')+'\
             to '+moment(calEvent.end).format('ddd') + ' at ' +  moment(calEvent.end).format('h:mm a')+'.<br><br></div>';
         }
         var object = $('<div/>').html(tooltip).contents();
-        if(calEvent.description!=''){
+        /*
+        if(calEvent.description=!''){
           object.find('p').append('<br><br>');
         }
+        */
         $("body").append(object);
         $(this).mouseover(function(e) {
           $(this).css('z-index', 10000);
