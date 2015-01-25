@@ -103,7 +103,7 @@ if(Meteor.isClient) {
       resident.push(resData[i].Room);
       resident.push(resData[i]["First Name"]);
       resident.push(resData[i]["Last Name"]);
-      resident.push(resData[i].Year);
+      resident.push(resData[i]["E-mail"]);
       residents.push(resident);
     }
     $('#resDataTable').dataTable({
