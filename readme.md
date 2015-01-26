@@ -1,38 +1,28 @@
 browninternal
 =============
 
-To use these files:
+## Easy setup
 
 1. Install meteor
-2. Create a new project called "browninternal"
-3. Delete the auto-generated files in the project folder and copy these files into the folder
-4. Add the packages listed below with the command "meteor add [package name]"
-5. Run meteor
-6. Navigate to localhost:3000 to see the website
+2. git clone this repo
+3. Run meteor
+4. Navigate to localhost:3000 to see the website
 
-Packages:
+note: you will need the email account information to get the forgot password section working.
+Seperate server/token.js file should document the account information so we keep passwords off this repo.
+example server/token.js:
+  `process.env.MAIL_URL="smtp://browncollegeuva%40gmail.com:********@smtp.gmail.com:587/";`
 
--accounts-base                 1.1.3  
--accounts-github               1.0.3  
--accounts-password             1.0.5  
--accounts-ui                   1.1.4  
--autopublish                   1.0.2  
--insecure                      1.0.2  
--iron:router                   1.0.6  
--j4507:datatables-bootstrap-3  0.2.3
--jquery                        1.0.2  
--kevohagan:sweetalert          0.3.2  
--maazalik:highcharts           0.2.3  
--meteor-platform               1.2.1  
--mizzao:bootboxjs              4.3.0  
--mizzao:jquery-ui              1.11.2  
--twbs:bootstrap                3.3.1_2
--mrt:bootstrap-3-timepicker    0.2.5  
--mrt:moment                    2.8.1  
--scmart:fullcalendar-2         2.0.2  
--email                         
+## Server side setup notes:
 
+- Start it on the server side with `ROOT_URL=http://domain.com meteor`, or accounts reset emails will be wrong.
+
+## Data
 
 To add CSV data to the database:
 
 Run: ./mongoimport -h localhost:3001 --db meteor --collection Residents --type csv --file [filename].csv --headerline
+
+## Commit notes
+
+- To commit a meteor project, please commit the stuff in .meteor that shows up, that'll take care of project management automatically
