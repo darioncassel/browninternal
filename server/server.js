@@ -2,7 +2,7 @@ Residents = new Mongo.Collection("residents");
 PollsData = new Mongo.Collection("pollsData");
 CalendarEvents = new Mongo.Collection("calendarEvents");
 
-Accounts.emailTemplates.from = "Brownn College Website <no-reply@virginia.edu>"
+Accounts.emailTemplates.from = "Brown College Website <no-reply@virginia.edu>"
 Accounts.emailTemplates.siteName = "Brown Internal Website"
 
 Meteor.startup(function () {
