@@ -2,24 +2,11 @@ Residents = new Mongo.Collection("residents");
 PollsData = new Mongo.Collection("pollsData");
 CalendarEvents = new Mongo.Collection("calendarEvents");
 
-// Seperate token.js file should document the account information.
-// server/token.js is in the gitignore so we don't accidentally commit a password
-// example:
-//  process.env.MAIL_URL="smtp://browncollegeuva%40gmail.com:********@smtp.gmail.com:587/";
 Accounts.emailTemplates.from = "Brownn College Website <no-reply@virginia.edu>"
 Accounts.emailTemplates.siteName = "Brown Internal Website"
 
 Meteor.startup(function () {
   Meteor.methods({
-    'removeAllResidents' : function() {
-      Residents.remove({});
-    },
-    'removeAllPolls' : function() {
-      PollsData.remove({});
-    },
-    'removeAllEvents' : function(){
-      CalendarEvents.remove({});
-    },
     'updateAccounts' : function() {
         var resData = Residents.find().fetch();
         for(i=0; i<resData.length; i++){
