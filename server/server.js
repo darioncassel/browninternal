@@ -2,13 +2,12 @@ Residents = new Mongo.Collection("residents");
 PollsData = new Mongo.Collection("pollsData");
 CalendarEvents = new Mongo.Collection("calendarEvents");
 
-process.env.MAIL_URL="smtp://browncollegeuva%40gmail.com:*******@smtp.gmail.com:587/";
+// Seperate token.js file should document the account information.
+// server/token.js is in the gitignore so we don't accidentally commit a password
+// example:
+//  process.env.MAIL_URL="smtp://browncollegeuva%40gmail.com:********@smtp.gmail.com:587/";
 Accounts.emailTemplates.from = "Brownn College Website <no-reply@virginia.edu>"
 Accounts.emailTemplates.siteName = "Brown Internal Website"
-Accounts.emailTemplates.resetPassword.text = function(user, url) {
-  url = url.replace('localhost', '104.236.27.48');
-  return "Hello, \n Click this link to reset your password: " + url +"\n Thanks";
-}
 
 Meteor.startup(function () {
   Meteor.methods({
