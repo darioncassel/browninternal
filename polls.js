@@ -167,6 +167,12 @@ if (Meteor.isClient) {
       var pollid = $('.panel-collapse.collapse.in').attr('id');
       var pol = PollsData.find({_id: pollid}).fetch()[0];
       var res = $("#sortable").sortable('toArray');
+      var voted = false;
+      for(i=0;i<pol.voters.length;i++){
+        if(pol.voters[i] == Meteor.userId()){
+          voted = true;
+        }
+      }
       for(i=0;i<res.length;i++){
         for(j=0;j<pol.choices.length;j++){
           if(res[i]==pol.choices[j]){pol.results[j] = res.length - i;}
@@ -175,14 +181,36 @@ if (Meteor.isClient) {
       var sum = pol.voteCount + 1;
       if(sum>pol.voteReq){
         PollsData.update({_id: pollid}, {$set: {completed: true}});
+        swal("Thank You!", "Your vote was recorded", "success");
       }else if(sum==pol.voteReq){
-        PollsData.update({_id: pollid}, {$set: {completed: true}});
-        PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+        if(!voted){
+          var voteArr = [];
+          for(i=0;i<pol.voters.length;i++){
+            voteArr.push(pol.voters[i]);
+          }
+          voteArr.push(Meteor.userId());
+          PollsData.update({_id: pollid}, {$set: {voters: voteArr}});
+          PollsData.update({_id: pollid}, {$set: {completed: true}});
+          PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+          swal("Thank You!", "Your vote was recorded", "success");
+        }else{
+          swal("You've already voted!","","error");
+        }
       }else {
-        PollsData.update({_id: pollid}, {$set: {voteCount: sum}});
-        PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+        if(!voted){
+          var voteArr = [];
+          for(i=0;i<pol.voters.length;i++){
+            voteArr.push(pol.voters[i]);
+          }
+          voteArr.push(Meteor.userId());
+          PollsData.update({_id: pollid}, {$set: {voters: voteArr}});
+          PollsData.update({_id: pollid}, {$set: {voteCount: sum}});
+          PollsData.update({_id: pollid}, {$set: {results: pol.results}});
+          swal("Thank You!", "Your vote was recorded", "success");
+        }else{
+          swal("You've already voted!","","error");
+        }
       }
-      swal("Thank You!", "Your vote was recorded", "success");
     }
   }
   Template.CompletedPoll.helpers({
