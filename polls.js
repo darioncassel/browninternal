@@ -3,7 +3,7 @@ if (Meteor.isClient) {
     return "#" + this._id;
   });
   Template.Ranked.rendered = function() {
-    $("#sortable").sortable();
+    $(".sortable").sortable();
   }
   Template.Polls.helpers({
     activePolls: function() {
