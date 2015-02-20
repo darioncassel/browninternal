@@ -26,3 +26,5 @@ Router.route('/about', function () { render(this, 'About'); });
 Router.route('/login', function () { render(this, 'Login'); });
 Router.route('/logout', function () { Meteor.logout(); Router.go('/'); });
 Router.route('/password_reset', function () { this.render('PasswordReset'); });
+//Publically available:
+Router.route('/apply', function () { this.render('Apply'); });
