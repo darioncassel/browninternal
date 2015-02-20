@@ -6,6 +6,12 @@ Accounts.emailTemplates.from = "Brown College Website <no-reply@virginia.edu>"
 Accounts.emailTemplates.siteName = "Brown Internal Website"
 
 Meteor.startup(function () {
+  UploadServer.init({
+    tmpDir: process.env.PWD + '/.uploads/tmp',
+    uploadDir: process.env.PWD + '/.uploads/',
+    checkCreateDirectories: true,
+    acceptFileTypes: /(pdf|doc|docx)/i
+  });
   Meteor.methods({
     'updateAccounts' : function() {
         var resData = Residents.find().fetch();

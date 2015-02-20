@@ -2,6 +2,7 @@
   <head>
     <meta charset="utf-8">
     <title>Brown Internal Website</title>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
   </head>
 
   <body>
@@ -165,6 +166,19 @@
 
   <template name="Calendar">
     <div id="calendar">
+    </div>
+  </template>
+
+  <template name="Apply">
+    <div id="apply">
+      <h4>Applying to Brown?</h4>
+      <hr>
+      <p> Submit a pdf or a word doc of your application: </p>
+      <br>
+      <div id="upload">
+        {{> upload_bootstrap }}
+      </div>
+      <br><hr>
     </div>
   </template>
 
