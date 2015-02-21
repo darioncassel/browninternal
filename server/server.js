@@ -8,7 +8,7 @@ Accounts.emailTemplates.siteName = "Brown Internal Website"
 Meteor.startup(function () {
   UploadServer.init({
     tmpDir: process.env.PWD + '/.uploads/tmp',
-    uploadDir: process.env.PWD + '/.uploads/',
+    uploadDir: process.env.PWD + '/.uploads/apps',
     checkCreateDirectories: true,
     acceptFileTypes: /(pdf|doc|docx)/i
   });
