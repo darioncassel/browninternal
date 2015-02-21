@@ -176,6 +176,18 @@ if (Meteor.isClient) {
                   }
                   if(add){
                     CalendarEvents.insert(eventData);
+                    var text = "What's up Brown?\n\nThere's an event called "+eventData.title+' at '+eventData.location;
+                    if(eventData.allDay!=undefined && eventData.allDay==true){
+                      text += ' all day on '+moment(eventData.start).format('MMMM Do')+'.';
+                    }else if(moment(eventData.start).isSame(moment(eventData.end), 'day')) {
+                      text += ' from '+moment(eventData.start).format('h:mm a')+' to '+moment(eventData.end).format('h:mm a')+' on '+moment(eventData.start).format('MMMM Do')+ '.';
+                    }else {
+                      text += ' from '+moment(eventData.start).format('ddd')+ ' at ' + moment(eventData.start).format('h:mm a')+' to '+moment(eventData.end).format('ddd') + ' at ' +  moment(eventData.end).format('h:mm a')+'.';
+                    }
+                    if(eventData.description!=null){
+                      text += " This event's description is: " +eventData.description+"\n\nKeep it real,\nTechmasters@Brown"
+                    }
+                    Meteor.call('reservationEmail', text);
                   }
                   $('#calendar').fullCalendar('refetchEvents');
                 }
