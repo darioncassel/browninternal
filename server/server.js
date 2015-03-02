@@ -37,7 +37,7 @@ Meteor.startup(function () {
       this.unblock();
       Email.send({
         to: 'bc-chat@list.mail.virginia.edu',
-        from: "\"ZemBot 6000\" <BC_reservations@email.virginia.edu>",
+        from: "\"RoboDarion 7000\" <BC_reservations@email.virginia.edu>",
         subject: 'BC Reservations: New Reservation',
         text: text
       });
