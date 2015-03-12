@@ -2,7 +2,7 @@ if (Meteor.isClient) {
   Template.Calendar.rendered = function() {
     function bootboxContent1() {
       var str= "<div id='newEvent'>\
-        <p>Title: <input type='text' id='this_title'></input><br>\
+        <p>Title: <input type='text' id='this_title'></input>\
         Description: <textarea class='form-control' id='this_des'></textarea>\
         <div id='timeSelect'>\
           <div class='input-append bootstrap-timepicker'></p>\
