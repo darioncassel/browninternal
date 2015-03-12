@@ -9,21 +9,36 @@
   </body>
 
   <template name="ApplicationLayout">
-    <div class="menu">
-      <div class="container clearfix">
-          <center><div id="nav" style="display:inline-block; width:auto;">
-            <a href="/"><p3>Brown College at Monroe Hill</p3></a>
-            <ul class="navigation" style="display:inline-block;">
-              <li><a href="/roster">ROSTER</a></li>
-              <li><a href="/polls">POLLS</a></li>
-              <li><a href="/calendar">Calendar</a></li>
-              <li><a href="/logout">LOGOUT</a></li>
-              <li><button name='bugs' value='bugs'>BUGS</button></li>
-            </ul>
-          </div>
-        </center>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <p3><a class="navbar-brand" href="/">Brown College at Monroe Hill</a></p3>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/roster">Roster</a></li>
+            <li><a href="/polls">Polls</a></li>
+            <li><a href="/calendar">Calendar</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">More <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Radio</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/apply">Apply</a></li>
+                <li class="divider"></li>
+                  <li><a href="#"><button name="bugs" value="bugs">BUGS</button></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </nav>
     <article>
       <div class="narrow">
         {{> yield}}
@@ -35,7 +50,7 @@
   </template>
 
   <template name="Home">
-    <div id="dashboard">
+    <div class="contentDiv" id="dashboard">
       <p5> Dashboard </p5>
       <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FBrownCollegeUVA&amp;width=900&amp;height=500&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:900px; height:500px;" allowTransparency="true"></iframe>
     </div>
@@ -74,14 +89,14 @@
   </template>
 
   <template name="Roster">
-    <div id="roster">
+    <div class="contentDiv" id="roster">
       <h4> Resident Roster </h4>
       <table id="resDataTable" class="table table-hover table-striped"></table>
     </div>
   </template>
 
   <template name="Polls">
-    <div id="polls-main">
+    <div class="contentDiv" id="polls-main">
       <br>
       <div style="text-align:right;padding-right:2%;">
         <button class="btn btn-warning" name="addPoll">Add Poll</button>
@@ -165,12 +180,12 @@
   </template>
 
   <template name="Calendar">
-    <div id="calendar">
+    <div class="contentDiv" id="calendar">
     </div>
   </template>
 
   <template name="Apply">
-    <div id="apply">
+    <div class="contentDiv" id="apply">
       <h4>Applying to Brown?</h4>
       <hr>
       <p> Submit a pdf or a word doc of your application: </p>
@@ -183,7 +198,7 @@
   </template>
 
   <template name="About">
-    <div id="about">
+    <div class="contentDiv" id="about">
       <h4>Welcome to Brown</h4>
       <p>Brown College is a residential community of undergraduate students and faculty at the University of Virginia in Charlottesville. Brown's approximately 300 residents enjoy a friendly, intellectually stimulating, and socially accepting academic community that is closely tied to UVa faculty by Brown's Faculty Fellows and is self-governed by Brown's Student Governance, which makes decisions, organizes events, and disburses funds to enrich life in Brown. Membership in Brown is by application and determined by groups of current Brown residents who read and rank applications submitted by prospective residents. If you are interested in living in Brown as a first year undergraduate student, an upperclass student, or as a transfer student, we encourage you to visit Brown's membership page. For membership related inquries, please email bcmembership@virginia.edu.</p>
     </div>
