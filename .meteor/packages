@@ -21,4 +21,5 @@ email
 mrt:bootstrap-3-timepicker
 mrt:moment
 mizzao:bootboxjs
-
+tomi:upload-server
+tomi:upload-jquery
