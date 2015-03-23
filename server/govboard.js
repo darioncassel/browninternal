@@ -65,12 +65,12 @@ Meteor.startup(function () {
       }[pos];
     },
   });
-  parseArr(key, officerArr, GovboardOfficers);
-  parseArr(key, memberArr, GovboardMembers);
-  parseArr(key, portalRepArr, GovboardPortalReps);
+  parseArr(officerArr, GovboardOfficers);
+  parseArr(memberArr, GovboardMembers);
+  parseArr(portalRepArr, GovboardPortalReps);
 });
 
-parseArr = function(key, arr, dbdoc) {
+parseArr = function(arr, dbdoc) {
   for (var key in arr) {
     var people = [];
     for (var mem in arr[key]) {
