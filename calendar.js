@@ -55,7 +55,102 @@ if (Meteor.isClient) {
       return x;
     }
     $('#calendar').fullCalendar({
+      googleCalendarApiKey: Session.get("googleCalendarApiKey"),
       eventSources: [
+        {
+          //ACE
+          googleCalendarId: Session.get( " ACE_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Alumni
+          googleCalendarId: Session.get( " Alumni_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Earth, Wind, and Fire
+          googleCalendarId: Session.get( " EarthWindFire_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Community Outreach
+          googleCalendarId: Session.get( " CommunityOutreach_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Faculty Liaisons
+          googleCalendarId: Session.get( " FacultyLiaisons_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //First-Year Liaisons
+          googleCalendarId: Session.get(" FirstYearLiaisons_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Hauntings
+          googleCalendarId: Session.get(" Hauntings_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Historians
+          googleCalendarId: Session.get(" Historians_googleCalendarId "),
+        },
+        {
+          //Intramurals
+          googleCalendarId: Session.get(" Intramurals_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Membership
+          googleCalendarId: Session.get( " Membership_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Newsletter
+          googleCalendarId: Session.get( " Newsletter_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Panjandrum
+          googleCalendarId: Session.get( " Panjandrum_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Public Relations
+          googleCalendarId: Session.get( " PublicRelations_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Social
+          googleCalendarId: Session.get( " Social_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Techmasters
+          googleCalendarId: Session.get( " Techmasters_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Quad Portals Reps
+          googleCalendarId: Session.get( " QuadPortalsReps_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Gildergreen Portal Reps
+          googleCalendarId: Session.get(" GildergreenPortalReps_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Anti-Quad Portal Reps
+          googleCalendarId: Session.get( " AntiQuadPortalReps_googleCalendarId "),
+          className: 'gcal-event'
+        },
+        {
+          //Brown College Faculty
+          googleCalendarId: Session.get( " BrownCollegeFaculty_googleCalendarId "),
+          className: 'gcal-event'
+        },
         {
           events: function(start, end, timezone, callback) {
             callback(CalendarEvents.find().fetch());
@@ -63,6 +158,12 @@ if (Meteor.isClient) {
         }
       ],
       eventMouseover: function(calEvent, jsEvent) {
+        if(calEvent.description==undefined){
+          calEvent.description="";
+        }
+        if(calEvent.location==undefined){
+          calEvent.location="";
+        }
         if(calEvent.allDay!=undefined && calEvent.allDay==true){
           var tooltip = '<div class="tooltipevent"><p>'+calEvent.title+'</p>\
             '+calEvent.description+'<br>\
