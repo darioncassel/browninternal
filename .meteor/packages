@@ -15,7 +15,6 @@ maazalik:highcharts
 kevohagan:sweetalert
 accounts-password
 j4507:datatables-bootstrap-3
-scmart:fullcalendar-2
 twbs:bootstrap
 email
 mrt:bootstrap-3-timepicker
@@ -25,3 +24,4 @@ tomi:upload-jquery
 tomi:upload-server
 tsega:bootstrap3-datetimepicker
 percolate:synced-cron
+rzymek:fullcalendar

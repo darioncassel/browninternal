@@ -2,7 +2,7 @@ GovboardMembers = new Mongo.Collection("govboardMembers");
 GovboardOfficers = new Mongo.Collection("govboardOfficers");
 GovboardPortalReps = new Mongo.Collection("govboardPortalReps");
 
-  // Gauranteed to return [Long name, Short name] if input is a valid govboard position
+  // Guaranteed to return [Long name, Short name] if input is a valid govboard position
 positionNames = {
       "poobah": ["Poobah", "Poobah"],
       "shama": ["Shama Llama Ding Dong", "Shama"],
@@ -63,12 +63,12 @@ Meteor.startup(function () {
     "gildergreen": ["Gabrielle Carper", "Kean Finucane", "Amy Snyder"],
     "quad": ["Emma Bross", "Eileen Hernon", "Harpreet Singh", "Samantha Lagestee"],
   };
-  parseArr(key, officerArr, GovboardOfficers);
-  parseArr(key, memberArr, GovboardMembers);
-  parseArr(key, portalRepArr, GovboardPortalReps);
+  parseArr(officerArr, GovboardOfficers);
+  parseArr(memberArr, GovboardMembers);
+  parseArr(portalRepArr, GovboardPortalReps);
 });
 
-parseArr = function(key, arr, dbdoc) {
+parseArr = function(arr, dbdoc) {
   for (var key in arr) {
     var people = [];
     for (var mem in arr[key]) {
