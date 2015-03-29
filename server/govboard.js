@@ -1,11 +1,38 @@
 GovboardMembers = new Mongo.Collection("govboardMembers");
 GovboardOfficers = new Mongo.Collection("govboardOfficers");
 GovboardPortalReps = new Mongo.Collection("govboardPortalReps");
-GovboardMembers.remove({});
-GovboardOfficers.remove({});
-GovboardPortalReps.remove({});
+
+  // Gauranteed to return [Long name, Short name] if input is a valid govboard position
+positionNames = {
+      "poobah": ["Poobah", "Poobah"],
+      "shama": ["Shama Llama Ding Dong", "Shama"],
+      "treasurer": ["Treasurer", "Treasurer"],
+      "secretary": ["Secretary", "Secretary"],
+      "ace": ["Academic, Cultural, and Educational", "ACE"],
+      "alumni": ["Alumni", "Alumni"],
+      "community": ["Community Outreach", "CO"],
+      "ewf": ["Earth, Wind, and Fire", "E W & F"],
+      "faculty": ["Faculty Liasons", "Faculty"],
+      "fyl": ["First-Year Liasons", "FYL"],
+      "hauntings": ["Hauntings", "Hauntings"],
+      "historians": ["Historians", "Historians"],
+      "ims": ["Intramurals", "IMs"],
+      "membership": ["Membership", "Membership"],
+      "newsletter": ["Newsletter", "Newsletter"],
+      "panjandrum": ["Panjandrum", "Panjandrum"],
+      "pr": ["Public Relations", "PR"],
+      "social": ["Social", "Social"],
+      "techmasters": ["Techmasters", "Techmasters"],
+      "antiquad": ["Anti-Quad Portal Reps", "Anti-Quad"],
+      "gildergreen": ["Gildergreen Portal Reps", "Gildergreen"],
+      "quad": ["Quad Portal Reps", "Quad"],
+    }
 
 Meteor.startup(function () {
+  GovboardMembers.remove({});
+  GovboardOfficers.remove({});
+  GovboardPortalReps.remove({});
+
   var officerArr = {
     "poobah": ["Alex Aberman"],
     "shama": ["Patrick Steiner"],
@@ -36,35 +63,6 @@ Meteor.startup(function () {
     "gildergreen": ["Gabrielle Carper", "Kean Finucane", "Amy Snyder"],
     "quad": ["Emma Bross", "Eileen Hernon", "Harpreet Singh", "Samantha Lagestee"],
   };
-  Meteor.methods({
-    // Gauranteed to return [Long name, Short name] if input is a valid govboard position
-    'GBPosName' : function(pos) {
-      return {
-        "poobah": ["Poobah", "Poobah"],
-        "shama": ["Shama Llama Ding Dong", "Shama"],
-        "treasurer": ["Treasurer", "Treasurer"],
-        "secretary": ["Secretary", "Secretary"],
-        "ace": ["Academic, Cultural, and Educational", "ACE"],
-        "alumni": ["Alumni", "Alumni"],
-        "community": ["Community Outreach", "CO"],
-        "ewf": ["Earth, Wind, and Fire", "E W & F"],
-        "faculty": ["Faculty Liasons", "Faculty"],
-        "fyl": ["First-Year Liasons", "FYL"],
-        "hauntings": ["Hauntings", "Hauntings"],
-        "historians": ["Historians", "Historians"],
-        "ims": ["Intramurals", "IMs"],
-        "membership": ["Membership", "Membership"],
-        "newsletter": ["Newsletter", "Newsletter"],
-        "panjandrum": ["Panjandrum", "Panjandrum"],
-        "pr": ["Public Relations", "PR"],
-        "social": ["Social", "Social"],
-        "techmasters": ["Techmasters", "Techmasters"],
-        "antiquad": ["Anti-Quad", "Anti-Quad"],
-        "gildergreen": ["Gildergreen", "Gildergreen"],
-        "quad": ["Quad", "Quad"],
-      }[pos];
-    },
-  });
   parseArr(key, officerArr, GovboardOfficers);
   parseArr(key, memberArr, GovboardMembers);
   parseArr(key, portalRepArr, GovboardPortalReps);
@@ -93,6 +91,7 @@ parseArr = function(key, arr, dbdoc) {
     }
     dbdoc.insert({
       position: key,
+      position_names: positionNames[key],
       members: people,
     });
   }

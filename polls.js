@@ -16,22 +16,43 @@ if (Meteor.isClient) {
   Template.Polls.events = {
     'click button[name=addPoll]': function(e) {
       function bootboxContent() {
-        var str ="<div>\
-          <p>Type:\
-            <input type='radio' value='mcPoll' name='poll1'> Multiple Choice</input>\
-            <input type='radio' value='ranked' name='poll1'> Ranked</input></p>\
-          <p>Title:<input type='text' name='title'></input></p>\
-          <p>Choices:</p>\
-            <p><input type='text' name='choices[]'></input></p>\
-            <button class='btn btn-warning' id='addField'>+</button>\
-          <p>Required Votes:\
-            <input style='text-align:center;width:30px;' type='text' name='voteReq' placeholder='0'></input>\
-          </p>\
-        </div>"
+        var str =
+            "<div>" +
+            "  <div class='btn-group' data-toggle='buttons'>" +
+            "    <label class='btn btn-default'>" +
+            "      <input type='radio' value='mcPoll' name='poll1' /> Multiple Choice" +
+            "    </label>" +
+            "    <label class='btn btn-default'>" +
+            "      <input type='radio' value='ranked' name='poll1'/> Ranked Choice" +
+            "    </label>" +
+            "  </div><br/><br/>" +
+            "  <input type='text' class='form-control' name='title' placeholder='Poll Title'/><br/>" +
+            "  <label>Choices:</label><br/>" +
+            "  <input type='text' class='form-control' name='choices[]' placeholder='Choice'/>" +
+            "  <button class='btn btn-warning' id='addField'>+</button><br/><br/>" +
+            "  <label>Required Votes: " +
+            "    <input style='text-align:center;width:30px;' type='text' name='voteReq' placeholder='0' />" +
+            "  </label>" +
+            "  <label>Start time:" +
+            "    <div class='input-group datetimepicker' id='startTime'>" +
+            "      <input type='text' class='form-control' />" +
+            "      <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span>" +
+            "    </div>"+
+            "  </label>" +
+            "  <label>End time:" +
+            "    <div class='input-group datetimepicker' id='endTime'>" +
+            "      <input type='text' class='form-control' />" +
+            "      <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span>" +
+            "    </div>"+
+            "  </label>" +
+            "</div>" +
+            ""
         var object = $('<div/>').html(str).contents();
         object.find('#addField').click(function() {
-          $('#addField').before("<p><input type='text' name='choices[]'></input></p>");
+          $('#addField').before("<input type='text' class='form-control' name='choices[]' placeholder='Choice'/>");
         });
+        object.find('#startTime').datetimepicker();
+        object.find('#endTime').datetimepicker();
         return object;
       }
       bootbox.dialog({
@@ -44,54 +65,54 @@ if (Meteor.isClient) {
             label: 'Add',
             className: 'btn btn-primary',
             callback: function() {
-              var pollData={}; var add = true;
+              var pollData={};
               var type = $('input[name=poll1]:checked').val();
               var title = $('input[name=title]').val();
               var choices = $("input[name='choices\\[\\]']").map(function(){return $(this).val();}).get();
               var voteReq = $('input[name=voteReq]').val();
-              if(type=='mcPoll'){
-                pollData.type = "MultipleChoice";
-              }else if(type=='ranked'){
-                pollData.type = "Ranked";
-              }else {
-                add = false;
-                swal('Error','Please select a type.','error');
+
+              if(type=='mcPoll')      pollData.type = "MultipleChoice";
+              else if(type=='ranked') pollData.type = "Ranked";
+              else {
+                swal('Error','Please select a type.','error'); return;
               }
-              if(title){
+
+              if(title)
                 pollData.title = title.toLowerCase().replace(/([^a-z])([a-z])(?=[a-z]{2})|^([a-z])/g, function(_, g1, g2, g3){return (typeof g1 === 'undefined') ? g3.toUpperCase() : g1 + g2.toUpperCase(); } );
-              }else {
-                add = false;
-                swal('Error','Please add a title.','error');
+              else {
+                swal('Error','Please add a title.','error'); return;
               }
-              if(choices){
-                pollData.choices = choices;
-                pollData.results = [];
-                for(i=0;i<choices.length;i++){
-                  pollData.results.push(0);
-                }
-              }else {
-                add = false;
-                swal('Error','Please add choices.','error');
+
+              if(choices) pollData.choices = choices;
+              else {
+                swal('Error','Please add choices.','error'); return;
               }
+
               if(voteReq){
                 var isNum = /^\+?[1-9]\d*$/.test(voteReq);
-                if(isNum){
-                  pollData.voteReq = parseInt(voteReq);
-                }else {
-                  add = false;
-                  swal('Error','The vote requirement must be a positive, non-zero number.','error');
+                if (isNum) pollData.voteReq = parseInt(voteReq);
+                else {
+                  swal('Error','The vote requirement must be a positive, non-zero number.','error'); return;
                 }
-              }else {
-                add = false;
-                swal('Error','Please set a vote requirement.','error');
               }
+              else {
+                swal('Error','Please set a vote requirement.','error'); return;
+              }
+
+              // This should probably be put into jobs but I'm really lazy xD
+              pollData.startTime = $("#startTime").data("DateTimePicker").date()
+              pollData.endTime = $("#endTime").data("DateTimePicker").date()
+
               pollData.completed = false;
               pollData.creator = Meteor.userId();
-              pollData.voters = [];
-              if(add){
-                PollsData.insert(pollData);
-                swal('Added!','','success');
-              }
+              pollData.votes = {};
+              pollData.voteNum = 0;
+              var id = PollsData.insert(pollData);
+
+              if (pollData.startTime) Meteor.call("updatePollStatus", id, false, pollData.startTime.valueOf());
+              if (pollData.endTime) Meteor.call("updatePollStatus", id, true, pollData.endTime.valueOf());
+
+              swal('Added!','','success');
             }
           },
           secondary: {
@@ -127,133 +148,196 @@ if (Meteor.isClient) {
       e.preventDefault();
       var val = $("input[name='poll1']:checked").val();
       var pollid = $('.panel-collapse.collapse.in').attr('id');
-      var pol = PollsData.find({_id: pollid}).fetch()[0];
-      var voted = false;
-      for(i=0;i<pol.voters.length;i++){
-        if(pol.voters[i] == Meteor.userId()){
-          voted = true;
-        }
+      var pol = PollsData.findOne({_id: pollid});
+
+      if (!pol.votes[Meteor.userId()])
+        pol.voteNum = pol.voteNum + 1;
+      pol.votes[Meteor.userId()] = val;
+      if(pol.voteNum > pol.voteReq) {
+        PollsData.update({_id: pollid}, {$set: {completed: true}});
+        swal("Sorry!", "The poll has closed", "error");
+        return;
       }
-      if(!voted){
-        var voteArr = [];
-        for(i=0;i<pol.voters.length;i++){
-          voteArr.push(pol.voters[i]);
-        }
-        voteArr.push(Meteor.userId());
-        PollsData.update({_id: pollid}, {$set: {voters: voteArr}});
-        var num; var sum = 0;
-        for(i=0;i<pol.choices.length;i++){
-          if(pol.choices[i]===val){num = i;}
-        }
-        pol.results[num] = pol.results[num] + 1;
-        for(i in pol.results) {sum+=pol.results[i]}
-        if(sum>pol.voteReq){
-          PollsData.update({_id: pollid}, {$set: {completed: true}});
-        }else if(sum==pol.voteReq){
-          PollsData.update({_id: pollid}, {$set: {completed: true}});
-          PollsData.update({_id: pollid}, {$set: {results: pol.results}});
-        }else {
-          PollsData.update({_id: pollid}, {$set: {results: pol.results}});
-        }
-        swal("Thank You!", "Your vote was recorded", "success");
-      }else{
-        swal("You've already voted!","","error");
+      if(pol.voteNum == pol.voteReq) {
+        PollsData.update({_id: pollid}, {$set: {completed: true}});
       }
+      PollsData.update({_id: pollid}, {$set: {votes: pol.votes, voteNum: pol.voteNum}});
+
+      swal("Thank You!", "Your vote was recorded", "success");
     }
   }
   Template.Ranked.events = {
     'click input[type=submit]': function(e) {
       e.preventDefault();
       var pollid = $('.panel-collapse.collapse.in').attr('id');
-      var pol = PollsData.find({_id: pollid}).fetch()[0];
-      var res = $("#sortable").sortable('toArray');
+      var pol = PollsData.findOne({_id: pollid});
+      var res = $(".sortable").sortable('toArray');
       var voted = false;
-      for(i=0;i<pol.voters.length;i++){
-        if(pol.voters[i] == Meteor.userId()){
-          voted = true;
-        }
-      }
-      for(i=0;i<res.length;i++){
-        for(j=0;j<pol.choices.length;j++){
-          if(res[i]==pol.choices[j]){pol.results[j] = res.length - i;}
-        }
-      }
-      var sum = pol.voteCount + 1;
-      if(sum>pol.voteReq){
+
+      if (!pol.votes[Meteor.userId()])
+        pol.voteNum = pol.voteNum + 1;
+      pol.votes[Meteor.userId()] = res;
+      if(pol.voteNum > pol.voteReq) {
         PollsData.update({_id: pollid}, {$set: {completed: true}});
-        swal("Thank You!", "Your vote was recorded", "success");
-      }else if(sum==pol.voteReq){
-        if(!voted){
-          var voteArr = [];
-          for(i=0;i<pol.voters.length;i++){
-            voteArr.push(pol.voters[i]);
-          }
-          voteArr.push(Meteor.userId());
-          PollsData.update({_id: pollid}, {$set: {voters: voteArr}});
-          PollsData.update({_id: pollid}, {$set: {completed: true}});
-          PollsData.update({_id: pollid}, {$set: {results: pol.results}});
-          swal("Thank You!", "Your vote was recorded", "success");
-        }else{
-          swal("You've already voted!","","error");
-        }
-      }else {
-        if(!voted){
-          var voteArr = [];
-          for(i=0;i<pol.voters.length;i++){
-            voteArr.push(pol.voters[i]);
-          }
-          voteArr.push(Meteor.userId());
-          PollsData.update({_id: pollid}, {$set: {voters: voteArr}});
-          PollsData.update({_id: pollid}, {$set: {voteCount: sum}});
-          PollsData.update({_id: pollid}, {$set: {results: pol.results}});
-          swal("Thank You!", "Your vote was recorded", "success");
-        }else{
-          swal("You've already voted!","","error");
-        }
+        swal("Sorry!", "The poll has closed", "error");
+        return;
       }
+      if(pol.voteNum == pol.voteReq) {
+        PollsData.update({_id: pollid}, {$set: {completed: true}});
+      }
+      PollsData.update({_id: pollid}, {$set: {votes: pol.votes, voteNum: pol.voteNum}});
+
+      swal("Thank You!", "Your vote was recorded", "success");
+    }
+  }
+  Template.CompletedPoll.rendered = function(){
+    $('.showIfCreator').hide();
+    var pollArr = PollsData.find({completed: true}).fetch();
+    for(i=0;i<pollArr.length;i++){
+      if(pollArr[i].creator==Meteor.userId()){
+        $('#'+pollArr[i]._id+'container'+' .showIfCreator').show();
+        console.log(pollArr[i]._id);
+      }
+    }
+  }
+  Template.CompletedPoll.events = {
+    'click button[name=reopenPoll]': function(e) {
+      var pollid = $('.panel-body').attr('id');
+      bootbox.confirm("Are you sure?", function(result){
+        if(result){
+          PollsData.update({_id: pollid}, {$set: {completed: false}});
+        }
+      });
     }
   }
   Template.CompletedPoll.helpers({
     resultsChart: function() {
-      var resultsArr = [];
-      for(i=0;i<this.choices.length;i++){
-        var result = [];
-        result.push(this.choices[i]);
-        result.push(this.results[i]);
-        resultsArr.push(result);
-      }
-      return {
-        chart: {
+      if (this.type == "MultipleChoice") {
+        if (!this.results) {
+          this.results = {};
+          for (i=0; i < this.choices.length; i++)
+            this.results[this.choices[i]] = 0;
+          for (voter in this.votes)
+            this.results[this.votes[voter]] += 1;
+          this.winner = 0;
+          for (i=0; i<this.choices.length; i++) {
+            if (this.results[this.choices[i]] > this.results[this.choices[this.winner]])
+              this.winner = i;
+          }
+          PollsData.update({_id: this._id}, {$set: {results: this.results, winner: this.winner}});
+
+        }
+        var resultsArr = [];
+        for (choice in this.results) {
+          var result = [];
+          result.push(choice);
+          result.push(this.results[choice]);
+          resultsArr.push(result);
+        }
+        return {
+          chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-        },
-        title: {
-            text: 'Results'
-        },
-        tooltip: {
-            pointFormat: '<b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
+          },
+          title: { text: 'Winner: ' + this.choices[this.winner]},
+          tooltip: { pointFormat: '<b>{point.percentage:.1f}%</b>'},
+          plotOptions: {
             pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    },
-                    connectorColor: 'silver'
-                }
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                },
+                connectorColor: 'silver'
+              }
             }
-        },
-        series: [{
+          },
+          series: [{
             type: 'pie',
             name: 'Results',
             data: resultsArr
-        }]
-      };
+          }]
+        };
+      }
+      else if (this.type = "Ranked") {
+        if (!this.results) {
+          this.results = {};
+          this.winner = undefined;
+          var rejected = {};
+          for (i=0; i < this.choices.length; i++) {
+            this.results[this.choices[i]] = [];
+            rejected[this.choices[i]] = false;
+            for (j=0; j < this.choices.length; j++)
+              this.results[this.choices[i]].push(0);
+          }
+          for (voter in this.votes) {
+            for (i in this.votes[voter])
+              this.results[this.votes[voter][i]][i] += 1;
+          }
+
+          var choice_inv = _.invert(this.choices);
+          for (i=0; i<this.choices.length; i++) {
+            var majority = _.map(this.choices, function(i) {return 0;});
+            var loser = 0;
+
+            for (voter in this.votes) {
+              var k = 0;
+              while (rejected[this.votes[voter][k]]) k++;
+              majority[choice_inv[this.votes[voter][k]]] += 1;
+            }
+            for (k=0; k<this.choices.length; k++) {
+              if (majority[k] > this.voteNum/2) this.winner = k;
+              if (majority[k] <= majority[loser]) loser = k;
+            }
+            if (this.winner != undefined) break;
+            else rejected[this.choices[loser]] = true;
+          }
+          PollsData.update({_id: this._id}, {$set: {results: this.results, winner: this.winner}});
+
+        }
+        var resultsArr = [];
+        for (choice in this.results) {
+          resultsArr.push({
+            name: choice,
+            data: this.results[choice],
+          });
+        }
+
+        var xaxis = [];
+        for (i=0; i< this.choices.length; i++) xaxis.push(i+1);
+        return {
+          chart: { type: 'column' },
+          title: { text: 'Winner: ' + this.choices[this.winner]},
+          credits: { enabled: false },
+          xAxis: { 
+            categories: xaxis,
+            title: { text: "Number of votes for each option at each position"},
+          },
+          yAxis: {
+            min: 0,
+            title: { text: "Number of votes"},
+          },
+          tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                         '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+          },
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+            }
+          },
+          series: resultsArr,
+        };
+      }
     }
   });
 }

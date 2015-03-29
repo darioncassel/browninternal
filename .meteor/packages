@@ -21,5 +21,7 @@ email
 mrt:bootstrap-3-timepicker
 mrt:moment
 mizzao:bootboxjs
-tomi:upload-server
 tomi:upload-jquery
+tomi:upload-server
+tsega:bootstrap3-datetimepicker
+percolate:synced-cron
