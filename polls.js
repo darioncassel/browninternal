@@ -26,7 +26,8 @@ if (Meteor.isClient) {
             "      <input type='radio' value='ranked' name='poll1'/> Ranked Choice" +
             "    </label>" +
             "  </div><br/><br/>" +
-            "  <input type='text' class='form-control' name='title' placeholder='Poll Title'/><br/>" +
+            "  <input type='text' class='form-control' name='title' placeholder='Poll Title'/>" +
+            "  <textarea class='form-control' name='description' placeholder='Poll Description'></textarea><br/>" +
             "  <label>Choices:</label><br/>" +
             "  <input type='text' class='form-control' name='choices[]' placeholder='Choice'/>" +
             "  <button class='btn btn-warning' id='addField'>+</button><br/><br/>" +
@@ -70,6 +71,7 @@ if (Meteor.isClient) {
               var title = $('input[name=title]').val();
               var choices = $("input[name='choices\\[\\]']").map(function(){return $(this).val();}).get();
               var voteReq = $('input[name=voteReq]').val();
+              var desc = $('textarea[name=description]').val();
 
               if(type=='mcPoll')      pollData.type = "MultipleChoice";
               else if(type=='ranked') pollData.type = "Ranked";
@@ -107,6 +109,7 @@ if (Meteor.isClient) {
               pollData.creator = Meteor.userId();
               pollData.votes = {};
               pollData.voteNum = 0;
+              pollData.desc = desc;
               var id = PollsData.insert(pollData);
 
               if (pollData.startTime) Meteor.call("updatePollStatus", id, false, pollData.startTime.valueOf());
@@ -125,20 +128,28 @@ if (Meteor.isClient) {
     }
   }
   Template.NewPoll.rendered = function(){
-    $('.showIfCreator').hide();
+    $('.showIfCreatorNewPoll').hide();
     var pollArr = PollsData.find({completed: false}).fetch();
     for(i=0;i<pollArr.length;i++){
       if(pollArr[i].creator==Meteor.userId()){
-        $('#'+pollArr[i]._id+' .showIfCreator').show();
+        $('#'+pollArr[i]._id+'container .showIfCreatorNewPoll').show();
       }
     }
   }
   Template.NewPoll.events = {
     'click button[name=closePoll]': function(e) {
       var pollid = $('.panel-collapse.collapse.in').attr('id');
-      bootbox.confirm("Are you sure?", function(result){
+      bootbox.confirm("Closing poll, are you sure? You can reopen it in the Completed Polls section.", function(result){
         if(result){
           PollsData.update({_id: pollid}, {$set: {completed: true}});
+        }
+      });
+    },
+    'click button[name=deletePoll]': function(e) {
+      var pollid = $('.panel-collapse.collapse.in').attr('id');
+      bootbox.confirm("Deleting poll, are you sure? This cannot be reverted", function(result){
+        if(result){
+          PollsData.remove({_id: pollid});
         }
       });
     }
@@ -191,21 +202,28 @@ if (Meteor.isClient) {
     }
   }
   Template.CompletedPoll.rendered = function(){
-    $('.showIfCreator').hide();
+    $('.showIfCreatorCompletedPoll').hide();
     var pollArr = PollsData.find({completed: true}).fetch();
     for(i=0;i<pollArr.length;i++){
       if(pollArr[i].creator==Meteor.userId()){
-        $('#'+pollArr[i]._id+'container'+' .showIfCreator').show();
-        console.log(pollArr[i]._id);
+        $('#'+pollArr[i]._id+'container .showIfCreatorCompletedPoll').show();
       }
     }
   }
   Template.CompletedPoll.events = {
     'click button[name=reopenPoll]': function(e) {
-      var pollid = $('.panel-body').attr('id');
-      bootbox.confirm("Are you sure?", function(result){
+      var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
+      bootbox.confirm("Reopening poll, are you sure?", function(result){
         if(result){
           PollsData.update({_id: pollid}, {$set: {completed: false}});
+        }
+      });
+    },
+    'click button[name=deletePoll]': function(e) {
+      var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
+      bootbox.confirm("Deleting poll, are you sure? This cannot be reverted", function(result){
+        if(result){
+          PollsData.remove({_id: pollid});
         }
       });
     }
