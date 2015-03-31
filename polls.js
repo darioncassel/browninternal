@@ -138,7 +138,7 @@ if (Meteor.isClient) {
   }
   Template.NewPoll.events = {
     'click button[name=closePoll]': function(e) {
-      var pollid = $('.panel-collapse.collapse.in').attr('id');
+      var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       bootbox.confirm("Closing poll, are you sure? You can reopen it in the Completed Polls section.", function(result){
         if(result){
           PollsData.update({_id: pollid}, {$set: {completed: true}});
@@ -146,7 +146,7 @@ if (Meteor.isClient) {
       });
     },
     'click button[name=deletePoll]': function(e) {
-      var pollid = $('.panel-collapse.collapse.in').attr('id');
+      var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       bootbox.confirm("Deleting poll, are you sure? This cannot be reverted", function(result){
         if(result){
           PollsData.remove({_id: pollid});
