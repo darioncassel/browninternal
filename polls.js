@@ -158,7 +158,7 @@ if (Meteor.isClient) {
     'click input[type=submit]': function(e) {
       e.preventDefault();
       var val = $("input[name='poll1']:checked").val();
-      var pollid = $('.panel-collapse.collapse.in').attr('id');
+      var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       var pol = PollsData.findOne({_id: pollid});
 
       if (!pol.votes[Meteor.userId()])
@@ -180,7 +180,7 @@ if (Meteor.isClient) {
   Template.Ranked.events = {
     'click input[type=submit]': function(e) {
       e.preventDefault();
-      var pollid = $('.panel-collapse.collapse.in').attr('id');
+      var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       var pol = PollsData.findOne({_id: pollid});
       var res = $(".sortable").sortable('toArray');
       var voted = false;
