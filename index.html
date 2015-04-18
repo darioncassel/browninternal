@@ -26,7 +26,7 @@
               <a href="#" class="dropdown-toggle" role="button" aria-expanded="false">Social <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="https://www.facebook.com/BrownCollegeUVA?fref=ts">Facebook</a></li>
-                <li><a href="https://thebrownyorker.wordpress.com/">Wordpress</a></li>
+                <li><a href="https://thebrownyorker.wordpress.com/">Brown Yorker</a></li>
                 <li><a href="https://twitter.com/meanwhiletucker">Meanwhile in Tucker</a></li>
               </ul>
             </li>
@@ -218,15 +218,82 @@
   </template>
 
   <template name="Apply">
-    <div class="contentDiv" id="apply">
-      <h4>Applying to Brown?</h4>
+    <div class="contentDiv narrow" id="apply">
+      <h2>Applying to Brown?</h2>
       <hr>
-      <p> Submit a pdf or a word doc of your application: </p>
-      <br>
-      <div id="upload">
-        {{> upload_bootstrap }}
+      <div>
+        <form action=
+        "https://docs.google.com/forms/d/1BUoa-EOf6BY2AwhyMzwkH0NLQgk1f2bYYjiyDGN4PSk/formResponse"
+        method="post" id="ss-form" target="_self" onsubmit="" name="ss-form">
+          <div role="list" class="ss-question-list" style="padding-left: 0">
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_1751668997">Full Name:</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
+                  name="entry.1751668997" value="" class="ss-q-short" id="entry_1751668997"
+                  dir="auto" aria-label="Full Name:" title="" />
+                  <div class="error-message" id="246649169_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_1461977651">NetBadge ID:</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
+                  name="entry.1461977651" value="" class="ss-q-short" id="entry_1461977651"
+                  dir="auto" aria-label="NetBadge ID:" title="" />
+                  <div class="error-message" id="1206739424_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_2078331929">Email:</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
+                  name="entry.2078331929" value="" class="ss-q-short" id="entry_2078331929"
+                  dir="auto" aria-label="Email:" title="" />
+                  <div class="error-message" id="759777789_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <div class="ss-form-question errorbox-good" role="listitem" style="display:none;">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_1253155548">App-link</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name=
+                  "entry.1253155548" value="" class="ss-q-short" id="entry_1253155548" dir="auto"
+                  aria-label="App-link" title="" />
+                  <div class="error-message" id="444936408_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="draftResponse" value=
+            "[,,&quot;-3156225031375558058&quot;] " /> <input type="hidden" name="pageHistory"
+            value="0" /> <input type="hidden" name="fbzx" value="-3156225031375558058" />
+          </div>
+          <br>
+          <p> Submit a pdf or a word doc of your application: </p>
+          <div id="upload">
+            {{> upload_bootstrap callbacks=uploaded}}
+          </div>
+          <br>
+          <input style="display:none" type="submit" name="submit" value="Submit" id="ss-submit" class="jfk-button jfk-button-action ">
+        </form>
       </div>
-      <br><hr>
+      <hr>
     </div>
   </template>
 
