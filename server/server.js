@@ -1,5 +1,6 @@
 Residents = new Mongo.Collection("residents");
 PollsData = new Mongo.Collection("pollsData");
+PostsData = new Mongo.Collection("postsData");
 CalendarEvents = new Mongo.Collection("calendarEvents");
 
 Accounts.emailTemplates.from = "Brown College Website <no-reply@virginia.edu>"

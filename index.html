@@ -42,6 +42,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" role="button" aria-expanded="false">More <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="/minutes">Minutes</a></li>
                 <li><a href="#">Radio</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/apply">Apply</a></li>
@@ -294,6 +295,40 @@
         </form>
       </div>
       <hr>
+    </div>
+  </template>
+
+  <template name="Minutes">
+    <div class="contentDiv" id="minutes">
+      <h3>Minutes</h3><hr>
+      <section id="blog-index" class="blog">
+        <div class="postContent">
+          {{#each posts}}
+            <div class="postBox">
+              <p3>{{title}}</p3>
+              {{#if blogAdmin}}
+                <button>Edit</button>
+              {{/if}}
+              <div class="postText">
+                <p>{{summary}}</p>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template name="addPost">
+    <div class="contentDiv">
+      {{#autoForm collection="PostsData" id="addPost" type="insert"}}
+        <fieldset>
+          <legend>Add Minutes</legend>
+          {{> afQuickField name='title'}}
+          {{> afQuickField name='summary' rows=6}}
+        </fieldset>
+        <button type="submit" class="btn btn-primary">Post</button>
+      {{/autoForm}}
     </div>
   </template>
 

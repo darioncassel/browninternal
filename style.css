@@ -89,7 +89,6 @@ table.dataTable tr.odd td.sorting_1 {
 	background-color: #f9f9f9;
 }
 
-
 .sortable {
 	list-style-type: none;
 }
@@ -165,6 +164,23 @@ table.dataTable tr.odd td.sorting_1 {
 	padding-top: 60px;
 }
 
+.postContent {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.postBox{
+  padding: 1%;
+	padding-bottom: 3%;
+	border-radius: 2px;
+	background-color: #fff;
+	box-shadow: 0px 0px 1px 1px rgba(0,0,0,.1);
+}
+
+.postText {
+  text-align: left;
+  margin-left: 10%;
+}
 
 /*Generic Styling*/
 

@@ -2,6 +2,7 @@
 
 Residents = new Mongo.Collection("Residents");
 PollsData = new Mongo.Collection("PollsData");
+PostsData = new Mongo.Collection("PostsData");
 CalendarEvents = new Mongo.Collection("CalendarEvents");
 
 GovboardMembers = new Mongo.Collection("GovboardMembers");
@@ -28,8 +29,27 @@ Router.route('/govboard', function () { render(this, 'Govboard'); });
 Router.route('/polls', function () { render(this, 'Polls'); });
 Router.route('/calendar', function () { render(this, 'Calendar'); });
 Router.route('/about', function () { render(this, 'About'); });
+Router.route('/minutes', function () { render(this, 'Minutes'); });
+Router.route('/addpost', function () { render(this, 'addPost'); });
 Router.route('/login', function () { render(this, 'Login'); });
 Router.route('/logout', function () { Meteor.logout(); Router.go('/'); });
 Router.route('/password_reset', function () { this.render('PasswordReset'); });
 //Publically available:
 Router.route('/apply', function () { this.render('Apply'); });
+
+var Schemas = {};
+Schemas.Post = new SimpleSchema({
+    title: {
+        type: String,
+        label: "Title",
+        max: 200
+    },
+    summary: {
+        type: String,
+        label: "Brief summary",
+        optional: true,
+        max: 1000
+    }
+});
+
+PostsData.attachSchema(Schemas.Post);
