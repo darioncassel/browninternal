@@ -224,19 +224,57 @@
       <hr>
       <div>
         <form action=
-        "https://docs.google.com/forms/d/1BUoa-EOf6BY2AwhyMzwkH0NLQgk1f2bYYjiyDGN4PSk/formResponse"
+        "https://docs.google.com/forms/d/1BUoa-EOf6BY2AwhyMzwkH0NLQgk1f2bYYjiyDGN4PSk/formResponse_DONT"
         method="post" id="ss-form" target="_self" onsubmit="" name="ss-form">
           <div role="list" class="ss-question-list" style="padding-left: 0">
             <div class="ss-form-question errorbox-good" role="listitem">
               <div dir="ltr" class="ss-item ss-text">
                 <div class="ss-form-entry">
                   <div class="ss-q-title">
-                    <label class="ss-q-item-label" for="entry_1751668997">Full Name:</label>
+                    <label class="ss-q-item-label" for="entry_1751668997">First Name:</label>
                   </div>
                   <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
                   name="entry.1751668997" value="" class="ss-q-short" id="entry_1751668997"
-                  dir="auto" aria-label="Full Name:" title="" />
+                  dir="auto" aria-label="First Name:" title="" />
                   <div class="error-message" id="246649169_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_1643291388">Last Name</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
+                  name="entry.1643291388" value="" class="ss-q-short" id="entry_1643291388"
+                  dir="auto" aria-label="Last Name" title="" />
+                  <div class="error-message" id="1580598038_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-checkbox">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_2114088217">Gender</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
+                  <ul class="ss-choices" role="group" aria-label="Gender">
+                    <li class="ss-choice-item"><label><span class=
+                    "ss-choice-item-control goog-inline-block"><input type="checkbox" name=
+                    "entry.1370385546" value="Male" id="group_1370385546_1" role="checkbox"
+                    class="ss-q-checkbox" /></span> <span class=
+                    "ss-choice-label">Male</span></label></li>
+                    <li class="ss-choice-item"><label><span class=
+                    "ss-choice-item-control goog-inline-block"><input type="checkbox" name=
+                    "entry.1370385546" value="Female" id="group_1370385546_2" role="checkbox"
+                    class="ss-q-checkbox" /></span> <span class=
+                    "ss-choice-label">Female</span></label></li>
+                  </ul>
+                  <div class="error-message" id="2114088217_errorMessage"></div>
                 </div>
               </div>
             </div>
@@ -268,6 +306,29 @@
                 </div>
               </div>
             </div>
+            <br><br>
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-checkbox">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title"></div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
+                  <ul class="ss-choices" role="group" aria-label="">
+                    <li class="ss-choice-item"><label><span class=
+                    "ss-choice-item-control goog-inline-block"><input type="checkbox" name=
+                    "entry.1402613261" value="First Year/Transfer" id="group_1402613261_1" role=
+                    "checkbox" class="ss-q-checkbox" /></span> <span class="ss-choice-label">First
+                    Year/Transfer</span></label></li>
+                    <li class="ss-choice-item"><label><span class=
+                    "ss-choice-item-control goog-inline-block"><input type="checkbox" name=
+                    "entry.1402613261" value="Exchange" id="group_1402613261_2" role="checkbox"
+                    class="ss-q-checkbox" /></span> <span class=
+                    "ss-choice-label">Exchange</span></label></li>
+                  </ul>
+                  <div class="error-message" id="1112417476_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
             <div class="ss-form-question errorbox-good" role="listitem" style="display:none;">
               <div dir="ltr" class="ss-item ss-text">
                 <div class="ss-form-entry">
@@ -288,13 +349,14 @@
           <br>
           <p> Submit a pdf or a word doc of your application: </p>
           <div id="upload">
-            {{> upload_bootstrap callbacks=uploaded}}
+            {{> upload_bootstrap formData=filedata callbacks=uploaded}}
           </div>
           <br>
           <input style="display:none" type="submit" name="submit" value="Submit" id="ss-submit" class="jfk-button jfk-button-action ">
         </form>
       </div>
       <hr>
+      <br>
     </div>
   </template>
 

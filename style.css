@@ -157,6 +157,11 @@ table.dataTable tr.odd td.sorting_1 {
   text-align: left;
 }
 
+.ss-choices {
+  list-style: none;
+  padding-left: 0px;
+}
+
 .footer {
 	width: 100%;
 	text-align: center;
