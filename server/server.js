@@ -49,10 +49,7 @@ Meteor.startup(function () {
     tmpDir: process.env.PWD + '/.uploads/tmp',
     uploadDir: process.env.PWD + '/.uploads/apps',
     checkCreateDirectories: true,
-    acceptFileTypes: /(pdf|doc|docx)/i,
-    getFileName: function(fileinfo, formData) {
-      console.log(formData);
-    }
+    acceptFileTypes: /(pdf)/i,
   });
 });
 
