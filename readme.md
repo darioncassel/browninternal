@@ -15,7 +15,7 @@ example server/token.js:
 
 ## Server side setup notes:
 
-- Start it on the server side with `ROOT_URL=http://domain.com meteor`, or accounts reset emails will be wrong.
+- Start it on the server side with `ROOT_URL=http://domain.com BIND_IP=127.0.0.1 meteor`, or accounts reset emails will be wrong.
 
 ## Data
 
