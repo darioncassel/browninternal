@@ -1,4 +1,5 @@
 if (Meteor.isClient) {
+  Meteor.subscribe("calendar_events");
   Template.Calendar.rendered = function() {
     function bootboxContent1() {
       var str= "<div id='newEvent'>\
@@ -276,7 +277,13 @@ if (Meteor.isClient) {
                     swal("There is already an event at this time and location.", "","error");
                   }
                   if(add){
-                    CalendarEvents.insert(eventData);
+                    Meteor.call('addCalendarEvent', eventData, function(err, data) {
+                      if(err) {
+                        swal("Something went wrong :(", "","error");
+                      } else {
+                        $('#calendar').fullCalendar('refetchEvents');
+                      }
+                    });
                     var text = "What's up Brown?\n\nThere's an event called "+eventData.title+' at '+eventData.location;
                     if(eventData.allDay!=undefined && eventData.allDay==true){
                       text += ' all day on '+moment(eventData.start).format('MMMM Do')+'.';
@@ -304,13 +311,20 @@ if (Meteor.isClient) {
           backdrop: false,
           message: "<p>Modify Event</p>",
           closeButton: true,
+          className: "eventClick",
           buttons: {
             modify: {
               label: "Change Title",
               callback: function() {
                 bootbox.prompt("New Title: ", function(result) {
                   if(result && event.type=='created'){
-                    CalendarEvents.update({_id: event._id}, {$set: {title: result}});
+                    Meteor.call('updateEventTitle', event, result, function(err, data) {
+                      if(err) {
+                        swal("Something went wrong :(", "","error");
+                      } else {
+                        $('#calendar').fullCalendar('refetchEvents');
+                      }
+                    });
                     $('#calendar').fullCalendar('refetchEvents');
                   }else if(result && event.type=='google'){
                     google_updateTitle(result, event);
@@ -322,7 +336,13 @@ if (Meteor.isClient) {
               label: "Delete",
               callback: function() {
                 if(event.type=='created'){
-                  CalendarEvents.remove({_id: event._id});
+                  Meteor.call('removeCalendarEvent', event, function(err, data) {
+                    if(err) {
+                      swal("Something went wrong :(", "","error");
+                    } else {
+                      $('#calendar').fullCalendar('refetchEvents');
+                    }
+                  });
                 }else if(event.type=='google'){
                   google_deleteEvent(event);
                 }
@@ -336,9 +356,24 @@ if (Meteor.isClient) {
       eventDrop: function(event){
         if(event.creator==Meteor.userId() && event.type=='created'){
           if(event.end!=null){
-            CalendarEvents.update({_id: event._id}, {$set: {allDay: event.allDay, start: moment(event.start).format(), end: moment(event.end).format()}});
+            event.start = moment(event.start).format();
+            event.end = moment(event.end).format();
+            Meteor.call('updateEventWithEnd', event, function(err, data) {
+              if(err) {
+                swal("Something went wrong :(", "","error");
+              } else {
+                $('#calendar').fullCalendar('refetchEvents');
+              }
+            });
           }else {
-            CalendarEvents.update({_id: event._id}, {$set: {allDay: event.allDay, start: moment(event.start).format()}});
+            event.start = moment(event.start).format();
+            Meteor.call('updateEventWithoutEnd', event, function(err, data) {
+              if(err) {
+                swal("Something went wrong :(", "","error");
+              } else {
+                $('#calendar').fullCalendar('refetchEvents');
+              }
+            });
           }
         }else if(event.type=='google'){
           google_updateTime(event);
@@ -346,15 +381,22 @@ if (Meteor.isClient) {
       },
       eventResize: function(event){
         if(event.creator==Meteor.userId() && event.type=='created'){
-          CalendarEvents.update({_id: event._id}, {$set: {end: moment(event.end).format()}});
+          event.end = moment(event.end).format();
+          Meteor.call('updateEventOnResize', event, function(err, data) {
+            if(err) {
+              swal("Something went wrong :(", "","error");
+            } else {
+              $('#calendar').fullCalendar('refetchEvents');
+            }
+          });
         }else if(event.type=='google'){
           google_resizeTime(event);
         }
       },
       header: {
-        left: 'prev, next, today',
+        left: 'prev, next',
         center: 'title',
-        right: 'month, agendaWeek, agendaDay'
+        right: 'today'
       },
       lazyFetching: false,
       selectable: true,

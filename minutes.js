@@ -1,5 +1,5 @@
 if(Meteor.isClient){
-
+  Meteor.subscribe('posts_data');
   Template.Minutes.helpers({
     posts: function(){
       return PostsData.find({},{sort: {"publishedDate": -1}});

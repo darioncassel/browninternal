@@ -122,6 +122,11 @@ table.dataTable tr.odd td.sorting_1 {
 	margin: 0 auto;
 }
 
+.eventClick {
+  width: 30vw;
+  margin: 0 auto;
+}
+
 .gform-width {
 	width: 780px !important;
 	margin: 0 auto;

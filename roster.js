@@ -1,4 +1,5 @@
 if (Meteor.isClient) {
+  Meteor.subscribe('residents');
   Template.Roster.rendered = function() {
     var residents = [];
     var resData = Residents.find().fetch();

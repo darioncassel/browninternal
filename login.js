@@ -9,12 +9,11 @@ if (Meteor.isClient) {
         if (err) {
           swal("Incorrect email or password", "", "error");
         }
-        else;
       });
-
       return false;
     }
   })
+  
   Template.PasswordReset.events({
     'submit #reset-form' : function(e, t) {
       e.preventDefault();

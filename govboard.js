@@ -1,4 +1,7 @@
 if (Meteor.isClient) {
+  Meteor.subscribe('govboard_members');
+  Meteor.subscribe('govboard_officers');
+  Meteor.subscribe('govboard_portalreps');
   Template.Govboard.rendered = function() {
     var odata = [];
     var mdata = [];
@@ -43,7 +46,7 @@ if (Meteor.isClient) {
       scrollY: 300,
       scrollCollapse: true,
       "data": odata,
-      "searching" : false,               
+      "searching" : false,
       "paging": false,
       "info": false,
       "columns": [
@@ -57,7 +60,7 @@ if (Meteor.isClient) {
       scrollY: 300,
       scrollCollapse: true,
       "data": mdata,
-      "searching" : false,               
+      "searching" : false,
       "paging": false,
       "info": false,
       "columns": [
@@ -71,7 +74,7 @@ if (Meteor.isClient) {
       scrollY: 300,
       scrollCollapse: true,
       "data": pdata,
-      "searching" : false,               
+      "searching" : false,
       "paging": false,
       "info": false,
       "columns": [

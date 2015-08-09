@@ -1,4 +1,5 @@
 if (Meteor.isClient) {
+  Meteor.subscribe("polls_data");
   UI.registerHelper('generateID', function() {
     return "#" + this._id;
   });
@@ -72,24 +73,20 @@ if (Meteor.isClient) {
               var choices = $("input[name='choices\\[\\]']").map(function(){return $(this).val();}).get();
               var voteReq = $('input[name=voteReq]').val();
               var desc = $('textarea[name=description]').val();
-
               if(type=='mcPoll')      pollData.type = "MultipleChoice";
               else if(type=='ranked') pollData.type = "Ranked";
               else {
                 swal('Error','Please select a type.','error'); return;
               }
-
               if(title)
                 pollData.title = title.toLowerCase().replace(/([^a-z])([a-z])(?=[a-z]{2})|^([a-z])/g, function(_, g1, g2, g3){return (typeof g1 === 'undefined') ? g3.toUpperCase() : g1 + g2.toUpperCase(); } );
               else {
                 swal('Error','Please add a title.','error'); return;
               }
-
               if(choices) pollData.choices = choices;
               else {
                 swal('Error','Please add choices.','error'); return;
               }
-
               if(voteReq){
                 var isNum = /^\+?[1-9]\d*$/.test(voteReq);
                 if (isNum) pollData.voteReq = parseInt(voteReq);
@@ -101,7 +98,7 @@ if (Meteor.isClient) {
                 swal('Error','Please set a vote requirement.','error'); return;
               }
 
-              // This should probably be put into jobs but I'm really lazy xD
+              // This should probably be put into jobs
               pollData.startTime = $("#startTime").data("DateTimePicker").date()
               pollData.endTime = $("#endTime").data("DateTimePicker").date()
 
@@ -110,12 +107,17 @@ if (Meteor.isClient) {
               pollData.votes = {};
               pollData.voteNum = 0;
               pollData.desc = desc;
-              var id = PollsData.insert(pollData);
-
+              var id;
+              Meteor.call('addPoll', pollData, function(err, data) {
+                if(err) {
+                  swal('Something went wrong :(','','error');
+                } else {
+                  id = data;
+                  swal('Added!','','success');
+                }
+              });
               if (pollData.startTime) Meteor.call("updatePollStatus", id, false, pollData.startTime.valueOf());
               if (pollData.endTime) Meteor.call("updatePollStatus", id, true, pollData.endTime.valueOf());
-
-              swal('Added!','','success');
             }
           },
           secondary: {
@@ -141,7 +143,13 @@ if (Meteor.isClient) {
       var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       bootbox.confirm("Closing poll, are you sure? You can reopen it in the Completed Polls section.", function(result){
         if(result){
-          PollsData.update({_id: pollid}, {$set: {completed: true}});
+          Meteor.call('closePoll', pollid, function(err, data) {
+            if(err) {
+              swal('Something went wrong :(','','error');
+            } else {
+              swal('Closed!','','success');
+            }
+          });
         }
       });
     },
@@ -149,7 +157,13 @@ if (Meteor.isClient) {
       var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       bootbox.confirm("Deleting poll, are you sure? This cannot be reverted", function(result){
         if(result){
-          PollsData.remove({_id: pollid});
+          Meteor.call('removePoll', pollid, function(err, data) {
+            if(err) {
+              swal('Something went wrong :(','','error');
+            } else {
+              swal('Deleted!','','success');
+            }
+          });
         }
       });
     }
@@ -160,20 +174,24 @@ if (Meteor.isClient) {
       var val = $("input[name='poll1']:checked").val();
       var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       var pol = PollsData.findOne({_id: pollid});
-
-      if (!pol.votes[Meteor.userId()])
+      if (!pol.votes[Meteor.userId()]) {
         pol.voteNum = pol.voteNum + 1;
+      }
       pol.votes[Meteor.userId()] = val;
       if(pol.voteNum > pol.voteReq) {
-        PollsData.update({_id: pollid}, {$set: {completed: true}});
-        swal("Sorry!", "The poll has closed", "error");
+        Meteor.call('closePoll', pollid, function(err, data) {
+          if(err) {
+            swal('Something went wrong :(','','error');
+          } else {
+            swal("Sorry!", "The poll has closed", "error");
+          }
+        });
         return;
       }
       if(pol.voteNum == pol.voteReq) {
-        PollsData.update({_id: pollid}, {$set: {completed: true}});
+        Meteor.call('closePoll', pollid);
       }
-      PollsData.update({_id: pollid}, {$set: {votes: pol.votes, voteNum: pol.voteNum}});
-
+      Meteor.call('updatePoll', pollid, pol);
       swal("Thank You!", "Your vote was recorded", "success");
     }
   }
@@ -185,19 +203,24 @@ if (Meteor.isClient) {
       var res = $(".sortable").sortable('toArray');
       var voted = false;
 
-      if (!pol.votes[Meteor.userId()])
+      if (!pol.votes[Meteor.userId()]) {
         pol.voteNum = pol.voteNum + 1;
+      }
       pol.votes[Meteor.userId()] = res;
       if(pol.voteNum > pol.voteReq) {
-        PollsData.update({_id: pollid}, {$set: {completed: true}});
-        swal("Sorry!", "The poll has closed", "error");
+        Meteor.call('closePoll', pollid, function(err, data) {
+          if(err) {
+            swal('Something went wrong :(','','error');
+          } else {
+            swal("Sorry!", "The poll has closed", "error");
+          }
+        });
         return;
       }
       if(pol.voteNum == pol.voteReq) {
-        PollsData.update({_id: pollid}, {$set: {completed: true}});
+        Meteor.call('closePoll', pollid);
       }
-      PollsData.update({_id: pollid}, {$set: {votes: pol.votes, voteNum: pol.voteNum}});
-
+      Meteor.call('updatePoll', pollid, pol);
       swal("Thank You!", "Your vote was recorded", "success");
     }
   }
@@ -215,7 +238,7 @@ if (Meteor.isClient) {
       var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       bootbox.confirm("Reopening poll, are you sure?", function(result){
         if(result){
-          PollsData.update({_id: pollid}, {$set: {completed: false}});
+          Meteor.call('openPoll', pollid);
         }
       });
     },
@@ -223,7 +246,7 @@ if (Meteor.isClient) {
       var pollid = $('.panel-collapse.collapse.in').attr('id').substring(0,17);
       bootbox.confirm("Deleting poll, are you sure? This cannot be reverted", function(result){
         if(result){
-          PollsData.remove({_id: pollid});
+          Meteor.call('removePoll', pollid);
         }
       });
     }
@@ -242,8 +265,7 @@ if (Meteor.isClient) {
             if (this.results[this.choices[i]] > this.results[this.choices[this.winner]])
               this.winner = i;
           }
-          PollsData.update({_id: this._id}, {$set: {results: this.results, winner: this.winner}});
-
+          Meteor.call('setPollResults', this._id, this.results, this.winner);
         }
         var resultsArr = [];
         for (choice in this.results) {
@@ -314,8 +336,7 @@ if (Meteor.isClient) {
             if (this.winner != undefined) break;
             else rejected[this.choices[loser]] = true;
           }
-          PollsData.update({_id: this._id}, {$set: {results: this.results, winner: this.winner}});
-
+          Meteor.call('setPollResults', this._id, this.results, this.winner);
         }
         var resultsArr = [];
         for (choice in this.results) {
@@ -331,7 +352,7 @@ if (Meteor.isClient) {
           chart: { type: 'column' },
           title: { text: 'Winner: ' + this.choices[this.winner]},
           credits: { enabled: false },
-          xAxis: { 
+          xAxis: {
             categories: xaxis,
             title: { text: "Number of votes for each option at each position"},
           },
