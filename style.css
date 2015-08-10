@@ -49,7 +49,7 @@ body {
 }
 
 #login .input-group {
-	padding-left: 5%;
+	margin: 0 auto;
 }
 
 #login .input-group .form-control {
