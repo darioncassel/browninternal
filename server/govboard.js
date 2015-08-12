@@ -4,7 +4,7 @@ GovboardPortalReps = new Mongo.Collection("govboardPortalReps");
 
   // Guaranteed to return [Long name, Short name] if input is a valid govboard position
 positionNames = {
-      "poobah": ["Poobah", "Poobah"],
+      "poobah": ["Grand Poobah", "Poobah"],
       "shama": ["Shama Llama Ding Dong", "Shama"],
       "treasurer": ["Treasurer", "Treasurer"],
       "secretary": ["Secretary", "Secretary"],
@@ -15,10 +15,9 @@ positionNames = {
       "faculty": ["Faculty Liasons", "Faculty"],
       "fyl": ["First-Year Liasons", "FYL"],
       "hauntings": ["Hauntings", "Hauntings"],
-      "historians": ["Historians", "Historians"],
       "ims": ["Intramurals", "IMs"],
+      "media": ["Media", "Media"],
       "membership": ["Membership", "Membership"],
-      "newsletter": ["Newsletter", "Newsletter"],
       "panjandrum": ["Panjandrum", "Panjandrum"],
       "pr": ["Public Relations", "PR"],
       "social": ["Social", "Social"],
@@ -34,34 +33,33 @@ Meteor.startup(function () {
   GovboardPortalReps.remove({});
 
   var officerArr = {
-    "poobah": ["Alex Aberman"],
-    "shama": ["Patrick Steiner"],
-    "treasurer": ["Brooke Dalby"],
-    "secretary": ["Scott Lebow"],
+    "poobah": ["Frederick Short"],
+    "shama": ["Alexandra Kinstle"],
+    "treasurer": ["Samuel Scimemi"],
+    "secretary": ["Amy Snyder"],
   };
 
   var memberArr = {
-    "ace": ["Jacob Saltzman", "Luke Waddell"],
-    "alumni": ["Chad Vickers", "Tyler Burd"],
-    "community": ["Christian Batarseh", "Mariah Huffman"],
-    "ewf": ["Katharine Miller", "jbm7gj"],
-    "faculty": ["Victoria Glasgow", "Jacqueline Tran"],
-    "fyl": ["Elizabeth Ballou", "Frederick Short", "Brian Walter"],
-    "hauntings": ["Oliver Lopez-Gomez", "Kathleen Dudgeon", "Kurt Hilburger"],
-    "historians": ["Noor Waheed", "Benjamin Camber"],
+    "ace": ["Luke Waddell", "Charlotte Pierson"],
+    "alumni": ["Tyler Burd"],
+    "community": ["Nicholas Bergh"],
+    "ewf": ["Benjamin Camber"],
+    "faculty": ["Victoria Glasgow", "Scott Lebow"],
+    "fyl": ["Brian Walter", "Gabrielle Carper", "Kelly Strauch"],
+    "hauntings": ["Kathleen Dudgeon", "Nicole Miller", "Megan Carpenter"],
     "ims": ["Addie McMurtry", "Christopher Arthur"],
-    "membership": ["Joshua Danoff", "Tyler Robbins", "Jay Fuhrman"],
-    "newsletter": ["zeh9qz", "ddv7md"],
-    "panjandrum": ["Emily Snavely"],
-    "pr": ["Kelly Strauch", "Sara Faye"],
-    "social": ["Alexandra Kinstle", "Aline Mullen", "Lucas Beane"],
-    "techmasters": ["Zeming Lin", "Darion Cassel"],
+    "media": ["Emma Bross", "William Mullany", "Sage Tanguay"],
+    "membership": ["Joshua Danoff", "Jonathan Martin", "Samantha Lagestee"],
+    "panjandrum": ["Jacob Saltzman"],
+    "pr": ["Jessica Miles", "Eileen Hernon"],
+    "social": ["Aline Mullen", "Oliver Lopez-Gomez", "Jacob Mathews"],
+    "techmasters": ["Kean Finucane"],
   };
 
   var portalRepArr = {
-    "antiquad": ["Whitney Wu", "omk2uy", "jwm5vv"],
-    "gildergreen": ["Gabrielle Carper", "Kean Finucane", "Amy Snyder"],
-    "quad": ["Emma Bross", "Eileen Hernon", "Harpreet Singh", "Samantha Lagestee"],
+    "antiquad": [""],
+    "gildergreen": [""],
+    "quad": [""],
   };
   parseArr(officerArr, GovboardOfficers);
   parseArr(memberArr, GovboardMembers);
