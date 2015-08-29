@@ -15,7 +15,7 @@ if (Meteor.isClient) {
     $('#resDataTable').dataTable({
       scrollY: 950,
       scrollCollapse: true,
-      "lengthMenu": [25, 50, 100],
+      "lengthMenu": [25],
       "data": residents,
       "columns": [
           { "title": "Portal" },
