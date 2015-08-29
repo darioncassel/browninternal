@@ -24,11 +24,13 @@ function render(route, place) {
 
 // Routes
 Router.route('/', function () { render(this, 'Home'); });
+Router.route('/social', function () { render(this, 'Social'); });
 Router.route('/roster', function () { render(this, 'Roster'); });
 Router.route('/govboard', function () { render(this, 'Govboard'); });
 Router.route('/polls', function () { render(this, 'Polls'); });
 Router.route('/calendar', function () { render(this, 'Calendar'); });
 Router.route('/about', function () { render(this, 'About'); });
+Router.route('/archives', function () { render(this, 'Archives'); });
 Router.route('/minutes', function () { render(this, 'Minutes'); });
 Router.route('/addpost', function () { render(this, 'addPost'); });
 Router.route('/login', function () { render(this, 'Login'); });

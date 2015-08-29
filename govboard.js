@@ -43,8 +43,8 @@ if (Meteor.isClient) {
       }
     }
     $('#officersDataTable').dataTable({
-      scrollY: 300,
-      scrollCollapse: true,
+      "scrollY": 300,
+      "scrollCollapse": true,
       "data": odata,
       "searching" : false,
       "paging": false,
@@ -57,8 +57,8 @@ if (Meteor.isClient) {
       ]
     });
     $('#membersDataTable').dataTable({
-      scrollY: 300,
-      scrollCollapse: true,
+      "scrollY": 300,
+      "scrollCollapse": true,
       "data": mdata,
       "searching" : false,
       "paging": false,
@@ -71,8 +71,8 @@ if (Meteor.isClient) {
       ]
     });
     $('#portalrepsDataTable').dataTable({
-      scrollY: 300,
-      scrollCollapse: true,
+      "scrollY": 300,
+      "scrollCollapse": true,
       "data": pdata,
       "searching" : false,
       "paging": false,
