@@ -33,7 +33,7 @@ Meteor.startup(function () {
   GovboardPortalReps.remove({});
 
   var officerArr = {
-    "poobah": ["Rickles McPickles"],
+    "poobah": ["Frederick Short"],
     "shama": ["Alexandra Kinstle"],
     "treasurer": ["Samuel Scimemi"],
     "secretary": ["Amy Snyder"],
