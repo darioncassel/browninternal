@@ -29,6 +29,7 @@ Router.route('/roster', function () { render(this, 'Roster'); });
 Router.route('/govboard', function () { render(this, 'Govboard'); });
 Router.route('/polls', function () { render(this, 'Polls'); });
 Router.route('/calendar', function () { render(this, 'Calendar'); });
+Router.route('/more', function () { render(this, 'More'); });
 Router.route('/about', function () { render(this, 'About'); });
 Router.route('/archives', function () { render(this, 'Archives'); });
 Router.route('/minutes', function () { render(this, 'Minutes'); });

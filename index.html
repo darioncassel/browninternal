@@ -41,14 +41,14 @@
             <li><a href="/polls">Polls</a></li>
             <li><a href="/calendar">Calendar</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" role="button" aria-expanded="false">More <span class="caret"></span></a>
+              <a href="/more" class="dropdown-toggle" role="button" aria-expanded="false">More <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="/about">About</a></li>
+                <li><a href="/apply">Apply</a></li>
+                <li><a href="/archives">Archives</a></li>
+                <li><a href="/logout">Logout</a></li>
                 <li><a href="/minutes">Minutes</a></li>
                 <li><a href="#">Radio</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/archives">Archives</a></li>
-                <li><a href="/apply">Apply</a></li>
-                <li><a href="/logout">Logout</a></li>
                 <li class="divider"></li>
                   <li><a href="#"><button name="bugs" value="bugs">BUGS</button></a></li>
               </ul>
@@ -84,7 +84,7 @@
 
   <template name="Login">
     <div id="login" class="container">
-      <h3>Welcome to the Brown Internal Website!</h3><br>
+      <h2>Welcome to the Brown Internal Website!</h2><br>
       <form id="login-form" class="col-md-12" action="login" role="form">
         <div class="input-group">
           <input type="email" class="form-control" id="login-email" placeholder="Email" />
@@ -116,7 +116,7 @@
 
   <template name="Social">
    	<div class="contentDiv" id="social">
-  	  <h3>Social</h3><hr>
+  	  <h2>Social</h2><hr>
    	  <p><a href="https://www.facebook.com/BrownCollegeUVA?fref=ts" target="_blank">Facebook</a></p>
    	  <p><a href="https://thebrownyorker.wordpress.com/" target="_blank">Brown Yorker</a></p>
    	  <p><a href="https://twitter.com/meanwhiletucker" target="_blank">Meanwhile in Tucker</a></p>
@@ -126,25 +126,25 @@
 
   <template name="Roster">
     <div class="contentDiv" id="roster">
-      <h3> Resident Roster </h3><hr>
+      <h2> Resident Roster </h2><hr>
       <table id="resDataTable" class="table table-hover table-striped"></table>
     </div>
   </template>
 
   <template name="Govboard">
     <div class="contentDiv" id="roster">
-      <h3> Govboard Officers </h3><hr>
+      <h2> Govboard Officers </h2><hr>
       <table id="officersDataTable" class="table table-hover table-striped"></table><br>
-      <h3> Govboard Members </h3><hr>
+      <h2> Govboard Members </h2><hr>
       <table id="membersDataTable" class="table table-hover table-striped"></table><br>
-      <h3> Portal Representatives </h3><hr>
+      <h2> Portal Representatives </h2><hr>
       <table id="portalrepsDataTable" class="table table-hover table-striped"></table>
     </div>
   </template>
 
   <template name="Polls">
     <div class="contentDiv" id="polls-main">
-      <h3> Polls </h3><hr>
+      <h2> Polls </h2><hr>
       <div style="text-align:right;padding-right:2%;">
         <button class="btn btn-warning" name="addPoll">Add Poll</button>
       </div>
@@ -235,6 +235,19 @@
 
   <template name="Calendar">
     <div class="contentDiv" id="calendar">
+    </div>
+  </template>
+
+  <template name="More">
+    <div class="contentDiv" id="more">
+        <h2>More</h2><hr>
+        <p><a href="/about">About</a></p>
+        <p><a href="/apply">Apply</a></p>
+        <p><a href="/archives">Archives</a></p>
+        <p><a href="/logout">Logout</a></p>
+        <p><a href="/minutes">Minutes</a></p>
+        <p><a href="#">Radio</a></p>
+        <hr>
     </div>
   </template>
 
@@ -383,7 +396,7 @@
 
   <template name="Minutes">
     <div class="contentDiv" id="minutes">
-      <h3>Minutes</h3><hr>
+      <h2>Minutes</h2><hr>
       <p>Coming soon!</p>
       <section id="blog-index" class="blog">
         <div class="postContent">
@@ -406,7 +419,7 @@
 
   <template name="About">
     <div class="contentDiv" id="about">
-      <h3>Welcome to Brown</h3><hr>
+      <h2>Welcome to Brown</h2><hr>
       <p>Brown College is a residential community of undergraduate students and faculty at the University of Virginia in Charlottesville. Brown's approximately 300 residents enjoy a friendly, intellectually stimulating, and socially accepting academic community that is closely tied to UVa faculty by Brown's Faculty Fellows and is self-governed by Brown's Student Governance, which makes decisions, organizes events, and disburses funds to enrich life in Brown. Membership in Brown is by application and determined by groups of current Brown residents who read and rank applications submitted by prospective residents. If you are interested in living in Brown as a first year undergraduate student, an upperclass student, or as a transfer student, we encourage you to visit Brown's membership page. For membership related inquires, please email bcmembership@virginia.edu.</p>
       <hr>
     </div>
@@ -414,7 +427,7 @@
 
   <template name="Archives">
   	<div class="contentDiv" id="archives">
-  		<h3>Archives</h3><hr>
+  		<h2>Archives</h2><hr>
   		<p>The Brown College Document Archive hosts a collection of interesting and historically relevant Brown College documents.</p><br>
   		<div class="content">
         <div class="content_heading">
