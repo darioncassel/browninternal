@@ -417,6 +417,19 @@
     </div>
   </template>
 
+  <template name="addPost">
+    <div class="contentDiv">
+      {{#autoForm collection="PostsData" id="addPost" type="insert"}}
+        <fieldset>
+          <legend>Add Minutes</legend>
+          {{> afQuickField name='title'}}
+          {{> afQuickField name='summary' rows=6}}
+        </fieldset>
+        <button type="submit" class="btn btn-primary">Post</button>
+      {{/autoForm}}
+    </div>
+  </template>
+
   <template name="About">
     <div class="contentDiv" id="about">
       <h2>Welcome to Brown</h2><hr>
@@ -434,15 +447,15 @@
           <h4>Housing Documents</h4><hr>
         </div>
 	  		<div class="content_body">
-	  			<p><a class="pdf" href="./BIA/hazardous_materials.pdf">Hazardous materials banned from closets</a></p>
-	  			<p><a class="img" href="./BIA/bc_floor_plans/00.png">Basement Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
-	  			<p><a class="img" href="./BIA/bc_floor_plans/01.png">First Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
-	  			<p><a class="img" href="./BIA/bc_floor_plans/02.png">Second Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
-	  			<p><a class="img" href="./BIA/bc_floor_plans/03.png">Third Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
-	  			<p><a class="img" href="./BIA/bc_floor_plans/10.png">Basement Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
-	  			<p><a class="img" href="./BIA/bc_floor_plans/11.png">First Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
-	  			<p><a class="img" href="./BIA/bc_floor_plans/12.png">Second Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
-	  			<p><a class="img" href="./BIA/bc_floor_plans/13.png">Third Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
+	  			<p><a class="pdf" href="./BIA/hazardous_materials.pdf" target="_blank">Hazardous materials banned from closets</a></p>
+	  			<p><a class="img" href="./BIA/bc_floor_plans/00.png" target="_blank">Basement Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
+	  			<p><a class="img" href="./BIA/bc_floor_plans/01.png" target="_blank">First Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
+	  			<p><a class="img" href="./BIA/bc_floor_plans/02.png" target="_blank">Second Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
+	  			<p><a class="img" href="./BIA/bc_floor_plans/03.png" target="_blank">Third Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
+	  			<p><a class="img" href="./BIA/bc_floor_plans/10.png" target="_blank">Basement Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
+	  			<p><a class="img" href="./BIA/bc_floor_plans/11.png" target="_blank">First Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
+	  			<p><a class="img" href="./BIA/bc_floor_plans/12.png" target="_blank">Second Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
+	  			<p><a class="img" href="./BIA/bc_floor_plans/13.png" target="_blank">Third Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
 	  		</div>
       </div><hr><br>
       <div class="content">
@@ -451,9 +464,9 @@
           <p>There is a PDF Facebook for each portal</p><hr>
         </div>
         <div class="content_body">
-          <p><a class="pdf" href="http://brown.dreamhosters.com/facebook/2010-11.pdf">2010-11</a></p>
-          <p><a class="pdf" href="http://www.virginia.edu/browncollege/doc/brownbook2011-12.pdf">2011-12</a></p>
-          <p><a class="pdf" href="http://www.virginia.edu/browncollege/doc/brownbook2012-13.pdf">2012-13</a></p>
+          <p><a class="pdf" href="http://brown.dreamhosters.com/facebook/2010-11.pdf" target="_blank">2010-11</a></p>
+          <p><a class="pdf" href="http://www.virginia.edu/browncollege/doc/brownbook2011-12.pdf" target="_blank">2011-12</a></p>
+          <p><a class="pdf" href="http://www.virginia.edu/browncollege/doc/brownbook2012-13.pdf" target="_blank">2012-13</a></p>
         </div>
       </div><hr><br>
       <div class="content">
@@ -461,7 +474,7 @@
           <h4>Brown College Governance Board Constitution</h4><hr>
         </div>
         <div class="content_body">
-          <p><a class="doc" href="https://drive.google.com/folderview?id=0B7DTieqXsSNqdkp5dlpueHVGV1E&usp=sharing#grid">Governance Board Constitution</a></p>
+          <p><a class="doc" href="https://drive.google.com/folderview?id=0B7DTieqXsSNqdkp5dlpueHVGV1E&usp=sharing#grid" target="_blank">Governance Board Constitution</a></p>
         </div>
         <div class="content_footing">
         </div>
@@ -471,10 +484,10 @@
           <h4>Old Brown College Newsletters</h4><hr>
         </div>
         <div class="content_body">
-          <p><a class="pdf" href="./BIA/newsletter/news_20090330.pdf">30 March 2009</a></p>
-          <p><a class="pdf" href="./BIA/newsletter/news_20090215.pdf">15 February 2009</a></p>
-          <p><a class="pdf" href="./BIA/newsletter/news_20090115.pdf">15 January 2009</a></p>
-          <p><a class="pdf" href="./BIA/newsletter/news_20080921.pdf">21 September 2008</a></p>
+          <p><a class="pdf" href="./BIA/newsletter/news_20090330.pdf" target="_blank">30 March 2009</a></p>
+          <p><a class="pdf" href="./BIA/newsletter/news_20090215.pdf" target="_blank">15 February 2009</a></p>
+          <p><a class="pdf" href="./BIA/newsletter/news_20090115.pdf" target="_blank">15 January 2009</a></p>
+          <p><a class="pdf" href="./BIA/newsletter/news_20080921.pdf" target="_blank">21 September 2008</a></p>
         </div>
         <div class="content_footing">
         </div>
@@ -485,30 +498,30 @@
           <p>The current application and applications from previous years are available below in .pdf format</p><hr>
         </div>
         <div class="content_body">
-          <p><a class="pdf" href="./BIA/applications/(2013-2014)bc_application.pdf">2013-2014 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2012-2013)bc_application.pdf">2012-2013 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2010-2011)bc_application.pdf">2010-2011 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2009-2010)bc_application.pdf">2009-2010 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2008-2009)bc_application.pdf">2008-2009 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2007-2008)bc_application.pdf">2007-2008 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2006-2007)bc_application.pdf">2006-2007 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2005-2006)bc_application.pdf">2005-2006 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2004-2005)bc_application.pdf">2004-2005 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2003-2004)bc_application.pdf">2003-2004 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2002-2003)bc_application.pdf">2002-2003 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2001-2002)bc_application.pdf">2001-2002 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(2000-2001)bc_application.pdf">2000-2001 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1999-2000)bc_application.pdf">1999-2000 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1998-1999)bc_application.pdf">1998-1999 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1997-1998)bc_application.pdf">1997-1998 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1996-1997)bc_application.pdf">1996-1997 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1995-1996)bc_application.pdf">1995-1996 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1994-1995)bc_application.pdf">1994-1995 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1993-1994)bc_application.pdf">1993-1994 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1992-1993)bc_application.pdf">1992-1993 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1991-1992)bc_application.pdf">1991-1992 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1988-1989)bc_application.pdf">1988-1989 Application</a></p>
-          <p><a class="pdf" href="./BIA/applications/(1986-1987)bc_application.pdf">1986-1987 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2013-2014)bc_application.pdf" target="_blank">2013-2014 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2012-2013)bc_application.pdf" target="_blank">2012-2013 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2010-2011)bc_application.pdf" target="_blank">2010-2011 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2009-2010)bc_application.pdf" target="_blank">2009-2010 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2008-2009)bc_application.pdf" target="_blank">2008-2009 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2007-2008)bc_application.pdf" target="_blank">2007-2008 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2006-2007)bc_application.pdf" target="_blank">2006-2007 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2005-2006)bc_application.pdf" target="_blank">2005-2006 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2004-2005)bc_application.pdf" target="_blank">2004-2005 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2003-2004)bc_application.pdf" target="_blank">2003-2004 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2002-2003)bc_application.pdf" target="_blank">2002-2003 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2001-2002)bc_application.pdf" target="_blank">2001-2002 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2000-2001)bc_application.pdf" target="_blank">2000-2001 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1999-2000)bc_application.pdf" target="_blank">1999-2000 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1998-1999)bc_application.pdf" target="_blank">1998-1999 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1997-1998)bc_application.pdf" target="_blank">1997-1998 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1996-1997)bc_application.pdf" target="_blank">1996-1997 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1995-1996)bc_application.pdf" target="_blank">1995-1996 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1994-1995)bc_application.pdf" target="_blank">1994-1995 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1993-1994)bc_application.pdf" target="_blank">1993-1994 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1992-1993)bc_application.pdf" target="_blank">1992-1993 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1991-1992)bc_application.pdf" target="_blank">1991-1992 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1988-1989)bc_application.pdf" target="_blank">1988-1989 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1986-1987)bc_application.pdf" target="_blank">1986-1987 Application</a></p>
         </div>
         <div class="content_footing">
         </div>
@@ -519,7 +532,7 @@
           <p>This is the orientation guide provided to incoming residents</p><hr>
         </div>
         <div class="content_body">
-          <p><a class="doc" href="./BIA/residentguide09-10.doc">2009-10 Orientation Guide</a></p>
+          <p><a class="doc" href="./BIA/residentguide09-10.doc" target="_blank">2009-10 Orientation Guide</a></p>
         </div>
         <div class="content_footing">
         </div>
@@ -530,7 +543,7 @@
           <p>These are the stories about how each portal was named and has history about each person</p><hr>
         </div>
         <div class="content_body">
-          <p><a href="./BIA/portalstories.pdf">Brown College Portal Stories</a></p>
+          <p><a href="./BIA/portalstories.pdf" target="_blank">Brown College Portal Stories</a></p>
         </div>
         <div class="content_footing">
         </div>
@@ -541,7 +554,7 @@
           <p>What a wonderful history we have...</p><hr>
         </div>
         <div class="content_body">
-          <p><a href="./BIA/historyofpeters.pdf">History of Peters</a></p>
+          <p><a href="./BIA/historyofpeters.pdf" target="_blank">History of Peters</a></p>
         </div>
         <div class="content_footing">
         </div>
@@ -552,7 +565,7 @@
         </div>
         <div class="content_body">
           <p>The Brown College Wiki is permanently offline.</p>
-          <p>Feel free to view the <a href="http://web.archive.org/">Wayback machine</a>'s archive of the old wiki's <a href="http://web.archive.org/web/20060520233806/www.brown-college.org/wiki/index.php/Special:Allpages">"All articles" page</a>, from which you can view other archived pages from the old wiki.</p>
+          <p>Feel free to view the <a href="http://web.archive.org/" target="_blank">Wayback machine</a>'s archive of the old wiki's <a href="http://web.archive.org/web/20060520233806/www.brown-college.org/wiki/index.php/Special:Allpages" target="_blank">"All articles" page</a>, from which you can view other archived pages from the old wiki.</p>
           <p>The Brown College Forums also have been retired. Please contact the Techmasters with questions or concerns.</p>
         </div>
         <div class="content_footing">
@@ -563,7 +576,7 @@
           <h4>Original Brown College Gallery</h4><hr>
         </div>
         <div class="content_body">
-          <p><a href="http://www.brown.dreamhosters.com/gallery/main.php">Gallery</a></p>
+          <p><a href="http://www.brown.dreamhosters.com/gallery/main.php" target="_blank">Gallery</a></p>
         </div>
         <div class="content_footing">
         </div>
@@ -614,17 +627,4 @@
       </div><hr><br>
 		  <hr>
   	</div>
-  </template>
-
-  <template name="addPost">
-    <div class="contentDiv">
-      {{#autoForm collection="PostsData" id="addPost" type="insert"}}
-        <fieldset>
-          <legend>Add Minutes</legend>
-          {{> afQuickField name='title'}}
-          {{> afQuickField name='summary' rows=6}}
-        </fieldset>
-        <button type="submit" class="btn btn-primary">Post</button>
-      {{/autoForm}}
-    </div>
   </template>
