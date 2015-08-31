@@ -10,12 +10,13 @@ browninternal
 
 note: you will need the email account information to get the forgot password section working.
 Seperate server/token.js file should document the account information so we keep passwords off this repo.
+In addition, any files required for "Archives" in index.html will be stored in the server and not in the repo for privacy purposes.
 example server/token.js:
   `process.env.MAIL_URL="smtp://browncollegeuva%40gmail.com:********@smtp.gmail.com:587/";`
 
 ## Server side setup notes:
 
-- Start it on the server side with `ROOT_URL=http://domain.com BIND_IP=127.0.0.1 meteor`, or accounts reset emails will be wrong.
+- Start it on the server side with `export ROOT_URL=http://domain.com BIND_IP=127.0.0.1 meteor`, or accounts reset emails will be wrong.
 
 ## Data
 
