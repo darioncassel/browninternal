@@ -20,7 +20,8 @@ if (Meteor.isClient) {
           <option>Tucker</option>\
           <option>Tucker Projector</option>\
           <option>Tucker Kitchen</option>\
-          <option>Smith</option>\
+          <option>Smith Game Room</option>\
+          <option>Smith TV</option>\
           <option>The Hill</option>\
           <option>Other</option>\
         </select>\

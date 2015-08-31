@@ -41,9 +41,9 @@ Meteor.startup(function () {
 
   var memberArr = {
     "ace": ["Luke Waddell", "Charlotte Pierson"],
-    "alumni": ["Tyler Burd"],
-    "community": ["Nicholas Bergh"],
-    "ewf": ["Benjamin Camber"],
+    "alumni": ["Tyler Burd", "Leigham Breckenridge"],
+    "community": ["Nicholas Bergh", "Caitlin McNamara"],
+    "ewf": ["Benjamin Camber", "Mary Sport"],
     "faculty": ["Victoria Glasgow", "Scott Lebow"],
     "fyl": ["Brian Walter", "Gabrielle Carper", "Kelly Strauch"],
     "hauntings": ["Kathleen Dudgeon", "Nicole Miller", "Megan Carpenter"],
@@ -53,7 +53,7 @@ Meteor.startup(function () {
     "panjandrum": ["Jacob Saltzman"],
     "pr": ["Jessica Miles", "Eileen Hernon"],
     "social": ["Aline Mullen", "Oliver Lopez-Gomez", "Jacob Mathews"],
-    "techmasters": ["Kean Finucane"],
+    "techmasters": ["Kean Finucane", "Wylie Wang"],
   };
 
   var portalRepArr = {
