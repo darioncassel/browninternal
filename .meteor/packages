@@ -8,7 +8,6 @@ accounts-ui
 accounts-github
 accounts-base
 jquery
-maazalik:highcharts
 kevohagan:sweetalert
 accounts-password
 j4507:datatables-bootstrap-3
@@ -27,3 +26,4 @@ aldeed:autoform
 alanning:roles
 aldeed:simple-schema
 aldeed:collection2
+maazalik:highcharts

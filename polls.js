@@ -279,6 +279,8 @@ if (Meteor.isClient) {
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
+            width: 820,
+            height: 400
           },
           title: { text: 'Winner: ' + this.choices[this.winner]},
           tooltip: { pointFormat: '<b>{point.percentage:.1f}%</b>'},
