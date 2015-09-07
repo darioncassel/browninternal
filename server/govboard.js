@@ -57,7 +57,7 @@ Meteor.startup(function () {
   };
 
   var portalRepArr = {
-    "antiquad": ["Laurel Cummings", "Elizabeth Harrington", "Kate Shaffer", "Peiching Teo"],
+    "antiquad": ["Laurel Cummings", "Elizabeth Harrington", "Katherine Shaffer", "Peiching Teo"],
     "gildergreen": ["Indigo Ballister", "Amrita Singh", "Emily Snavely", "Tyler Robbins"],
     "quad": ["Jesse Ginn", "Cameron Miller", "Lillia Siuta", "Lily Zamanali"],
   };
