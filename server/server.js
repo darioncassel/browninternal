@@ -40,6 +40,14 @@ if (Meteor.isServer) {
         console.log("FAIL: publish GovboardPortalReps")
       }
     });
+    Meteor.publish("alumnis", function() {
+      self = this;
+      if(this.userId){
+        return Alumni.find();
+      }else {
+        console.log("FAIL: publish Alumnis")
+      }
+    });
     Meteor.publish("calendar_events", function() {
       self = this;
       if(this.userId){
@@ -66,7 +74,7 @@ if (Meteor.isServer) {
     });
   });
   Meteor.methods({
-    'updateAccounts' : function() {
+    'updateRosterAccounts' : function() {
       var resData = Residents.find().fetch();
       for(i=0; i<resData.length; i++){
         var email = resData[i]["E-mail"];
@@ -80,6 +88,25 @@ if (Meteor.isServer) {
               first_name : resData[i]["First Name"],
               last_name : resData[i]["Last Name"],
               gender : resData[i].Gender,
+            }
+          });
+        }
+      }
+    },
+    'updateAlumniAccounts' : function() {
+      var alumniData = Alumni.find().fetch();
+      for(i=0; i<alumniData.length; i++){
+        var email = alumniData[i]["E-mail"];
+        var username = email.split('@')[0];
+        if (Meteor.users.findOne({ "emails.address" : email }) == null) {
+          Accounts.createUser({
+            username : username,
+            email: email,
+            password: randompass(8),
+            profile : {
+              first_name : alumniData[i]["First Name"],
+              last_name : alumniData[i]["Last Name"],
+              gender : alumniData[i].Gender,
             }
           });
         }

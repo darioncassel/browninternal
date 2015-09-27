@@ -36,6 +36,7 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a href="/roster">Roster</a></li>
                 <li><a href="/govboard">Govboard</a></li>
+                <li><a href="/alumni">Alumni</a></li>
               </ul>
             </li>
             <li><a href="/polls">Polls</a></li>
@@ -74,12 +75,17 @@
         <p5> Dashboard </p5>
       </div>
       <div class="col-md-6">
-        <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FBrownCollegeUVA&amp;width=460&amp;height=500&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:900px; height:500px;" allowTransparency="true"></iframe>
+        <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FBrownCollegeUVA&amp;width=460&amp;height=500&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; width:500px; height:500px;" allowTransparency="true"></iframe>
       </div>
       <div class="col-md-6">
         <a class="twitter-timeline" href="https://twitter.com/meanwhiletucker" data-widget-id="630126347596242944">Tweets by @meanwhiletucker</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
       </div>
+      <!-- Maybe embed youtube later?
+      <div class="col-md-6">
+      <iframe width="500" height="400" src="http://www.youtube.com/embed?max-results=1&controls=1&showinfo=1&rel=0&listType=user_uploads&list=browncollegeuva" frameborder="0" allowfullscreen></iframe> 
+      </div>
+      -->
     </div>
   </template>
 
@@ -140,6 +146,13 @@
       <table id="membersDataTable" class="table table-hover table-striped"></table><br>
       <h2> Portal Representatives </h2><hr>
       <table id="portalrepsDataTable" class="table table-hover table-striped"></table>
+    </div>
+  </template>
+
+  <template name="Alumni">
+    <div class="contentDiv" id="roster">
+      <h2> Alumni Roster </h2><hr>
+      <table id="alumniDataTable" class="table table-hover table-striped"></table>
     </div>
   </template>
 

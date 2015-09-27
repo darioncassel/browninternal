@@ -309,3 +309,14 @@ a:visited:hover {
 ul.nav li.dropdown:hover ul.dropdown-menu{
     display: block;
 }
+
+/* Handle Dashboard Formatting*/
+#dashboard .col-md-6 {
+	margin: 0 auto;
+	display: inline-block;
+	float: left;
+}
+
+#dashboard {
+	
+}
