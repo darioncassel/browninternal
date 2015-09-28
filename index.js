@@ -10,6 +10,7 @@ GovboardOfficers = new Mongo.Collection("GovboardOfficers");
 GovboardPortalReps = new Mongo.Collection("GovboardPortalReps");
 
 Alumni = new Mongo.Collection("Alumni");
+Faculty = new Mongo.Collection("Faculty");
 
 Router.configure({
   layoutTemplate: 'ApplicationLayout'

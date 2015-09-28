@@ -112,6 +112,25 @@ if (Meteor.isServer) {
         }
       }
     },
+    'updateFacultyAccounts' : function() {
+      var facultyData = Faculty.find().fetch();
+      for(i=0; i<facultyData.length; i++){
+        var email = facultyData[i]["E-mail"];
+        var username = email.split('@')[0];
+        if (Meteor.users.findOne({ "emails.address" : email }) == null) {
+          Accounts.createUser({
+            username : username,
+            email: email,
+            password: randompass(8),
+            profile : {
+              first_name : facultyData[i]["First Name"],
+              last_name : facultyData[i]["Last Name"],
+              gender : facultyData[i].Gender,
+            }
+          });
+        }
+      }
+    },
     'reservationEmail' : function (text) {
       check([text], [String]);
       this.unblock();
