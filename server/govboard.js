@@ -8,7 +8,7 @@ positionNames = {
       "shama": ["Shama Llama Ding Dong", "Shama"],
       "treasurer": ["Treasurer", "Treasurer"],
       "secretary": ["Secretary", "Secretary"],
-      "ace": ["Academic, Cultural, and Educational", "ACE"],
+      "ace": ["Arts, Culture, and Entertainment", "ACE"],
       "alumni": ["Alumni", "Alumni"],
       "community": ["Community Outreach", "CO"],
       "ewf": ["Earth, Wind, and Fire", "E W & F"],
