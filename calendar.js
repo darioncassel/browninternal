@@ -123,6 +123,7 @@ if (Meteor.isClient) {
           googleCalendarId: Session.get( " PublicRelations_googleCalendarId "),
           className: 'gcal-event'
         },
+          //Add Res Staff
         {
           //Social
           googleCalendarId: Session.get( " Social_googleCalendarId "),
