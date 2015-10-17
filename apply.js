@@ -11,7 +11,7 @@ if (Meteor.isClient) {
             if($("#entry_1352770139").val()==""){valid = false;}
             if(!$("input[name='entry.257589673']").is(":checked")){valid = false;}
             if($("#entry_592522003").val()==""){valid = false;}
-            if($("#entry_419154489").val()==""){valid = false;}
+            //if($("#entry_419154489").val()==""){valid = false;}
             if(!$("input[name='entry.770152780']").is(":checked")){valid = false;}
             if($("#entry_955211999").val()==""){valid = false;}
             if(valid){
