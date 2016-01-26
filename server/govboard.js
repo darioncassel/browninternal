@@ -36,11 +36,11 @@ Meteor.startup(function () {
     "poobah": ["Frederick Short"],
     "shama": ["Alexandra Kinstle"],
     "treasurer": ["Samuel Scimemi"],
-    "secretary": ["Amy Snyder"],
+    "secretary": ["Elizabeth Harrington"],
   };
 
   var memberArr = {
-    "ace": ["Luke Waddell", "Charlotte Pierson"],
+    "ace": ["Luke Waddell", "Alexandra Hoyt"],
     "alumni": ["Tyler Burd", "Leigham Breckenridge"],
     "community": ["Nicholas Bergh", "Caitlin McNamara"],
     "ewf": ["Benjamin Camber", "Mary Sport"],
@@ -48,7 +48,7 @@ Meteor.startup(function () {
     "fyl": ["Brian Walter", "Gabrielle Carper", "Kelly Strauch"],
     "hauntings": ["Kathleen Dudgeon", "Nicole Miller", "Megan Carpenter"],
     "ims": ["Addie McMurtry", "Christopher Arthur"],
-    "media": ["Emma Bross", "William Mullany", "Sage Tanguay"],
+    "media": ["Emma Bross", "Gwyneth Sholar", "Sage Tanguay"],
     "membership": ["Joshua Danoff", "Jonathan Martin", "Samantha Lagestee"],
     "panjandrum": ["Jacob Saltzman"],
     "pr": ["Jessica Miles", "Eileen Hernon"],
@@ -57,7 +57,7 @@ Meteor.startup(function () {
   };
 
   var portalRepArr = {
-    "antiquad": ["Laurel Cummings", "Elizabeth Harrington", "Katherine Shaffer", "Peiching Teo"],
+    "antiquad": ["Laurel Cummings", "Peiching Teo", "Alexander Huynh"],
     "gildergreen": ["Indigo Ballister", "Amrita Singh", "Emily Snavely", "Tyler Robbins"],
     "quad": ["Jesse Ginn", "Cameron Miller", "Lillia Siuta", "Lily Zamanali"],
   };
