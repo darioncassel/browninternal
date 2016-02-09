@@ -2,6 +2,10 @@ Residents = new Mongo.Collection("residents");
 PollsData = new Mongo.Collection("pollsData");
 PostsData = new Mongo.Collection("postsData");
 CalendarEvents = new Mongo.Collection("calendarEvents");
+var PortalRoles = ['Davis', 'Gildersleeve', 'Harrison', 'Holmes', 'Long', 'McGuffey', 'Peters', 'Rogers', 'Smith', 
+                  'Tucker', 'Venable', 'Anti-Quad', 'Gildergreen', 'Quad'];
+var GovBoardRoles = ['GovBoard', 'GovBoardOfficer']
+
 
 Accounts.emailTemplates.from = "Brown College Website <no-reply@virginia.edu>"
 Accounts.emailTemplates.siteName = "Brown Internal Website"
@@ -128,6 +132,91 @@ if (Meteor.isServer) {
               gender : facultyData[i].Gender,
             }
           });
+        }
+      }
+    },
+    'createRoles' : function() {
+      for (i = 0; i < PortalRoles.length; i++) {
+        Roles.createRole(PortalRoles[i])
+      }
+
+      for (i = 0; i < GovBoardRoles.length; i++) {
+        Roles.createRole(GovBoardRoles[i])
+      }
+
+      Roles.createRole('Admin')
+      Roles.createRole('Non-Resident')
+    },
+    'updateRoles' : function() {
+      var resData = Meteor.users.find().fetch();
+      //Remove all Roles from users
+      for (i = 0; i < resData.length; i++) {
+        var userId = resData[i]['_id']
+        for (j = 0; j < PortalRoles.length; j++) {
+          Roles.removeUsersFromRoles(userId, PortalRoles[j])
+         }
+        for (j = 0; j <GovBoardRoles.length; j++) {
+          Roles.removeUsersFromRoles(userId, GovBoardRoles[j])
+        }
+      }
+      Meteor.call('updateGovBoardRoles')
+      Meteor.call('updatePortalRoles');
+    },
+    'updatePortalRoles' : function() {
+      var resData = Meteor.users.find().fetch();
+      for (i=0; i < resData.length; i++) {
+        var userId = resData[i]['_id']
+        var email = resData[i]['emails'][0]['address']
+        
+        var resUser = Residents.find({"E-mail": email}).fetch()[0];
+        if (resUser != null) {
+          var portal = resUser['Building']
+          if (portal == 'Tucker' || portal == 'Holmes' || portal == 'Rogers' || portal == 'Peters') {
+            portalGroup = 'Anti-Quad'
+          }
+          else if (portal == 'Harrison' || portal == 'McGuffey' || portal == 'Gildersleeve' || portal == 'Venable') {
+            portalGroup = 'Gildergreen'
+          }
+          else {
+            portalGroup = 'Quad'
+          }
+          Roles.addUsersToRoles(userId, [portal, portalGroup])
+
+        }
+        else {
+          Roles.addUsersToRoles(userId, 'Non-Resident')
+        }
+        console.log(email)
+        console.log(Roles.getRolesForUser(userId))
+      }
+    },
+    'updateGovBoardRoles' : function() {
+      var officers = GovboardOfficers.find().fetch();
+      var mem = GovboardMembers.find().fetch()
+      var portal_reps = GovboardPortalReps.find().fetch();
+      
+      var allGov = officers.concat(mem).concat(portal_reps)
+      for (i = 0; i < officers.length; i++) {
+        for (j = 0; j < officers[i].members.length; j++) {
+          var member = officers[i].members[j];
+          var userId = member['_id']
+          Roles.addUsersToRoles(userId, 'GovBoardOfficer')
+          Roles.addUsersToRoles(userId, 'GovBoard')
+        }
+      }
+
+      for (i = 0; i < mem.length; i++) {
+        for (j = 0; j < mem[i].members.length; j++) {
+          var member = mem[i].members[j];
+          var userId = member['_id']
+          Roles.addUsersToRoles(userId, 'GovBoard')
+        }
+      }
+      for(i=0; i<portal_reps.length; i++){
+        for (j=0; j<portal_reps[i].members.length; j++) {
+          var member = portal_reps[i].members[j];
+          var userId = member['_id']
+          Roles.addUsersToRoles(userId, 'GovBoard')
         }
       }
     },
