@@ -52,7 +52,7 @@ Meteor.startup(function () {
     "membership": ["Joshua Danoff", "Jonathan Martin", "Samantha Lagestee"],
     "panjandrum": ["Jacob Saltzman"],
     "pr": ["Jessica Miles", "Eileen Hernon"],
-    "social": ["Aline Mullen", "Oliver Lopez-Gomez", "Jacob Mathews"],
+    "social": ["Joseph French", "Oliver Lopez-Gomez", "Jacob Mathews"],
     "techmasters": ["Kean Finucane", "Wylie Wang"],
   };
 
