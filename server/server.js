@@ -230,6 +230,16 @@ if (Meteor.isServer) {
         text: text
       });
     },
+    'appConfirmationEmail' : function (text, email) {
+      check([text, email], [String]);
+      this.unblock();
+      Email.send({
+        to: email,
+        from: "\"Brown College\" <browninternaluva@gmail.com>",
+        subject: 'Brown College Application Confirmation',
+        text: text
+      });
+    },
     'updatePollStatus' : function (id, bool, time) {
       var t = time - moment().valueOf();
       Meteor.setTimeout( function() {

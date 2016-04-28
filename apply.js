@@ -30,6 +30,14 @@ if (Meteor.isClient) {
             }
             if(valid){
               $("#ss-submit").click();
+              var email = $("#entry_419154489").val();
+              var computing_id = $("#entry_585078888").val().trim();
+              var computing_email = computing_id + '@virginia.edu';
+              if (email !=  "") {
+                 Meteor.call('appConfirmationEmail', text, email);
+              }
+              Meteor.call('appConfirmationEmail', text, computing_email);
+
             }else if (wrongReg) {
               swal("Your file name needs to be soley your NetBadge ID \(ex: brc2bg.pdf\)", "", "error");
             }else {
