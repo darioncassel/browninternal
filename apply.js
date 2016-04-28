@@ -29,7 +29,7 @@ if (Meteor.isClient) {
               valid = false;
             }
             if(valid){
-              //$("#ss-submit").click();
+              $("#ss-submit").click();
               var email = $("#entry_2077898466").val().trim();
               var computing_id = $("#entry_585078888").val().trim();
               var computing_email = computing_id + '@virginia.edu';
