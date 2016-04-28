@@ -233,6 +233,7 @@ if (Meteor.isServer) {
     'appConfirmationEmail' : function (text, email) {
       check([text, email], [String]);
       this.unblock();
+      console.log("Wooh");
       Email.send({
         to: email,
         from: "\"Brown College\" <browninternaluva@gmail.com>",

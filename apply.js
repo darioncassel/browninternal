@@ -15,7 +15,7 @@ if (Meteor.isClient) {
             if(!$("input[name='entry.1958161708']").is(":checked")){valid = false;}
             if($("#entry_585078888").val()==""){valid = false;}
             if(!$("input[name='entry.1407320545']").is(":checked")){valid = false;}
-            //if($("#entry_419154489").val()==""){valid = false;}
+            //if($("#entry_2077898466").val()==""){valid = false;}
             //Email is optional, no check needed
             if($("#entry_1344549631").val()==""){valid = false;}
 
@@ -29,10 +29,11 @@ if (Meteor.isClient) {
               valid = false;
             }
             if(valid){
-              $("#ss-submit").click();
-              var email = $("#entry_419154489").val();
+              //$("#ss-submit").click();
+              var email = $("#entry_2077898466").val().trim();
               var computing_id = $("#entry_585078888").val().trim();
               var computing_email = computing_id + '@virginia.edu';
+              var text = "We have received your application from Brown!";
               if (email !=  "") {
                  Meteor.call('appConfirmationEmail', text, email);
               }
