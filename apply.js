@@ -33,7 +33,10 @@ if (Meteor.isClient) {
               var email = $("#entry_2077898466").val().trim();
               var computing_id = $("#entry_585078888").val().trim();
               var computing_email = computing_id + '@virginia.edu';
-              var text = "This is an automatic email. Please DO NOT reply to this address. \nThank you for applying to Brown College! We have received your supplement application and look forward to reading it. Make sure that you have completed the housing application as well. If you have any further questions or concerns, please email bcmembership@virginia.edu.";
+              var text = "This is an automatic email. Please DO NOT reply to this address." +
+               "\n\nThank you for applying to Brown College! We have received your supplement application and look forward to reading it." +
+               "Make sure that you have completed the housing application as well and have listed Brown College as your first, second, or third choice." + 
+               "If you have any further questions or concerns, please email bcmembership@virginia.edu.";
               if (email !=  "" && email != computing_email) {
                  Meteor.call('appConfirmationEmail', text, email);
               }
