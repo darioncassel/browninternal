@@ -3,17 +3,18 @@ if (Meteor.isClient) {
     uploaded: function() {
       return {
         finished: function(index, fileInfo, context) {
-          $('#entry_955211999').val(fileInfo.name);
+          $('#entry_1344549631').val(fileInfo.name);
           $('#submit_brown').show();
           $('#submit_brown').click(function() {
             var valid = true;
-            if($("#entry_1729943190").val()==""){valid = false;}
-            if($("#entry_1352770139").val()==""){valid = false;}
-            if(!$("input[name='entry.257589673']").is(":checked")){valid = false;}
-            if($("#entry_592522003").val()==""){valid = false;}
+            if($("#entry_330501359").val()==""){valid = false;}
+            if($("#entry_940862617").val()==""){valid = false;}
+            if(!$("input[name='entry.1958161708']").is(":checked")){valid = false;}
+            if($("#entry_585078888").val()==""){valid = false;}
+            if(!$("input[name='entry.1407320545']").is(":checked")){valid = false;}
             //if($("#entry_419154489").val()==""){valid = false;}
-            if(!$("input[name='entry.770152780']").is(":checked")){valid = false;}
-            if($("#entry_955211999").val()==""){valid = false;}
+            //Email is optional, no check needed
+            if($("#entry_1344549631").val()==""){valid = false;}
             if(valid){
               $("#ss-submit").click();
             }else {
