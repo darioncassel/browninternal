@@ -34,7 +34,7 @@ if (Meteor.isClient) {
               var computing_id = $("#entry_585078888").val().trim();
               var computing_email = computing_id + '@virginia.edu';
               var text = "We have received your application from Brown!";
-              if (email !=  "") {
+              if (email !=  "" && email != computing_email) {
                  Meteor.call('appConfirmationEmail', text, email);
               }
               Meteor.call('appConfirmationEmail', text, computing_email);
