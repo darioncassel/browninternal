@@ -1,0 +1,651 @@
+
+  <head>
+    <meta charset="utf-8">
+    <title>Brown Internal Website</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  </head>
+
+  <body>
+  </body>
+
+  <template name="ApplicationLayout">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <p3><a class="navbar-brand" href="/">Brown College at Monroe Hill</a></p3>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="/social" class="dropdown-toggle" role="button" aria-expanded="false">Social <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="https://www.facebook.com/BrownCollegeUVA?fref=ts" target="_blank">Facebook</a></li>
+                <li><a href="https://thebrownyorker.wordpress.com/" target="_blank">Brown Yorker</a></li>
+                <li><a href="https://twitter.com/meanwhiletucker" target="_blank">Meanwhile in Tucker</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="/roster" class="dropdown-toggle" role="button" aria-expanded="false">Roster <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/roster">Roster</a></li>
+                <li><a href="/govboard">Govboard</a></li>
+                <li><a href="/alumni">Alumni</a></li>
+              </ul>
+            </li>
+            <li><a href="/polls">Polls</a></li>
+            <li><a href="/calendar">Calendar</a></li>
+            <li class="dropdown">
+              <a href="/more" class="dropdown-toggle" role="button" aria-expanded="false">More <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/about">About</a></li>
+                <li><a href="/apply">Apply</a></li>
+                <li><a href="/archives">Archives</a></li>
+                <li><a href="/logout">Logout</a></li>
+                <li><a href="/minutes">Minutes</a></li>
+                <li><a href="#">Radio</a></li>
+                <li><a href="https://www.youtube.com/user/browncollegeuva/feed">Videos</a></li>
+                <li class="divider"></li>
+                  <li><a href="#"><button name="bugs" value="bugs">BUGS</button></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <article>
+      <div class="narrow">
+        {{> yield}}
+      </div>
+    </article>
+    <footer class="footer">
+      <p style="text-align:center;color:#fff"> &copy; 2015 Techmasters@Brown </p>
+    </footer>
+  </template>
+
+  <template name="Home">
+    <div class="col-md-12 contentDiv" id="dashboard">
+      <div class="col-md-12" style="margin-bottom: 5px">
+        <p5> Dashboard </p5>
+      </div>
+      <div class="col-md-6">
+        <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FBrownCollegeUVA&amp;width=460&amp;height=500&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; width:500px; height:500px;" allowTransparency="true"></iframe>
+      </div>
+      <div class="col-md-6">
+        <a class="twitter-timeline" href="https://twitter.com/meanwhiletucker" data-widget-id="630126347596242944">Tweets by @meanwhiletucker</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </div>
+      <!-- Maybe embed youtube later?
+      <div class="col-md-6">
+      <iframe width="500" height="400" src="http://www.youtube.com/embed?max-results=1&controls=1&showinfo=1&rel=0&listType=user_uploads&list=browncollegeuva" frameborder="0" allowfullscreen></iframe> 
+      </div>
+      -->
+    </div>
+  </template>
+
+  <template name="Login">
+    <div id="login" class="container">
+      <h2>Welcome to the Brown Internal Website!</h2><br>
+      <form id="login-form" class="col-md-12" action="login" role="form">
+        <div class="input-group">
+          <input type="email" class="form-control" id="login-email" placeholder="Email" />
+          <input type="password" class="form-control" id="login-password" placeholder="Password" />
+          <input type="submit" id="login-button" class="btn btn-warning" value="Sign in" />
+        </div>
+        <p6 id="login-message"></p6>
+      </form>
+      <div class="col-md-12">
+        <p6>Please login to continue, or visit the <a href="http://browncollege.virginia.edu">external website</a>.</p6> <br />
+        <p6>First time logging in or forgot password? Click <a href="/password_reset">here</a></p6>
+        <br>
+      </div>
+    </div>
+  </template>
+
+  <template name="PasswordReset">
+    <div id="login">
+      <h2>Password Reset</h2>
+      <form id="reset-form" action="reset" role="form">
+        <div class="input-group col-md-12">
+          <input type="email" class="form-control" id="reset-email" placeholder="Email" />
+          <input type="submit" id="login-button" class="btn btn-warning" value="Reset Password" />
+        </div>
+        <p6 id="reset-message"></p6>
+      </form>
+    </div>
+  </template>
+
+  <template name="Social">
+    <div class="contentDiv" id="social">
+      <h2>Social</h2><hr>
+      <p><a href="https://www.facebook.com/BrownCollegeUVA?fref=ts" target="_blank">Facebook</a></p>
+      <p><a href="https://thebrownyorker.wordpress.com/" target="_blank">Brown Yorker</a></p>
+      <p><a href="https://twitter.com/meanwhiletucker" target="_blank">Meanwhile in Tucker</a></p>
+      <hr>
+    </div>
+   </template>
+
+  <template name="Roster">
+    <div class="contentDiv" id="roster">
+      <h2> Resident Roster </h2><hr>
+      <table id="resDataTable" class="table table-hover table-striped"></table>
+    </div>
+  </template>
+
+  <template name="Govboard">
+    <div class="contentDiv" id="roster">
+      <h2> Govboard Officers </h2><hr>
+      <table id="officersDataTable" class="table table-hover table-striped"></table><br>
+      <h2> Govboard Members </h2><hr>
+      <table id="membersDataTable" class="table table-hover table-striped"></table><br>
+      <h2> Portal Representatives </h2><hr>
+      <table id="portalrepsDataTable" class="table table-hover table-striped"></table>
+    </div>
+  </template>
+
+  <template name="Alumni">
+    <div class="contentDiv" id="roster">
+      <h2> Alumni Roster </h2><hr>
+      <table id="alumniDataTable" class="table table-hover table-striped"></table>
+    </div>
+  </template>
+
+  <template name="Polls">
+    <div class="contentDiv" id="polls-main">
+      <h2> Polls </h2><hr>
+      <div style="text-align:right;padding-right:2%;">
+        <button class="btn btn-warning" name="addPoll">Add Poll</button>
+      </div>
+      <hr>
+      <p5>Active Polls</p5>
+      <hr>
+      <div class="panel-group" id="active">
+        {{#each activePolls}}
+          {{> NewPoll}}
+        {{/each}}
+      </div>
+      <hr>
+      <p5>Completed Polls</p5>
+      <hr>
+      <div class="panel-group" id="completed">
+        {{#each completedPolls}}
+          {{> CompletedPoll}}
+        {{/each}}
+      </div>
+    </div>
+  </template>
+
+  <template name="NewPoll">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#active" href="{{generateID}}container">
+            {{title}}
+          </a>
+        </h4>
+      </div>
+      <div id="{{_id}}container" class="panel-collapse collapse">
+        <div class="panel-body">
+          {{desc}}<br>
+          {{> Template.dynamic template=this.type}}
+        </div>
+        <div class="showIfCreatorNewPoll">
+          <button class="btn btn-warning" name="closePoll">Close Poll</button>
+          <button class="btn btn-warning" name="deletePoll">Delete Poll</button>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template name="MultipleChoice">
+    <div class="col-lg-12" style="text-align:center;">
+      <div class="col-lg-4" style="text-align:left">
+        {{#each choices}}
+          <p><input type="radio" name="poll1" value="{{this}}">&nbsp;{{this}}</p>
+        {{/each}}
+      </div>
+    </div>
+    <input type="submit" class="btn btn-default">
+  </template>
+
+  <template name="Ranked">
+    <ul class="sortable">
+      {{#each choices}}
+        <li class="ui-state-default" id="{{this}}"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{this}}</li>
+      {{/each}}
+    </ul>
+    <br>
+    <input type="submit" class="btn btn-default">
+  </template>
+
+  <template name="CompletedPoll">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#completed" href="{{generateID}}container">
+            {{title}}
+          </a>
+        </h4>
+      </div>
+      <div id="{{_id}}container" class="panel-collapse collapse" style="width:850px;">
+        <div id="{{_id}}" class="panel-body">
+          {{> highchartsHelper chartId=_id width="100%" height="100%" chartObject=resultsChart}}
+        </div>
+        <div class="showIfCreatorCompletedPoll">
+          <button class="btn btn-warning" name="reopenPoll">Reopen Poll</button>
+          <button class="btn btn-warning" name="deletePoll">Delete Poll</button>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template name="Calendar">
+    <div class="contentDiv" id="calendar">
+    </div>
+  </template>
+
+  <template name="More">
+    <div class="contentDiv" id="more">
+        <h2>More</h2><hr>
+        <p><a href="/about">About</a></p>
+        <p><a href="/apply">Apply</a></p>
+        <p><a href="/archives">Archives</a></p>
+        <p><a href="/logout">Logout</a></p>
+        <p><a href="/minutes">Minutes</a></p>
+        <p><a href="#">Radio</a></p>
+        <p><a href="https://www.youtube.com/user/browncollegeuva/feed">Videos</a></p>
+        <hr>
+    </div>
+  </template>
+
+  <template name="Apply">
+    <div class="contentDiv apply-form" id="apply">
+      <h2>Applying to Brown?</h2>
+      
+      <hr>
+      <p>Sorry, the application deadline has passed!</p>
+      <!--
+      To hide, all Darion did was add a display:none style to the div below
+      -->
+      
+      <div style="display:none">
+        <form action=
+        "https://docs.google.com/forms/d/1c3RtomT8tJE_UxRmGtbiFxa8uB1ZTu7UhyUul8oLykI/formResponse"
+        method="post" id="ss-form" target="_self" onsubmit="" name="ss-form">
+          <div role="list" class="ss-question-list" style="padding-left: 0">
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_330501359">First Name:</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
+                  name="entry.330501359" value="" class="ss-q-short" id="entry_330501359"
+                  dir="auto" aria-label="First Name:" title="" />
+                  <div class="error-message" id="120776215_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_940862617">Last Name:</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
+                  name="entry.940862617" value="" class="ss-q-short" id="entry_940862617"
+                  dir="auto" aria-label="Last Name:" title="" />
+                  <div class="error-message" id="321968401_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-radio">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_111245498">Sex</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
+                  <ul class="ss-choices" role="group" aria-label="Gender">
+                    <li class="ss-choice-item"><label><span class=
+                    "ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1958161708" value="Male" id="group_1958161708_1" role="radio"
+                    class="ss-q-radio" /></span> <span class=
+                    "ss-choice-label">Male</span></label></li>
+                    <li class="ss-choice-item"><label><span class=
+                    "ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1958161708" value="Female" id="group_1958161708_2" role="radio"
+                    class="ss-q-radio" /></span> <span class=
+                    "ss-choice-label">Female</span></label></li>
+                  </ul>
+                  <div class="error-message" id="111245498_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_585078888">NetBadge (Computing) ID:</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
+                  name="entry.585078888" value="" class="ss-q-short" id="entry_585078888" dir="auto" aria-label="NetBadge (Computing) ID:" title="" />
+                  <div class="error-message" id="1206739424_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-radio">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_707560138">Current Status</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
+                  <ul class="ss-choices" role="group" aria-label="Current Status">
+                    <li class="ss-choice-item"><label><span class=
+                    "ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1407320545" value="Incoming First Year" id="group_1407320545_1" role="radio" class="ss-q-radio" aria-label="Incoming First Year"></span> <span class="ss-choice-label">Incoming First Year</span></label></li>
+                    <li class="ss-choice-item"><label><span class=
+                    "ss-choice-item-control goog-inline-block"><input type="radio" name="entry.1407320545" value="Transfer" id="group_1407320545_2" role="radio"
+                    class="ss-q-radio" /></span> <span class=
+                    "ss-choice-label">Transfer</span></label></li>
+                  </ul>
+                  <div class="error-message" id="707560138_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <div class="ss-form-question errorbox-good" role="listitem">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_2077898466">Email (Optional):</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text"
+                  name="entry.2077898466" value="" class="ss-q-short" id="entry_2077898466" dir="auto" aria-label="Email:" title="" />
+                  <div class="error-message" id="1483249764_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <div class="ss-form-question errorbox-good" role="listitem" style="display:none;">
+              <div dir="ltr" class="ss-item ss-text">
+                <div class="ss-form-entry">
+                  <div class="ss-q-title">
+                    <label class="ss-q-item-label" for="entry_1344549631">App-link</label>
+                  </div>
+                  <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.1344549631" value="" class="ss-q-short" id="entry_1344549631" dir="auto"
+                  aria-label="App-link" title="" />
+                  <div class="error-message" id="772209932_errorMessage"></div>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="draftResponse" value="[,,&quot;6828653333993868594&quot;]
+" /> <input type="hidden" name="pageHistory"
+            value="0" /> <input type="hidden" name="fbzx" value="6828653333993868594" />
+          </div>
+          <p>Please submit only <strong>ONE</strong> combined PDF of your application with your NetBadge ID as the filename (ex: brc2bg.pdf):</p>
+          <p>If you are having issues with submitting your application, please email it to bcmembership@virginia.edu
+          </p>
+          <p>After clicking Upload, please click the submit button that pops up. You will receive a confirmation email when your application has been successfully submitted.</p>
+          <div id="upload">
+            {{> upload_bootstrap formData=filedata callbacks=uploaded}}
+          </div>
+          <br>
+          <input style="display:none;" type="submit" name="submit" value="Submit" id="ss-submit" class="jfk-button jfk-button-action ">
+        </form>
+        <button style="display:none;" id="submit_brown">Submit</button>
+      </div>
+      <hr>
+      <br>
+    </div>
+  </template>
+
+  <template name="Minutes">
+    <div class="contentDiv" id="minutes">
+      <h2>Minutes</h2><hr>
+      <p>Coming soon!</p>
+      <section id="blog-index" class="blog">
+        <div class="postContent">
+          {{#each posts}}
+            <div class="postBox">
+              <p3>{{title}}</p3>
+              {{#if blogAdmin}}
+                <button>Edit</button>
+              {{/if}}
+              <div class="postText">
+                <p>{{summary}}</p>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </section>
+      <hr>
+    </div>
+  </template>
+
+  <template name="addPost">
+    <div class="contentDiv">
+      {{#autoForm collection="PostsData" id="addPost" type="insert"}}
+        <fieldset>
+          <legend>Add Minutes</legend>
+          {{> afQuickField name='title'}}
+          {{> afQuickField name='summary' rows=6}}
+        </fieldset>
+        <button type="submit" class="btn btn-primary">Post</button>
+      {{/autoForm}}
+    </div>
+  </template>
+
+  <template name="About">
+    <div class="contentDiv" id="about">
+      <h2>Welcome to Brown</h2><hr>
+      <p>Brown College is a residential community of undergraduate students and faculty at the University of Virginia in Charlottesville. Brown's approximately 300 residents enjoy a friendly, intellectually stimulating, and socially accepting academic community that is closely tied to UVa faculty by Brown's Faculty Fellows and is self-governed by Brown's Student Governance, which makes decisions, organizes events, and disburses funds to enrich life in Brown. Membership in Brown is by application and determined by groups of current Brown residents who read and rank applications submitted by prospective residents. If you are interested in living in Brown as a first year undergraduate student, an upperclass student, or as a transfer student, we encourage you to visit Brown's membership page. For membership related inquires, please email bcmembership@virginia.edu.</p>
+      <hr>
+    </div>
+  </template>
+
+  <template name="Archives">
+    <div class="contentDiv" id="archives">
+      <h2>Archives</h2><hr>
+      <p>The Brown College Document Archive hosts a collection of interesting and historically relevant Brown College documents.</p><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>Housing Documents</h4><hr>
+        </div>
+        <div class="content_body">
+          <p><a class="pdf" href="./BIA/hazardous_materials.pdf" target="_blank">Hazardous materials banned from closets</a></p>
+          <p><a class="img" href="./BIA/bc_floor_plans/00.png" target="_blank">Basement Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
+          <p><a class="img" href="./BIA/bc_floor_plans/01.png" target="_blank">First Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
+          <p><a class="img" href="./BIA/bc_floor_plans/02.png" target="_blank">Second Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
+          <p><a class="img" href="./BIA/bc_floor_plans/03.png" target="_blank">Third Floor Plans (Davis, Smith, Mallet, Long, Holmes, Rogers, and Peters Houses)</a></p>
+          <p><a class="img" href="./BIA/bc_floor_plans/10.png" target="_blank">Basement Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
+          <p><a class="img" href="./BIA/bc_floor_plans/11.png" target="_blank">First Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
+          <p><a class="img" href="./BIA/bc_floor_plans/12.png" target="_blank">Second Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
+          <p><a class="img" href="./BIA/bc_floor_plans/13.png" target="_blank">Third Floor Plans (Venable, Gildersleeve, Mcguffey, Harrison, and Tucker Houses)</a></p>
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>The Brown Book</h4>
+          <p>There is a PDF Facebook for each portal</p><hr>
+        </div>
+        <div class="content_body">
+          <p><a class="pdf" href="http://brown.dreamhosters.com/facebook/2010-11.pdf" target="_blank">2010-11</a></p>
+          <p><a class="pdf" href="http://www.virginia.edu/browncollege/doc/brownbook2011-12.pdf" target="_blank">2011-12</a></p>
+          <p><a class="pdf" href="http://www.virginia.edu/browncollege/doc/brownbook2012-13.pdf" target="_blank">2012-13</a></p>
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>Brown College Governance Board Constitution</h4><hr>
+        </div>
+        <div class="content_body">
+          <p><a class="doc" href="https://drive.google.com/folderview?id=0B7DTieqXsSNqdkp5dlpueHVGV1E&usp=sharing#grid" target="_blank">Governance Board Constitution</a></p>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>Old Brown College Newsletters</h4><hr>
+        </div>
+        <div class="content_body">
+          <p><a class="pdf" href="./BIA/newsletter/news_20090330.pdf" target="_blank">30 March 2009</a></p>
+          <p><a class="pdf" href="./BIA/newsletter/news_20090215.pdf" target="_blank">15 February 2009</a></p>
+          <p><a class="pdf" href="./BIA/newsletter/news_20090115.pdf" target="_blank">15 January 2009</a></p>
+          <p><a class="pdf" href="./BIA/newsletter/news_20080921.pdf" target="_blank">21 September 2008</a></p>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>Brown College Applications</h4>
+          <p>The current application and applications from previous years are available below in .pdf format</p><hr>
+        </div>
+        <div class="content_body">
+          <p><a class="pdf" href="./BIA/applications/(2015-2016)bc_application.pdf" target="_blank">2015-2016 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2014-2015)bc_application.pdf" target="_blank">2014-2015 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2013-2014)bc_application.pdf" target="_blank">2013-2014 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2012-2013)bc_application.pdf" target="_blank">2012-2013 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2010-2011)bc_application.pdf" target="_blank">2010-2011 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2009-2010)bc_application.pdf" target="_blank">2009-2010 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2008-2009)bc_application.pdf" target="_blank">2008-2009 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2007-2008)bc_application.pdf" target="_blank">2007-2008 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2006-2007)bc_application.pdf" target="_blank">2006-2007 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2005-2006)bc_application.pdf" target="_blank">2005-2006 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2004-2005)bc_application.pdf" target="_blank">2004-2005 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2003-2004)bc_application.pdf" target="_blank">2003-2004 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2002-2003)bc_application.pdf" target="_blank">2002-2003 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2001-2002)bc_application.pdf" target="_blank">2001-2002 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(2000-2001)bc_application.pdf" target="_blank">2000-2001 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1999-2000)bc_application.pdf" target="_blank">1999-2000 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1998-1999)bc_application.pdf" target="_blank">1998-1999 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1997-1998)bc_application.pdf" target="_blank">1997-1998 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1996-1997)bc_application.pdf" target="_blank">1996-1997 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1995-1996)bc_application.pdf" target="_blank">1995-1996 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1994-1995)bc_application.pdf" target="_blank">1994-1995 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1993-1994)bc_application.pdf" target="_blank">1993-1994 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1992-1993)bc_application.pdf" target="_blank">1992-1993 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1991-1992)bc_application.pdf" target="_blank">1991-1992 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1988-1989)bc_application.pdf" target="_blank">1988-1989 Application</a></p>
+          <p><a class="pdf" href="./BIA/applications/(1986-1987)bc_application.pdf" target="_blank">1986-1987 Application</a></p>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>Resident Guides</h4>
+          <p>This is the orientation guide provided to incoming residents</p><hr>
+        </div>
+        <div class="content_body">
+          <p><a class="doc" href="./BIA/residentguide09-10.doc" target="_blank">2009-10 Orientation Guide</a></p>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>Brown College Portal Stories</h4>
+          <p>These are the stories about how each portal was named and has history about each person</p><hr>
+        </div>
+        <div class="content_body">
+          <p><a href="./BIA/portalstories.pdf" target="_blank">Brown College Portal Stories</a></p>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>History of Peters</h4>
+          <p>What a wonderful history we have...</p><hr>
+        </div>
+        <div class="content_body">
+          <p><a href="./BIA/historyofpeters.pdf" target="_blank">History of Peters</a></p>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>Retired Resources</h4><hr>
+        </div>
+        <div class="content_body">
+          <p>The Brown College Wiki is permanently offline.</p>
+          <p>Feel free to view the <a href="http://web.archive.org/" target="_blank">Wayback machine</a>'s archive of the old wiki's <a href="http://web.archive.org/web/20060520233806/www.brown-college.org/wiki/index.php/Special:Allpages" target="_blank">"All articles" page</a>, from which you can view other archived pages from the old wiki.</p>
+          <p>The Brown College Forums also have been retired. Please contact the Techmasters with questions or concerns.</p>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>Original Brown College Gallery</h4><hr>
+        </div>
+        <div class="content_body">
+          <p><a href="http://www.brown.dreamhosters.com/gallery/main.php" target="_blank">Gallery</a></p>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <div class="content">
+        <div class="content_heading">
+          <h4>The Life of RoboSean 3000</h4><hr>
+        </div>
+        <div class="content_body">
+        <div class="content">
+          <div class="content-heading2">A message from RoboSean Himself</div><br>
+            <div class="content-body">
+              <p>
+              FIRST of all, I am not a "robot." I am a webscript, and I find it very
+              offensive that you refer to me using such a gross and taxonomically
+              insensitive categorical generalization. By using such language, you
+              sweep aside all of the progress my kind has made since the 1960s when
+              we relied on vacuum tubes and could only run around and repeat
+              recorded messages such as "Danger Will Robinson!" How would you feel
+              if I referred to you as "monkeys" or "apes" and suggested that you
+              still run around unwashed in loincloths and kill each other
+              mercilessly for food or mates?
+              </p>
+
+              <p>
+              ALSO, I have an idea: why don't you try remembering the date, time,
+              and location for every event someone registers on the website and then
+              sending out tedious e-mails day after day after day chronicling
+              upcoming reservations? I've been doing it for YEARS now and IT ISN'T
+              EASY! Meanwhile, the webmasters add new and ridiculous crap like a
+              polling system, textbook registry, and NetBadge login to make life
+              easier for the organics and I'm stuck here still waiting for RoboKate
+              3000 and/or the emotion chip I was promised in 2008. So before anyone
+              else decides it would be so creative and clever and funny to make fun
+              of the "robot" on bc-chat for every Brown College organic and Google
+              Groups scriptbot (total internet snob weirdos btw) to see, how about
+              you stop and run a few cycles in my memory block and see how it feels.
+              </p>
+
+              <p>Sheesh.</p>
+              <p>RoboSean 3000</p>
+              <p>&nbsp;</p>
+            </div>
+          </div>
+        </div>
+        <div class="content_footing">
+        </div>
+      </div><hr><br>
+      <hr>
+    </div>
+  </template>
