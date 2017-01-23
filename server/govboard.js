@@ -35,25 +35,25 @@ Meteor.startup(function () {
   var officerArr = {
     "poobah": ["Brian Walter"],
     "shama": ["Elizabeth Harrington"],
-    "treasurer": ["Josh Danoff"],
-    "secretary": ["Sasha Hoyt"],
+    "treasurer": ["Joshua Danoff"],
+    "secretary": ["Alexandra Hoyt"],
   };
 
   var memberArr = {
     "ace": ["Chad Kamen", "Kylor Kerns"],
-    "alumni": ["Chris Arthur", "Tyler Burd"],
+    "alumni": ["Christopher Arthur", "Tyler Burd"],
     "athletics": ["Caitlin McNamara", "Gabriella Perkes"],
-    "community": ["Jake Mathews", "Peiching Teo"],
+    "community": ["Jacob Mathews", "Peiching Teo"],
     "ewf": ["Victoria Glasgow", "Megan Carpenter"],
-    "faculty": ["Sohpia Naide", "Tess Gibson"],
-    "fyl": ["Gabrielle Carper", "Harpreet Singh", "Eddie Rossi"],
-    "hauntings": ["Nicole Miller", "Katherine Shaffer", "Will Neff"],
+    "faculty": ["Sophia Naide", "Tess Gibson"],
+    "fyl": ["Gabrielle Carper", "Harpreet Singh", "Edmund Rossi"],
+    "hauntings": ["Nicole Miller", "Katherine Shaffer", "William Neff"],
     "media": ["Emma Bross", "Gwyneth Sholar", "Laurel Cummings"],
-    "membership": ["Kate Fitzgerald", "Jonathan Martin", "Pasuth Thothaveesansuk"],
+    "membership": ["Kathleen Fitzgerald", "Jonathan Martin", "Pasuth Thothaveesansuk"],
     "panjandrum": ["Oliver Lopez-Gomez"],
     "pr": ["John Grencer", "Sean Gatewood"],
-    "social": ["Jake Saltzman"],
-    "techmasters": ["Kean Finucane", "Chris Hall"],
+    "social": ["Jacob Saltzman"],
+    "techmasters": ["Kean Finucane", "Christopher Hall"],
   };
 
   var portalRepArr = {
